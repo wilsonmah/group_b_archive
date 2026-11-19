@@ -161,13 +161,13 @@ for x in [-.349,-.121,.121,.349]:
 current='canopy';part('Pressed A-pillar flanges')
 for s in [-1,1]:
     for a,b in zip(seq(0,1,18),seq(0,1,18)[1:]):
-        def pillar(t):return mix((s*.805,.748,.562),(s*.643,1.117,.18),t)
+        def pillar(t):return mix((s*.805,.748,.562),(s*.556,1.117,.18),t)
         face([wind(s,a),wind(s,b),pillar(b),pillar(a)],'Ivory')
 for s in [-1,1]:
     current='door'+str(s);part('Sliding side window')
     def window(u,v):
         lo=mix((s*.807,.75,.55),(s*.783,.798,-.49),u)
-        hi=mix((s*.64,1.108,.172),(s*.641,1.11,-.425),u)
+        hi=mix((s*.556,1.108,.172),(s*.557,1.11,-.425),u)
         return add(mix(lo,hi,v),(s*.0045,0,0))
     pts=[window(u,v) for u,v in [(.35,.17),(.63,.17),(.63,.79),(.35,.79)]]
     path(pts+[pts[0]],.0031,'Steel',7)

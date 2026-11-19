@@ -187,10 +187,16 @@ for s in [-1,1]:
 for a,b in zip(seq(-.807,.807,40),seq(-.807,.807,40)[1:]):
     plate([(a,.117,2.051),(b,.117,2.051),(b,.119,1.957),(a,.119,1.957)],'Ivory',(0,-.009,0))
 part('Bonnet louvres and fasteners')
-for s in [-1,1]:
-    for j in range(8):
-        z=.665+j*.032
-        face([add(surface(s*u,Z),(0,.006,0)) for u,Z in [(.12,z),(.42,z),(.42,z+.018),(.12,z+.018)]],'Charcoal')
+# Three separate louvred outlets sit in a row just ahead of the screen.
+for u0,u1 in [(-.62,-.34),(-.155,.155),(.34,.62)]:
+    za,zb=.722,.842
+    def vent(u,z,dy=.0035):return add(surface(u,z),(0,dy,0))
+    grid(lambda u,z:vent(u,z),seq(u0,u1,8),seq(za,zb,4),'Black')
+    for u in (u0,u1):strip([vent(u,z,.001) for z in seq(za,zb,6)],(0,.009,0),'Pearl')
+    for z in (za,zb):strip([vent(u,z,.001) for u in seq(u0,u1,8)],(0,.009,0),'Pearl')
+    for k in range(6):
+        z=za+.010+k*.019
+        face([vent(u0+.006,z),vent(u1-.006,z),vent(u1-.006,z+.013,.0085),vent(u0+.006,z+.013,.0085)],'Charcoal')
     for z in [.671,1.77]:
         q=surface(s*.82,z);cyl(q,add(q,(0,.007,0)),.019,'Steel',14);cyl(add(q,(-.013,.009,0)),add(q,(.013,.009,0)),.003,'Black',6)
 conform(lambda u,z:add(surface(u,z),(0,.006,0)),(-.220,.220,1.87,1.65),(259,0,702,200))
@@ -210,7 +216,7 @@ for s in [-1,1]:
 part('Fastback glazing and flying buttresses')
 for s in [-1,1]:
     def sail(t,v):
-        top_edge=mix((s*.614,1.126,-.49),(s*.787,.812,-1.40),t)
+        top_edge=mix((s*.530,1.126,-.49),(s*.787,.812,-1.40),t)
         bottom=mix((s*.792,.772,-.505),(s*.818,.795,-1.405),t)
         return add(mix(bottom,top_edge,v),(s*.012*sin(pi*v),.012*sin(pi*t)*v,0))
     grid(sail,seq(0,1,24),seq(0,1,9),'Ivory')
@@ -237,8 +243,10 @@ for s in [-1,1]:
     aft=[(s*.812+(p[0]-centre[0])*.27,.808+(p[1]-centre[1])*.23,-1.30) for p in mouth]
     for j in range(48):face([mouth[j],aft[j],aft[(j+1)%48],mouth[(j+1)%48]],'Ivory')
 def hatch(x,z):return (x,.812+clamp((z+1.67)/1.16,0,1)*.283,z)
-grid(hatch,[-.568,0,.568],[-1.68,-.51],'Glass',True)
-for x in [-.582,.582]:path([hatch(x,-1.69),hatch(x,-.51)],.022,'Black')
+# The engine-cover glazing tapers forward to the narrow roof between the sails.
+def hatch_half(z):return interp(-z,[(.51,.505),(.70,.535),(1.05,.568),(1.70,.568)])
+grid(lambda u,z:hatch(u*hatch_half(z),z),[-1,0,1],seq(-1.68,-.51,12),'Glass',True)
+for k in [-1,1]:path([hatch(k*(hatch_half(z)+.014),z) for z in seq(-1.69,-.51,12)],.022,'Black')
 for j in range(5):
     z=-1.64+j*.14;plate([add(hatch(x,Z),(0,.016,0)) for x,Z in [(-.573,z),(.573,z),(.573,z+.039),(-.573,z+.039)]],'Charcoal')
 part('Tail panel and spoiler')
@@ -272,7 +280,8 @@ group('canopy','Roof and windscreen','车顶与风挡',(-.45,1.72,.015),'弧面�
 part('Windscreen, surround and wipers')
 def wind(u,t):
     corner=abs(u)**8
-    return (u*(.754-.126*t-.021*t**6),.741+.395*t+.013*(1-u*u)+.013*corner*(1-t)**5-.021*corner*t**5,
+    # Narrow screen with strongly raked-in pillars leaves broad wing shoulders either side.
+    return (u*(.700-.160*t-.020*t**6),.741+.395*t+.013*(1-u*u)+.013*corner*(1-t)**5-.021*corner*t**5,
             .636-.436*t+.044*(1-u*u)-.013*corner*(1-t)**5)
 grid(wind,seq(-1,1,32),seq(0,1,12),'Glass')
 for s in [-1,1]:
@@ -286,12 +295,24 @@ for s in [-1,1]:
     path([add(wind(s*.57,.134),(0,.011,.014)),add(wind(-s*.04,.235),(0,.011,.014))],.007,'Black')
 part('Crowned roof')
 def roof(u,z):
-    w=interp(z,[(-.53,.60),(-.44,.648),(.125,.649),(.205,.628)])
+    w=interp(z,[(-.53,.515),(-.44,.553),(.125,.556),(.205,.535)])
     return (u*w,1.152+.017*(1-u*u)+.020*math.exp(-((abs(u)-.51)/.27)**2)*max(0,1-((z+.16)/.39)**4)-.022*(abs(z+.16)/.39)**2-.011*abs(u)**8,z)
 grid(roof,seq(-1,1,44),seq(-.53,.205,18),'Ivory',True)
 grid(lambda u,t:mix(roof(u,.205),add(wind(u,1),(0,.006,0)),t),seq(-1,1,40),[0,1],'Ivory')
 for s in [-1,1]:
     path([roof(s,z) for z in seq(-.53,.205,7)],.012,'Pearl')
+part('Roof air scoop')
+# Low NACA-style cabin intake just behind the screen header, open to the front.
+def scoop(u,z,top):
+    h=.026*clamp((z-.035)/.125,0,1)**.7 if top else 0
+    return add(roof(u,z),(0,h,0))
+su=.215;sz=seq(.035,.165,8)
+grid(lambda u,z:scoop(u,z,True),seq(-su,su,10),sz,'Ivory',True)
+for k in [-1,1]:
+    for a,b in zip(sz,sz[1:]):face([scoop(k*su,a,False),scoop(k*su,b,False),scoop(k*su,b,True),scoop(k*su,a,True)],'Ivory')
+mouth_lo=[scoop(u,.165,False) for u in seq(-su,su,10)];mouth_hi=[scoop(u,.165,True) for u in seq(-su,su,10)]
+for a,b,c,d in zip(mouth_lo,mouth_lo[1:],mouth_hi[1:],mouth_hi):face([a,b,c,d],'Black')
+path(mouth_hi,.003,'Pearl',6)
 for s in [-1,1]:
     group('door'+str(s),'Left door' if s>0 else 'Right door','左侧车门' if s>0 else '右侧车门',(s*1.22,.33,.16),'独立车门带侧窗、车号板、拉手与外后视镜。')
     part('Door outer skin and trim')
@@ -306,7 +327,7 @@ for s in [-1,1]:
     for z in [-.495,.59]:
         strip([side(s,v,z) for v in [0,1]],(-s*.07,0,0),'Pearl')
     part('Side glass, window frames and door mirror')
-    pts=[(s*.807,.75,.55),(s*.64,1.108,.172),(s*.641,1.11,-.425),(s*.783,.798,-.49)]
+    pts=[(s*.807,.75,.55),(s*.556,1.108,.172),(s*.557,1.11,-.425),(s*.783,.798,-.49)]
     # Rubber seal follows the rounded corners of the pressed door opening.
     outline=[]
     for i,P in enumerate(pts):
@@ -391,10 +412,10 @@ for s in [-1,1]:
     box((x,.342,-.108),(.066,.021,.055),'Gunmetal')
 part('Roll-over protection')
 for z,y in [(-.445,1.058),(.495,.784)]:
-    pts=[(-.638,.288,z),(-.635,y-.11,z),(-.558,y,z),(.558,y,z),(.635,y-.11,z),(.638,.288,z)]
+    pts=[(-.638,.288,z),(-.635,y-.11,z),(-.535,y,z),(.535,y,z),(.635,y-.11,z),(.638,.288,z)]
     path(pts,.023,'Steel',10)
 for s in [-1,1]:
-    path([(s*.57,1.046,-.446),(s*.594,1.061,.16),(s*.647,.775,.501)],.021,'Steel',10)
+    path([(s*.525,1.046,-.446),(s*.530,1.052,.16),(s*.640,.775,.501)],.021,'Steel',10)
     cyl((s*.627,.328,.47),(s*.627,.68,-.442),.017,'Steel',10)
 cyl((-.585,.385,-.447),(.562,1.025,-.447),.018,'Steel')
 exec(compile((ROOT/'src/power.py').read_text(encoding='utf-8-sig'),'power.py','exec'))
