@@ -64,7 +64,7 @@ def brow(x,t):
     edge=clamp((abs(x)-.38)/.10,0,1)
     leading=.783-.010*(x/.48)**2-.099*edge**2
     rear_z=1.58+.103*(abs(x)/.48)**2
-    rear_y=surface(x/width(rear_z),rear_z)[1]+.009
+    rear_y=surface(ux(x,rear_z),rear_z)[1]+.009
     return (x,leading*(1-t)+rear_y*t+.015*sin(pi*t),2.030*(1-t)+rear_z*t-.036*abs(x)*(1-t))
 grid(brow,seq(-.477,.477,60),seq(0,1,16),'Ivory')
 strip([brow(x,0) for x in seq(-.477,.477,60)],(0,-.008,0),'Pearl')
@@ -118,8 +118,8 @@ sidesign(.340,.560,.185,.465,(18, 1500, 320, 1885))
 sidesign(.305,.605,.613,.670,(14,1195,700,1326))
 sidesign(1.636,1.925,.192,.290,(729,1193,1121,1327))
 current='nose';part('Bonnet roundel, rally plate and lower valance decals')
-conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.215,.215,1.430,1.075),(1180,1155,1558,1486),22,12)
-conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.090,.090,1.055,.990),(1590,1166,1961,1315),12,5)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.27,.27,1.430,1.075),(1180,1155,1558,1486),22,12)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.105,.105,1.035,.970),(1590,1166,1961,1315),12,5)
 def frontmark(xa,xb,ya,yb,z,rect):
     decal([(xa,ya,z),(xb,ya,z),(xb,yb,z),(xa,yb,z)],rect)
 for s in [-1,1]:

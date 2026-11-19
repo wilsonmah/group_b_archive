@@ -109,25 +109,37 @@ def sinterp(x,points):
 def decal(p,rect):
     x,y,X,Y=rect;face(p,'Decal',uv=[(x/2048,Y/2048),(X/2048,Y/2048),(X/2048,y/2048),(x/2048,y/2048)])
 def width(z):return sinterp(z,[(-1.83,.868),(-1.759,.905),(-1.604,.925),(-1.24,.935),(-.89,.907),(-.54,.853),(-.30,.839),(.47,.836),(.69,.851),(.99,.894),(1.22,.909),(1.45,.907),(1.67,.875),(1.86,.837),(1.97,.794)])
-# Centreline deck height; the side references give a level 0.845 m waist from the
-# rear wings to the screen base and fender crowns falling to a 0.62 m nose.
-def top(z):return sinterp(z,[(-1.83,.785),(-1.663,.812),(-1.23,.830),(-.75,.856),(-.56,.872),(-.30,.878),(.40,.878),(.72,.845),(.90,.803),(1.12,.778),(1.30,.773),(1.46,.745),(1.58,.700),(1.76,.683),(1.91,.652),(1.97,.613),(2.0,.598)])
+# Centreline deck height: a level 0.88 m waist along the cabin, then the front clamshell
+# falls in one straight line to the nose (side and 3/4 photos), rounding off only in the
+# last 0.2 m above the lamps. The rear wings keep their crown over the rear wheels.
+def top(z):return sinterp(z,[(-1.83,.785),(-1.663,.812),(-1.23,.830),(-.75,.856),(-.56,.872),(-.30,.879),(.40,.886),(.60,.882),(.72,.868),(1.0,.843),(1.3,.806),(1.6,.757),(1.78,.719),(1.88,.690),(1.94,.660),(1.97,.632),(2.0,.600)])
+def bonnet_half(z):return .43+.07*clamp((z-.80)/1.17,0,1)
+def nose_x(a,z):
+    # Physical half-width position of surface parameter a. Ahead of the cabin a=0.6 is the
+    # bonnet shut line, which runs straight from 0.43 m at the cowl to 0.50 m at the nose;
+    # a=0.6..1 spans the wing top out to the shoulder.
+    W=width(z);g=clamp((z-.60)/.12,0,1)
+    if g==0:return a*W
+    xb=bonnet_half(z);m=a/.6*xb if a<=.6 else xb+(a-.6)/.4*(W-xb)
+    return (1-g)*a*W+g*m
+def ux(x,z):
+    # Inverse of nose_x: the surface parameter that lands on physical x.
+    lo,hi=0.,1.;t=abs(x)
+    if t>=width(z):return math.copysign(t/width(z),x) if x else 0.
+    for _ in range(30):
+        mid=(lo+hi)/2
+        if nose_x(mid,z)<t:lo=mid
+        else:hi=mid
+    return math.copysign((lo+hi)/2,x)
 def surface(u,z):
-    wave=.064*math.exp(-((z-1.20)/.55)**2)+.030*math.exp(-((z+1.22)/.52)**2)
-    # Wing tops at the measured silhouette; the bonnet panel inside the stripes sits almost
-    # flush: 3 cm down at the cowl, easing to under 1 cm at the nose (photos 7-9).
-    a=abs(u);k=clamp((a-.55)/.07,0,1);k=k*k*(3-2*k)
-    r0=clamp((z-.72)/.12,0,1);r1=clamp((z-.95)/.75,0,1)
-    recess=(.030*r0*r0*(3-2*r0)*(1-.75*r1*r1*(3-2*r1)))*(.7+.3*min(1,a/.55)**2)
-    crown=top(z)+wave;edge=.026*max(0,(a-.91)/.09)**1.5
-    # Ahead of the screen the outer wing rolls down to a straight shoulder line, so the red sash
-    # runs in one diagonal from the door to the nose as in the side and 3/4 photos.
-    g=clamp((z-.60)/.14,0,1)
-    if g>0:
-        shoulder=sinterp(z,[(.60,crown-.026),(.72,.849),(1.0,.818),(1.30,.785),(1.55,.735),(1.80,.672),(1.97,.612)]) if z>.60 else crown-.026
-        r=clamp((a-.70)/.30,0,1);r=r*r*(3-2*r)
-        edge=(1-g)*edge+g*max(edge,(crown-shoulder)*r)
-    return (u*width(z),crown-recess*(1-k)-edge,z)
+    wave=.030*math.exp(-((z+1.22)/.52)**2)
+    # The bonnet panel sits 1.5 cm below the wing tops at the cowl and 0.5 cm at the nose,
+    # stepping down at the straight shut line.
+    a=abs(u);k=clamp((a-.59)/.02,0,1);k=k*k*(3-2*k)
+    r0=clamp((z-.72)/.12,0,1);r1=clamp((z-.95)/1.0,0,1)
+    recess=.015*r0*r0*(3-2*r0)*(1-.65*r1)
+    edge=.026*max(0,(a-.91)/.09)**1.5
+    return (math.copysign(nose_x(a,z),u),top(z)+wave-recess*(1-k)-edge,z)
 def arch(z):
     d=min(abs(z-1.22),abs(z+1.22));return .319+sqrt(max(0,.356**2-d**2)) if d<=.356 else max(.153,.319-(d-.356)*3.3)
 def side(s,v,z):
@@ -143,7 +155,7 @@ def strip(p,thick,m):
     for a,b in zip(p,p[1:]):face([a,b,add(b,thick),add(a,thick)],m)
 def bodysection(z0,z1):
     zz=sorted(set(seq(z0,z1,max(4,int((z1-z0)*26)))+[z for center in [-1.22,1.22] for z in [center+.356*cos(i*pi/28) for i in range(29)] if z0<z<z1]))
-    grid(surface,seq(-1,1,40),zz,'Ivory',True)
+    grid(surface,sorted(set([round(v,4) for v in seq(-1,1,40)+[-.61,-.59,-.58,.58,.59,.61]])),zz,'Ivory',True)
     for s in [-1,1]:
         grid(lambda v,z:side(s,v,z),seq(0,1,12),zz,'Ivory',s<0)
         for a,b in zip(zz,zz[1:]):
@@ -221,7 +233,7 @@ part('Bonnet louvres and fasteners')
 # Three louvred outlets in a row right at the screen base (head-on photo: 0.24 m wide, 0.29 m apart).
 def screenbase(x):u=clamp(x/.72,-1,1);return .62+.20*(1-u**4)
 def vent(x,d,dy=.0035):
-    z=screenbase(x)+.030+d;return add(surface(x/width(z),z),(0,dy,0))
+    z=screenbase(x)+.030+d;return add(surface(ux(x,z),z),(0,dy,0))
 for x0,x1 in [(-.41,-.17),(-.125,.125),(.17,.41)]:
     xs=seq(x0,x1,8);ds=seq(0,.075,4)
     grid(lambda x,d:vent(x,d),xs,ds,'Black')
@@ -232,9 +244,9 @@ for x0,x1 in [(-.41,-.17),(-.125,.125),(.17,.41)]:
         face([vent(x0+.006,d),vent(x1-.006,d),vent(x1-.006,d+.010,.0080),vent(x0+.006,d+.010,.0080)],'Charcoal')
 # Bonnet shut lines run just inside the stripes, with the pins on them front and rear.
 for s in [-1,1]:
-    path([add(surface(s*.592,z),(0,.0012,0)) for z in seq(.92,1.975,30)],.0022,'Charcoal',6)
+    path([add(surface(s*.6,z),(0,.0012,0)) for z in seq(.86,1.975,30)],.0022,'Charcoal',6)
     for z in [1.02,1.80]:
-        q=surface(s*.61,z);cyl(q,add(q,(0,.007,0)),.019,'Steel',14);cyl(add(q,(-.013,.009,0)),add(q,(.013,.009,0)),.003,'Black',6)
+        q=surface(s*.625,z);cyl(q,add(q,(0,.007,0)),.019,'Steel',14);cyl(add(q,(-.013,.009,0)),add(q,(.013,.009,0)),.003,'Black',6)
 conform(lambda u,z:add(surface(u,z),(0,.006,0)),(-.150,.150,1.993,1.862),(259, 0, 701, 235))
 group('tail','Rear clamshell','后翻式发动机罩',(-.45,1.44,-1.07),'后翼子板、透明发动机盖、通风百叶与车尾扰流板。')
 part('Rear body and engine aperture')
@@ -243,7 +255,8 @@ zs=seq(-1.8174,-.272,50)
 for s in [-1,1]:
     grid(lambda u,z:surface(s*u,z),[.63,.78,.86,.94,1],zs,'Ivory',s>0)
     grid(lambda v,z:side(s,v,z),seq(0,1,12),sorted(set(zs+[-1.22+.356*cos(i*pi/32) for i in range(33)])),'Ivory',s<0)
-for a,b in [(-1.8174,-1.36),(-.68,-.272)]:grid(surface,[-.63,0,.63],seq(a,b,6),'Ivory',True)
+# Only the deck ahead of the engine glass is closed; under the wing the engine bay stays open.
+grid(surface,[-.63,0,.63],seq(-.68,-.272,6),'Ivory',True)
 part('Wheel arch return lips')
 for s in [-1,1]:
     for center in [-1.22]:
@@ -271,10 +284,15 @@ def hatch(x,z):return (x,sinterp(z,[(-1.36,.906),(-1.20,.950),(-1.00,1.013),(-.8
 # The engine-cover glazing tapers forward to the narrow roof between the sails.
 def hatch_half(z):return sinterp(-z,[(.60,.505),(.75,.535),(1.05,.568),(1.40,.568)])
 grid(lambda u,z:hatch(u*hatch_half(z),z),[-1,0,1],seq(-1.36,-.60,12),'Glass',True)
-for k in [-1,1]:path([hatch(k*(hatch_half(z)+.014),z) for z in seq(-1.37,-.60,12)],.022,'Black')
-for j in range(5):
-    z=-1.30+j*.125;w=hatch_half(z)+.005
-    plate([add(hatch(x,Z),(0,.016,0)) for x,Z in [(-w,z),(w,z),(w,z+.036),(-w,z+.036)]],'Charcoal')
+for k in [-1,1]:path([hatch(k*(hatch_half(z)+.010),z) for z in seq(-1.37,-.60,12)],.012,'Black')
+# Clear engine-cover glass with a small louvred outlet in each front corner (Tour de Corse rear photo).
+for k in [-1,1]:
+    x0,x1,z0,z1=k*.20,k*.40,-.80,-.68
+    def lv(x,z,dy=.006):return add(hatch(x,z),(0,dy,0))
+    grid(lambda x,z:lv(x,z),seq(x0,x1,4),seq(z0,z1,3),'Black')
+    for j in range(6):
+        z=z0+.012+j*.018
+        face([lv(x0+k*.006,z),lv(x1-k*.006,z),lv(x1-k*.006,z+.012,.014),lv(x0+k*.006,z+.012,.014)],'Charcoal')
 part('Tail panel and spoiler')
 zr=-1.818
 box((0,.505,zr+.010),(1.64,.075,.030),'Ivory');box((0,.393,-1.8049),(1.57,.083,.07),'Charcoal')
@@ -309,20 +327,26 @@ grid(wing,seq(-.817,.817,16),seq(0,1,10),'Ivory')
 grid(lambda x,t:add(wing(x,t),(0,-.007,-.005)),[-.817,.817],seq(0,1,10),'Pearl')
 for s in [-1,1]:strip([wing(s*.817,t) for t in seq(0,1,12)],(0,-.008,-.005),'Pearl')
 conform(lambda x,t:add(wing(x,t),(0,.003,.004)),(-.745,.745,.60,.83),(13,659,1444,776),32,4)
-# Rear face: slopes forward from the wing trailing edge to the lamp panel; LANCIA MARTINI across it
-# and the registration-style LANCIA plate at its foot.
-def rearface(u,v):
-    tip=wing(u*.817,1);return mix((tip[0],.775,-1.805),tip,v)
-grid(rearface,seq(-1,1,32),seq(0,1,6),'Ivory')
-conform(lambda u,v:add(rearface(u,v),(0,0,-.003)),(.74,-.74,.415,.693),(330,1520,1598,1626),24,2)
-box((0,.832,-1.8155),(.50,.066,.008),'Black')
-decal([(.23,.804,-1.8205),(-.23,.804,-1.8205),(-.23,.862,-1.8205),(.23,.862,-1.8205)],(7,264,568,335))
+# Under the wing trailing edge the tail is open: a black wire grille between the fins, from the
+# lamp panel up to the wing's underside, with the engine bay visible behind it.
+tg=(1.800-1.36)/.498
+def under(x):return add(wing(x,tg),(0,-.010,0))
+xw=wing(.817,tg)[0]-.010;zg=-1.800
+def gtop(x):return under(x)[1]
+frame=[(-xw,.775,zg),(xw,.775,zg)]+[(x,gtop(x),zg) for x in seq(xw,-xw,24)]+[(-xw,.775,zg)]
+path(frame,.009,'Black',8)
+for x in seq(-xw+.045,xw-.045,34):path([(x,.775,zg),(x,gtop(x),zg)],.0028,'Black',6)
+for y in seq(.815,1.10,7):
+    xs=[x for x in seq(-xw,xw,40) if gtop(x)>y+.005]
+    if len(xs)>1:path([(xs[0],y,zg),(xs[-1],y,zg)],.0028,'Black',6)
+box((0,.832,-1.806),(.50,.066,.008),'Black')
+decal([(.23,.804,-1.8105),(-.23,.804,-1.8105),(-.23,.862,-1.8105),(.23,.862,-1.8105)],(7,264,568,335))
 group('canopy','Roof and windscreen','车顶与风挡',(-.45,1.72,.015),'弧面前风挡、A 柱、车顶和雨刮器组成的可拆展示单元。')
 part('Windscreen, surround and wipers')
 def wind(u,t):
     # Wraparound base: flat across the middle at z 0.82, sweeping back to the A-pillar feet at z 0.62
     # beside the mirrors; the header is nearly straight (side photo silhouette).
-    zb=.62+.20*(1-u**4);xb=.72*u;yb=surface(xb/width(zb),zb)[1]+.003
+    zb=.62+.20*(1-u**4);xb=.72*u;yb=surface(ux(xb,zb),zb)[1]+.003
     zt=.15+.04*(1-u*u);xt=.52*u;yt=1.147+.013*(1-u*u)-.021*abs(u)**8
     p=mix((xb,yb,zb),(xt,yt,zt),t)
     return add(p,(0,.008*sin(pi*t)*(1-.6*u*u),.004*sin(pi*t)*(1-.6*u*u)))
@@ -367,7 +391,7 @@ for s in [-1,1]:
         if z<=.62:return .807+(.72-.807)*(z-.49)/.13
         return .72*max(0,1-(z-.62)/.20)**.25
     def scuttle(f,z):
-        x=inner_x(z);X=width(z);return surface(s*(x+(X-x)*f)/X,z)
+        x=inner_x(z);X=width(z);return surface(s*ux(x+(X-x)*f,z),z)
     grid(scuttle,seq(0,1,6),seq(.49,.722,14),'Ivory',s>0)
 part('Roof air scoop')
 # Low NACA-style cabin intake just behind the screen header, open to the front.
