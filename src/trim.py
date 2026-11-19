@@ -131,9 +131,10 @@ for s in [-1,1]:
 frontmark(-.080,.080,.190,.275,2.034,(259, 0, 701, 235))
 frontmark(-.307,-.230,.505,.550,2.019,(19,1390,151,1467))
 for s in [-1,1]:
-    # Flexible black flaps and a small body-coloured front wheel spat.
+    # Rear corner flaps and a small body-coloured front wheel spat.
     current='tail';part('Rear gravel flap '+str(s))
-    plate([(s*.707,.263,-1.590),(s*.893,.276,-1.590),(s*.911,.061,-1.614),(s*.711,.059,-1.613)],'Rubber',(0,0,-.006))
+    # Wide white flaps hang from the tail beam at the rear corners, kicked out slightly at the foot.
+    plate([(s*.600,.455,-1.760),(s*.905,.455,-1.760),(s*.945,.060,-1.800),(s*.615,.060,-1.800)],'Ivory',(0,0,-.008))
     current='nose';part('Front wheel spat '+str(s))
     plate([(s*.737,.288,.835),(s*.865,.296,.839),(s*.877,.109,.799),(s*.748,.113,.801)],'Ivory',(0,0,-.007))
 current='canopy';part('Roof aerial and mounting ferrule')

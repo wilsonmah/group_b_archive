@@ -294,19 +294,27 @@ for k in [-1,1]:
         z=z0+.012+j*.018
         face([lv(x0+k*.006,z),lv(x1-k*.006,z),lv(x1-k*.006,z+.012,.014),lv(x0+k*.006,z+.012,.014)],'Charcoal')
 part('Tail panel and spoiler')
-zr=-1.818
-box((0,.505,zr+.010),(1.64,.075,.030),'Ivory');box((0,.393,-1.8049),(1.57,.083,.07),'Charcoal')
-# Full-width black mesh panel, 0.54-0.765 m, with a round lamp at each end.
-box((0,.655,zr),(1.62,.222,.020),'Black')
-for j in range(15):box((0,.552+j*.0145,zr-.011),(1.58,.003,.003),'Gunmetal')
-for k in range(41):box((-.78+k*.039,.655,zr-.012),(.003,.212,.003),'Gunmetal')
+zr=-1.826
+# Thin white beam under the lamp panel; below it the tail is open onto the gearbox.
+box((0,.478,zr+.006),(1.66,.060,.030),'Ivory')
+# Black wire-mesh panel from the beam up to the wing's rear face, see-through onto the engine bay.
+mx=.800;my0,my1=.508,.912
+path([(-mx,my0,zr),(mx,my0,zr),(mx,my1,zr),(-mx,my1,zr),(-mx,my0,zr)],.010,'Black',8)
+for x in seq(-mx,mx,110)[1:-1]:path([(x,my0,zr),(x,my1,zr)],.0032,'Black',4)
+for y in seq(my0,my1,28)[1:-1]:path([(-mx,y,zr-.004),(mx,y,zr-.004)],.0032,'Black',4)
 for s_ in [-1,1]:
     x=s_*.700
-    cyl((x,.655,zr-.010),(x,.655,zr-.022),.088,'Black',48)
-    cyl((x,.655,zr-.022),(x,.655,zr-.034),.078,'Tail',48,.074)
-    cyl((x,.655,zr-.034),(x,.655,zr-.037),.042,'Amber',40)
-    for rad in [.030,.055,.068]:tor((x,.655,zr-.035),(0,0,1),rad,.0016,'Tail',40,6)
-decal([(.25,.600,zr-.014),(-.25,.600,zr-.014),(-.25,.714,zr-.014),(.25,.714,zr-.014)],(700,28,1019,101))
+    cyl((x,.655,zr-.004),(x,.655,zr-.016),.088,'Black',48)
+    cyl((x,.655,zr-.016),(x,.655,zr-.028),.078,'Tail',48,.074)
+    cyl((x,.655,zr-.028),(x,.655,zr-.031),.042,'Amber',40)
+    for rad in [.030,.055,.068]:tor((x,.655,zr-.029),(0,0,1),rad,.0016,'Tail',40,6)
+    # White end caps close the tail between the body side, the fin and the mesh panel.
+    face([(s_*.800,.448,-1.818),(s_*.868,.448,-1.818),(s_*.868,.785,-1.818),(s_*.835,.790,-1.818),(s_*.835,1.150,-1.818),(s_*.800,1.140,-1.818)][::s_],'Ivory')
+# PIRELLI on a black backing plate, the registration plate above it at the top of the panel.
+box((0,.657,zr-.006),(.52,.118,.006),'Black')
+decal([(.25,.600,zr-.010),(-.25,.600,zr-.010),(-.25,.714,zr-.010),(.25,.714,zr-.010)],(700,28,1019,101))
+box((0,.866,zr-.006),(.50,.066,.008),'Black')
+decal([(.23,.838,zr-.0105),(-.23,.838,zr-.0105),(-.23,.896,zr-.0105),(.23,.896,zr-.0105)],(7,264,568,335))
 # The wing ramps up about 26 degrees from just behind the engine glass to a tip
 # only a few centimetres below the roof, as in the side references.
 def wing(x,t):
@@ -315,11 +323,10 @@ def wing(x,t):
     return (x/.817*(width(z)-.036),y+.006*a*a,z+.007*a*a*t)
 for s in (-1,1):
     upper=[wing(s*.817,t) for t in seq(0,1,21)]
-    # Fin side plates run down to the waist and are trimmed by the sloping rear face.
+    # Fin side plates run down to the waist over their full length.
     lower=[]
     for p in upper:
-        base=surface(1,p[2])[1]-.006;k=clamp((-1.805-p[2])/.053,0,1)
-        lower.append((p[0],max(base,.775+k*(p[1]-.775)),p[2]))
+        lower.append((p[0],surface(1,p[2])[1]-.006,p[2]))
     for i in range(20):
         plate([lower[i],lower[i+1],upper[i+1],upper[i]],'Ivory',(s*.007,0,0))
 path([wing(x,1) for x in seq(-.817,.817,40)],.0055,'Ivory',10)
@@ -327,20 +334,11 @@ grid(wing,seq(-.817,.817,16),seq(0,1,10),'Ivory')
 grid(lambda x,t:add(wing(x,t),(0,-.007,-.005)),[-.817,.817],seq(0,1,10),'Pearl')
 for s in [-1,1]:strip([wing(s*.817,t) for t in seq(0,1,12)],(0,-.008,-.005),'Pearl')
 conform(lambda x,t:add(wing(x,t),(0,.003,.004)),(-.745,.745,.60,.83),(13,659,1444,776),32,4)
-# Under the wing trailing edge the tail is open: a black wire grille between the fins, from the
-# lamp panel up to the wing's underside, with the engine bay visible behind it.
-tg=(1.800-1.36)/.498
-def under(x):return add(wing(x,tg),(0,-.010,0))
-xw=wing(.817,tg)[0]-.010;zg=-1.800
-def gtop(x):return under(x)[1]
-frame=[(-xw,.775,zg),(xw,.775,zg)]+[(x,gtop(x),zg) for x in seq(xw,-xw,24)]+[(-xw,.775,zg)]
-path(frame,.009,'Black',8)
-for x in seq(-xw+.045,xw-.045,34):path([(x,.775,zg),(x,gtop(x),zg)],.0028,'Black',6)
-for y in seq(.815,1.10,7):
-    xs=[x for x in seq(-xw,xw,40) if gtop(x)>y+.005]
-    if len(xs)>1:path([(xs[0],y,zg),(xs[-1],y,zg)],.0028,'Black',6)
-box((0,.832,-1.806),(.50,.066,.008),'Black')
-decal([(.23,.804,-1.8105),(-.23,.804,-1.8105),(-.23,.862,-1.8105),(.23,.862,-1.8105)],(7,264,568,335))
+# Short vertical rear face under the wing's trailing edge, carrying LANCIA MARTINI.
+def rearface(u,v):
+    tip=wing(u*.817,1);return (tip[0]*.985,.912+(tip[1]-.004-.912)*v,-1.846)
+grid(rearface,seq(-1,1,32),[0,1],'Ivory')
+conform(lambda u,v:add(rearface(u,v),(0,0,-.003)),(.745,-.745,.29,.72),(330,1520,1598,1626),24,2)
 group('canopy','Roof and windscreen','车顶与风挡',(-.45,1.72,.015),'弧面前风挡、A 柱、车顶和雨刮器组成的可拆展示单元。')
 part('Windscreen, surround and wipers')
 def wind(u,t):
