@@ -24,13 +24,16 @@ def sleeve(c,axis,ro,ri,length,m,N=40):
     shell(c,axis,[(-a,ri),(-a,ro-b),(-a+b,ro),(a-b,ro),(a,ro-b),(a,ri),(a-.0003,ri),(-a,ri)],m,N)
 def bolt(c,axis,r,m='Steel'):
     d=unit(axis);cyl(c,add(c,mul(d,r*.67)),r,m,6)
-def pipe(anchors,r,m,N=12):
+def spline(anchors,steps=6):
+    """Catmull-Rom centreline through the anchor points."""
     pts=[]
     for i in range(len(anchors)-1):
         a,b,c,d=[anchors[clamp(j,0,len(anchors)-1)] for j in (i-1,i,i+1,i+2)]
-        for t in seq(0,1,6)[:-1]:
+        for t in seq(0,1,steps)[:-1]:
             pts.append(tuple(.5*((2*y)+(-x+z)*t+(2*x-5*y+4*z-w)*t*t+(-x+3*y-3*z+w)*t**3) for x,y,z,w in zip(a,b,c,d)))
-    pts.append(anchors[-1]);last=None
+    pts.append(anchors[-1]);return pts
+def pipe(anchors,r,m,N=12):
+    pts=spline(anchors);last=None
     for i,p in enumerate(pts):
         tangent=unit(sub(pts[min(i+1,len(pts)-1)],pts[max(0,i-1)]))
         if last is None:u,v=basis(tangent)
@@ -75,6 +78,60 @@ def deck_cell(z,y,outerx,outerz,bore,m,N=48,innerY=None):
         a,b=angles;face([pt(a,False),pt(b,False),pt(b,True),pt(a,True)],m)
         if innerY is not None:
             A=pt(a,True);B=pt(b,True);face([A,B,(B[0],innerY,B[2]),(A[0],innerY,A[2])],'Steel')
+def wrapped(anchors,r,pitch,wire,m):
+    """Spiral heat-shield wire wound around a hose centreline."""
+    pts=spline(anchors,12);dense=[pts[0]];s=[0.]
+    for a,b in zip(pts,pts[1:]):
+        L=sqrt(dot(sub(b,a),sub(b,a)));n=max(1,int(L/(pitch/9)))
+        for k in range(1,n+1):dense.append(mix(a,b,k/n));s.append(s[-1]+L/n)
+    coil=[];u=None
+    for i,p in enumerate(dense):
+        t=unit(sub(dense[min(i+1,len(dense)-1)],dense[max(0,i-1)]))
+        if u is None:u,v=basis(t)
+        else:u=unit(sub(u,mul(t,dot(t,u))));v=cross(t,u)
+        a=2*pi*s[i]/pitch;coil.append(add(p,add(mul(u,r*cos(a)),mul(v,r*sin(a)))))
+    path(coil,wire,m,5)
+LETTERS={
+    'A':[((0,0),(2,6)),((2,6),(4,0)),((1,2.3),(3,2.3))],
+    'B':[((0,0),(0,6)),((0,6),(3,6)),((3,6),(4,5)),((4,5),(4,4)),((4,4),(3,3)),((0,3),(3,3)),((3,3),(4,2)),((4,2),(4,1)),((4,1),(3,0)),((3,0),(0,0))],
+    'R':[((0,0),(0,6)),((0,6),(3,6)),((3,6),(4,5)),((4,5),(4,4)),((4,4),(3,3)),((3,3),(0,3)),((2,3),(4,0))],
+    'T':[((0,6),(4,6)),((2,6),(2,0))],
+    'H':[((0,0),(0,6)),((4,0),(4,6)),((0,3),(4,3))]}
+def emboss(text,centre,along,up,height,m,lift=.0022):
+    """Raised cast lettering; along x up is the outward face normal."""
+    s=height/6;w=1.15*s;adv=6.6*s;n=unit(cross(along,up))
+    start=-(len(text)*adv-2.6*s)/2
+    for k,ch in enumerate(text):
+        for (u0,v0),(u1,v1) in LETTERS[ch]:
+            a=(start+k*adv+u0*s,(v0-3)*s);b=(start+k*adv+u1*s,(v1-3)*s)
+            d=unit((b[0]-a[0],b[1]-a[1],0));q=(-d[1]*w/2,d[0]*w/2);e=(d[0]*w/2,d[1]*w/2)
+            corners=[(a[0]-e[0]+q[0],a[1]-e[1]+q[1]),(b[0]+e[0]+q[0],b[1]+e[1]+q[1]),(b[0]+e[0]-q[0],b[1]+e[1]-q[1]),(a[0]-e[0]-q[0],a[1]-e[1]-q[1])]
+            plate([add(add(centre,mul(n,lift)),add(mul(along,cu),mul(up,cv))) for cu,cv in corners],m,mul(n,-lift-.0006))
+def cover_section(x0,inset,drop):
+    # Rounded-rectangle section of a crinkle-finish cam cover, flange lip included.
+    hw=.045-inset;base=.618;top=.669-drop;r=.017
+    pts=[(x0-hw-.0045,base),(x0-hw,base+.003)]
+    pts+=[(x0-hw+r+r*cos(a),top-r+r*sin(a)) for a in seq(pi,pi/2,8)]
+    pts+=[(x0+hw-r+r*cos(a),top-r+r*sin(a)) for a in seq(pi/2,0,8)]
+    return pts+[(x0+hw,base+.003),(x0+hw+.0045,base)]
+def cam_cover(x0,zA=-1.134,zB=-.703,E=.017):
+    def inset(z):
+        d=clamp(min(z-zA,zB-z),0,E);return E-sqrt(max(0,E*E-(E-d)**2))
+    stations=[zA+E*(1-cos(a)) for a in seq(0,pi/2,7)]+seq(zA+E,zB-E,10)[1:-1]+[zB-E*(1-cos(a)) for a in seq(pi/2,0,7)]
+    rings=[[(x,y,z) for x,y in cover_section(x0,inset(z),.8*inset(z))] for z in stations]
+    for A,B in zip(rings,rings[1:]):
+        for j in range(len(A)-1):face([A[j],A[j+1],B[j+1],B[j]],'Crinkle')
+    for ring in (rings[0],rings[-1]):face(ring[1:-1],'Crinkle')
+    # Cast longitudinal ribs either side of the lettering band.
+    for dx in [-.0255,-.0185,.0185,.0255]:
+        box((x0+dx,.6698,(zA+zB)/2),(.0030,.0026,zB-zA-2*E-.018),'Crinkle')
+    emboss('ABARTH',(x0,.669,(zA+zB)/2),Z,X,.023,'Red')
+    for z in [-.726,-.823,-.919,-1.017,-1.113]:
+        for k in [-1,1]:
+            cyl((x0+k*.0475,.618,z),(x0+k*.0475,.6215,z),.0062,'Steel',16)
+            bolt((x0+k*.0475,.6215,z),Y,.0042,'Gunmetal')
+    for z in [zA+.021,zB-.021]:
+        cyl((x0,.668,z),(x0,.6715,z),.0068,'Steel',16);bolt((x0,.6715,z),Y,.0046,'Gunmetal')
 Y=(0,1,0);Z=(0,0,1);X=(1,0,0)
 zs=[-.762-i*.104 for i in range(4)]
 group('engine','Tipo 232 AR4 engine','机械增压发动机',(.78,.38,-.83),'2.0 升纵置直列四缸。选择上方发动机页签可拆开曲柄连杆机构、十六气门缸盖与机械增压器。')
@@ -177,15 +234,8 @@ for side_ in [-1,1]:
             for zz in [z+dz-.006,z+dz+.006]:face([cam_point(theta,zz) for theta in seq(0,2*pi,36)[:-1]],'Steel')
         sleeve((side_*.045,.629,z+.04),Z,.017,.012,.011,'Silver',28)
     component(tag+' cam cover',tag+'侧凸轮轴盖','缸盖与配气',(side_*.28,.65,-.034))
-    x=side_*.050
-    for z in [-1.134,-.703]:
-        face([(x+.047*cos(a),.620+.042*sin(a),z) for a in seq(0,pi,32)],'Engine')
-    grid(lambda a,z:(x+.047*cos(a),.62+.042*sin(a),z),seq(0,pi,32),[-1.134,-.703],'Engine')
-    for k in [-1,1]:box((x+k*.046,.617,-.919),(.014,.012,.44),'Engine')
-    for k in [-2,-1,0,1,2]:
-        dx=k*.010;box((x+dx,.622+.042*sqrt(1-(dx/.047)**2),-.919),(.0035,.003,.375),'Alloy')
-    for z in [-.726,-.823,-1.017,-1.113]:
-        for k in [-1,1]:bolt((x+k*.044,.625,z),Y,.0048)
+    # Separate gold crinkle covers leave the plug well open between them.
+    cam_cover(side_*.053)
     for i,z in enumerate(zs):
         for j,dz in enumerate([-.017,.017]):
             n=f'{i+1} 缸{tag}门 {j+1}';base=(side_*.020,.553,z+dz);axis=unit((side_*.36,1,0));topv=add(base,mul(axis,.070))
@@ -198,9 +248,37 @@ for side_ in [-1,1]:
             p=add(base,mul(axis,.027));q=add(base,mul(axis,.065))
             spring(p,q,.008,.0014,'Gunmetal')
             sleeve(q,axis,.010,.0032,.0028,'Silver',20)
-component('Ignition loom','高压点火线束','点火与正时',(-.30,.57,.17))
+component('Ignition loom','高压点火线束与硅胶火花塞帽','点火与正时',(-.30,.57,.17))
+cap_z=-1.205;towers=[(-.045+.017*cos(a),.629+.017*sin(a)) for a in [pi*.56,pi*.78,pi,pi*1.22]]
 for i,z in enumerate(zs):
-    pipe([(0,.628,z),(-.013,.688,z),(-.102,.681,z+.015),(-.148,.612,-.749-i*.014)],.0038,'Rubber',8)
+    # Red silicone boots stand in the plug well; leads loop over the intake cover.
+    cyl((0,.622,z),(0,.667,z),.0072,'Silicone',18)
+    cyl((0,.667,z),(0,.679,z),.0072,'Silicone',18,.0046)
+    for dy in [.632,.656]:tor((0,dy,z),Y,.0072,.0011,'Silicone',18,5)
+    yb=.630+.0078*i;tx,ty=towers[i]
+    pipe([(0,.678,z),(-.014,.693,z),(-.058,.697,z+.004),(-.098,.684,z-.004),(-.113,.662,z-.03),(-.113,yb,z-.06),
+          (-.113,yb,-1.118),(-.102,yb+.004,-1.17),(tx,ty,cap_z-.022),(tx,ty,cap_z-.004)],.0034,'Black',8)
+for zc,n in [(-.94,2),(-1.122,4)]:
+    box((-.113,.630+.0039*(n-1),zc),(.0115,.0078*n+.007,.009),'Charcoal')
+    for k in range(n):cyl((-.1195,.630+.0078*k,zc),(-.1065,.630+.0078*k,zc),.0046,'Black',10)
+component('Distributor and coil','分电器与点火线圈','点火与正时',(-.12,.24,-.42))
+# Driven from the flywheel end of the intake camshaft.
+cyl((-.045,.629,-1.134),(-.045,.629,-1.146),.020,'Alloy',28)
+cyl((-.045,.629,-1.146),(-.045,.629,-1.166),.024,'Alloy',32,.026)
+for a in [.3,pi+.3]:bolt((-.045+.025*cos(a),.629+.025*sin(a),-1.150),(0,0,-1),.0035)
+cyl((-.045,.629,-1.166),(-.045,.629,-1.172),.031,'Charcoal',36)
+cyl((-.045,.629,-1.172),(-.045,.629,cap_z),.030,'Black',36,.026)
+for tx,ty in towers+[(-.045,.629)]:
+    cyl((tx,ty,cap_z),(tx,ty,cap_z-.012),.0058,'Black',14)
+    cyl((tx,ty,cap_z-.012),(tx,ty,cap_z-.016),.0040,'Silicone',12)
+for a in [pi*.25,pi*1.75]:
+    cyl((-.045+.028*cos(a),.629+.028*sin(a),-1.168),(-.045+.028*cos(a),.629+.028*sin(a),-1.190),.0028,'Steel',8)
+cyl((-.150,.548,-1.196),(-.150,.612,-1.196),.021,'Black',32)
+cyl((-.150,.612,-1.196),(-.150,.622,-1.196),.014,'Charcoal',24)
+cyl((-.150,.622,-1.196),(-.150,.631,-1.196),.0045,'Gold',12)
+for y in [.556,.604]:tor((-.150,y,-1.196),Y,.022,.0020,'Steel',32,6)
+box((-.128,.580,-1.196),(.012,.040,.030),'Gunmetal')
+pipe([(-.045,.629,cap_z-.016),(-.060,.632,-1.236),(-.120,.640,-1.226),(-.150,.636,-1.196)],.0034,'Black',8)
 for i,z in enumerate(zs):
     component('Plug '+str(i+1),f'{i+1} 缸火花塞','点火与正时',(.025,.47,(1.5-i)*.052))
     cyl((0,.571,z),(0,.598,z),.006,'Steel',20)
@@ -234,13 +312,56 @@ component('Blower drive','增压器带轮与传动带','进气与排气',(-.28,.
 for x,y in [(0,crank),(-.247,.488)]:
     sleeve((x,y,-.639),Z,.042,.010,.019,'Gunmetal')
 path([(-.264,.449,-.638),(-.018,.321,-.638),(.018,.398,-.638),(-.226,.526,-.638),(-.264,.449,-.638)],.006,'Black',8)
-component('Charge manifold','进气歧管','进气与排气',(-.46,.24,-.30))
-for z in zs:pipe([(-.116,.576,z),(-.16,.599,z),(-.198,.593,z),(-.214,.549,z)],.016,'Alloy',16)
-box((-.217,.548,-.915),(.089,.039,.37),'Alloy')
+component('Intake plenum and runners','铝制稳压腔与进气歧管','进气与排气',(-.46,.24,-.30))
+# Fabricated cylindrical plenum with welded domed tail and a square throttle flange at the front.
+plx,ply=-.205,.668
+shell((plx,ply,-.92),Z,[(-.200,0),(-.198,.020),(-.193,.032),(-.186,.039),(-.178,.042),(.192,.042),(.192,.046),(.200,.046),(.200,0)],'Alloy',44)
+for dz in [-.178,.186]:tor((plx,ply,-.92+dz),Z,.042,.0022,'Silver',44,6)
+for z in zs:
+    pipe([(-.116,.576,z),(-.138,.587,z),(-.163,.608,z),(-.186,.642,z)],.016,'Alloy',16)
+    tor((-.170,.617,z),unit((-.023,.034,0)),.016,.0018,'Silver',24,5)
+for z in [-.86,-.98,-1.06]:
+    cyl((plx,.705,z),(plx,.716,z),.0095,'Alloy',20);bolt((plx,.716,z),Y,.0068,'Steel')
+# Barbed take-off and the hex boss seen on the outboard face.
+cyl((-.244,ply,-.88),(-.258,ply,-.88),.012,'Alloy',20)
+bolt((-.258,ply,-.88),(-1,0,0),.0105,'Steel')
+cyl((-.265,ply,-.88),(-.292,ply,-.88),.0058,'Steel',16)
+for x in [-.272,-.280,-.288]:tor((x,ply,-.88),X,.0058,.0012,'Steel',16,5)
+cyl((-.190,.700,-.78),(-.190,.716,-.78),.0085,'Alloy',18);bolt((-.190,.716,-.78),Y,.0075,'Steel')
+cyl((-.190,.721,-.78),(-.190,.734,-.78),.0042,'Steel',14)
+component('Throttle body and linkage','节气门体与油门连杆','进气与排气',(-.42,.30,.30))
+for z,s in [(-.716,.080),(-.668,.068)]:
+    box((plx,ply,z),(s,s,.008),'Alloy')
+    for dx in [-1,1]:
+        for dy in [-1,1]:bolt((plx+dx*(s/2-.007),ply+dy*(s/2-.007),z+.004),Z,.0040)
+cyl((plx,ply,-.712),(plx,ply,-.672),.033,'Gunmetal',32)
+box((plx,ply-.030,-.692),(.040,.014,.030),'Gunmetal')
+cyl((-.246,ply,-.692),(-.164,ply,-.692),.0042,'Steel',12)
+cyl((-.246,ply,-.692),(-.252,ply,-.692),.010,'Gunmetal',16)
+plate([(-.252,ply-.006,-.692),(-.252,ply+.006,-.692),(-.252,.712,-.712),(-.252,.700,-.716)],'Steel',(-.003,0,0))
+cyl((-.255,.706,-.714),(-.262,.706,-.714),.0035,'Silver',10)
+box((-.254,.702,-.792),(.005,.028,.012),'Steel')
+for dy in [-.008,.008]:spring((-.257,.706+dy*.4,-.718),(-.257,.702+dy,-.786),.0042,.0008,'Steel')
+pipe([(-.262,.706,-.714),(-.272,.720,-.68),(-.268,.735,-.60)],.0016,'Steel',6)
+cyl((-.160,ply+.020,-.700),(-.150,ply+.020,-.700),.0035,'Gold',10)
+bolt((-.150,ply+.020,-.700),X,.0045,'Steel')
+component('Supercharger delivery duct','增压出气弯管与硅胶接头','进气与排气',(-.60,.22,.36))
+duct=[(plx,ply,-.668),(plx,ply,-.646),(-.226,.656,-.614),(-.268,.632,-.606),(-.292,.612,-.645),(-.292,.606,-.735),(-.276,.600,-.800),(-.264,.590,-.832),(-.262,.578,-.842)]
+pipe(duct,.026,'Alloy',24)
+cyl((-.262,.540,-.842),(-.262,.570,-.842),.026,'Alloy',28)
+box((-.262,.544,-.842),(.062,.008,.062),'Alloy')
+for c,axis in [((plx,ply,-.652),Z),((-.262,.574,-.842),Y)]:
+    sleeve(c,axis,.0305,.0262,.026,'Silicone',32)
+    for k in [-.0085,.0085]:
+        q=add(c,mul(axis,k));tor(q,axis,.031,.0019,'Steel',32,6)
+        bolt(add(q,mul(unit(cross(axis,X if axis!=X else Y)),.032)),unit(cross(axis,X if axis!=X else Y)),.0032)
 component('Exhaust manifold','四合一排气歧管','进气与排气',(.52,.16,-.39))
 for i,z in enumerate(zs):
     pipe([(.114,.577,z),(.171,.597,z),(.231+i*.018,.577,z-.011),(.28+i*.012,.484,z-.057),(.303+i*.009,.412,z-.11),(.34,.382,-1.38)],.0185,'Exhaust',16)
     sleeve((.136,.582,z),X,.022,.018,.009,'Exhaust',22)
+    box((.127,.580,z),(.008,.052,.090),'Exhaust')
+    for dz in [-.034,.034]:
+        cyl((.131,.580,z+dz),(.139,.580,z+dz),.0035,'Steel',8);bolt((.139,.580,z+dz),X,.0058,'Gold')
 component('Silencer and outlets','消声器与双尾管','进气与排气',(.09,-.06,-.37))
 pipe([(.34,.382,-1.38),(.35,.374,-1.59),(.312,.374,-1.738),(.256,.38,-1.77)],.039,'Exhaust',16)
 cyl((-.29,.375,-1.772),(.31,.375,-1.772),.084,'Silver',48)
@@ -257,6 +378,37 @@ for i,z in enumerate(zs):
 component('Lubrication filter','机油滤清器','缸体与润滑',(.19,-.08,-.21))
 cyl((.104,.398,-1.062),(.179,.391,-1.062),.031,'Charcoal',36,.030)
 sleeve((.112,.397,-1.062),X,.033,.029,.007,'Silver',28)
+component('Dry-sump oil tank','干式油底壳铝制储油罐','缸体与润滑',(-.52,.04,.30))
+tx,ty,tz=-.405,.468,-.705
+box((tx,ty,tz),(.080,.150,.104),'Alloy')
+for dx in [-.040,.040]:
+    for dz in [-.052,.052]:path([(tx+dx,ty-.075,tz+dz),(tx+dx,ty+.075,tz+dz)],.0028,'Silver',6)
+for dy in [-.075,.075]:
+    path([(tx+dx,ty+dy,tz+dz) for dx,dz in [(-.040,-.052),(.040,-.052),(.040,.052),(-.040,.052),(-.040,-.052)]],.0026,'Silver',6)
+for dy in [-.042,.042]:
+    path([(tx+dx,ty+dy,tz+dz) for dx,dz in [(-.0425,-.0545),(.0425,-.0545),(.0425,.0545),(-.0425,.0545),(-.0425,-.0545)]],.0035,'Black',6)
+cyl((tx,ty+.075,tz+.018),(tx,ty+.096,tz+.018),.016,'Alloy',28)
+cyl((tx,ty+.096,tz+.018),(tx,ty+.106,tz+.018),.022,'Steel',12)
+for k in range(2):box((tx,ty+.110,tz+.018),(.034 if k==0 else .006,.006,.006 if k==0 else .034),'Steel')
+cyl((tx-.020,ty+.075,tz-.026),(tx-.020,ty+.094,tz-.026),.0055,'Steel',14)
+fittings=[((tx+.040,ty-.050,tz),'Blue'),((tx+.040,ty+.034,tz-.020),'Red')]
+for (fx,fy,fz),m in fittings:
+    cyl((fx,fy,fz),(fx+.008,fy,fz),.0095,'Alloy',16);cyl((fx+.008,fy,fz),(fx+.020,fy,fz),.0105,m,6)
+component('Heat-wrapped oil lines','隔热缠绕机油管','缸体与润滑',(-.36,-.20,.22))
+feed=[(tx+.060,ty-.050,tz),(-.300,.400,-.700),(-.210,.352,-.716),(-.140,.318,-.742),(-.116,.300,-.770)]
+ret=[(.140,.348,-1.062),(.124,.250,-1.010),(.020,.228,-.920),(-.140,.278,-.820),(-.290,.452,-.760),(tx+.060,ty+.034,tz-.020)]
+for line in (feed,ret):
+    pipe(line,.0085,'Rubber',10);wrapped(line,.0091,.0105,.0016,'Gold')
+    for p,q in [(line[0],line[1]),(line[-1],line[-2])]:
+        d=unit(sub(q,p));cyl(p,add(p,mul(d,.016)),.0105,'Blue' if line is feed else 'Red',6)
+component('Cam cover breather line','凸轮轴盖通风编织管','缸盖与配气',(.06,.42,.14))
+cyl((.053,.669,-.752),(.053,.680,-.752),.0080,'Alloy',18);bolt((.053,.680,-.752),Y,.0072,'Steel')
+breather=[(.053,.686,-.752),(.040,.704,-.770),(-.010,.714,-.786),(-.100,.714,-.792),(-.160,.736,-.786),(-.190,.740,-.780),(-.190,.734,-.780)]
+pipe(breather,.0056,'Braid',10)
+pts=spline(breather,8)
+for k in range(4,len(pts)-4,2):tor(pts[k],unit(sub(pts[k+1],pts[k-1])),.0057,.0009,'Charcoal',10,4)
+for p,d in [((.053,.686,-.752),Y),((-.190,.728,-.780),(0,-1,0))]:
+    cyl(p,add(p,mul(d,.012)),.0075,'Steel',6)
 group('gearbox','ZF five-speed transaxle','五速变速驱动桥',(.90,.32,-1.63),'纵置五速手动变速箱，包含离合器、两根传动轴、五组常啮合齿轮、倒挡组件与差速器。')
 component('Bell housing','离合器钟形壳','壳体与轴承',(-.32,.20,.28))
 shell((0,.36,-1.202),Z,[(-.063,.078),(-.060,.088),(.022,.134),(.045,.143),(.051,.143),(.051,.134),(.024,.125),(-.06,.072),(-.063,.078)],'Alloy',56)

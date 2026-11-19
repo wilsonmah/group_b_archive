@@ -18,13 +18,17 @@ def mat(n,h,m=0,r=.45):
     rgb=[((int(h[i:i+2],16)/255+.055)/1.055)**2.4 if int(h[i:i+2],16)>10 else int(h[i:i+2],16)/255/12.92 for i in (0,2,4)]
     mids[n]=len(materials)
     materials.append(dict(name=n,pbrMetallicRoughness=dict(baseColorFactor=rgb+[1],metallicFactor=m,roughnessFactor=r),doubleSided=True))
-for a in [('Ivory','F2F1E9',.14,.26),('Pearl','D4D4C9',.25,.35),('Navy','0C1B33',.13,.31),('Blue','50A7D3',.1,.32),('Red','DC182B',.13,.31),('Rubber','22252A',0,.84),('Tread','2A2C30',0,.88),('Charcoal','252B30',.25,.47),('Black','141A20',.14,.5),('Gunmetal','515B61',.62,.39),('Steel','9CA7AA',.8,.31),('Silver','CBCECA',.75,.28),('Alloy','E2DFD3',.48,.31),('Glass','344955',.43,.15),('Lens','DCE3E0',.48,.16),('Amber','E39B31',.18,.22),('Tail','AD2725',.15,.2),('Gold','B39663',.67,.35),('Exhaust','8D7562',.7,.39),('Seat','30363B',0,.9),('Belt','B9282D',0,.78),('Engine','912B2B',.48,.37),('Decal','FFFFFF',0,.44)]:mat(*a)
+for a in [('Ivory','F2F1E9',.14,.26),('Pearl','D4D4C9',.25,.35),('Navy','0C1B33',.13,.31),('Blue','50A7D3',.1,.32),('Red','DC182B',.13,.31),('Rubber','22252A',0,.84),('Tread','2A2C30',0,.88),('Charcoal','252B30',.25,.47),('Black','141A20',.14,.5),('Gunmetal','515B61',.62,.39),('Steel','9CA7AA',.8,.31),('Silver','CBCECA',.75,.28),('Alloy','E2DFD3',.48,.31),('Glass','344955',.43,.15),('Lens','DCE3E0',.48,.16),('Amber','E39B31',.18,.22),('Tail','AD2725',.15,.2),('Gold','B39663',.67,.35),('Exhaust','A9A69D',.72,.46),('Seat','30363B',0,.9),('Belt','B9282D',0,.78),('Engine','912B2B',.48,.37),('Decal','FFFFFF',0,.44)]:mat(*a)
 glassmat=materials[mids['Glass']];glassmat['alphaMode']='BLEND';glassmat['pbrMetallicRoughness']['baseColorFactor'][3]=.69
 materials[-1]['pbrMetallicRoughness']['baseColorTexture']={'index':0}
 materials[-1]['alphaMode']='MASK';materials[-1]['alphaCutoff']=.32
 mat('Optical glass','E4F0ED',.08,.11)
 materials[-1]['alphaMode']='BLEND';materials[-1]['pbrMetallicRoughness']['baseColorFactor'][3]=.20
 mat('Reflector','D5D9D7',.96,.11)
+# Engine-bay finishes: gold crinkle cam covers, red silicone boots and couplers, black braided hose.
+mat('Crinkle','B88F48',.52,.66)
+mat('Silicone','C9301F',0,.52)
+mat('Braid','23272B',.42,.62)
 groups={};parts={};current=None
 def group(key,en,zh,vec,desc):
     global current
