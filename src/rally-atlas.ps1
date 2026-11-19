@@ -37,6 +37,7 @@ word 'ABARTH' 681 240 318 53 $white
 pirelli 707 33 302 61 '#d1d2c8'
 word 'LANCIA MARTINI' 16 530 1268 106 $white 'Arial' 3
 word 'MARTINI RACING' 16 665 1420 105 $dark 'Arial' 3
+word 'LANCIA MARTINI' 330 1520 1268 106 $dark 'Arial' 3
 word '5' 1487 525 138 264 '#101112'
 rect 14 795 768 122 $red
 word 'RALLYE DE FRANCE' 70 814 661 81 $white 'Arial' 3

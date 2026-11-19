@@ -62,7 +62,7 @@ current='lamps';part('Moulded lamp pod and reflector bowls')
 # A one-piece brow bridges the four reflectors and blends back into the bonnet.
 def brow(x,t):
     edge=clamp((abs(x)-.38)/.10,0,1)
-    leading=.703-.010*(x/.48)**2-.099*edge**2
+    leading=.783-.010*(x/.48)**2-.099*edge**2
     rear_z=1.58+.103*(abs(x)/.48)**2
     rear_y=surface(x/width(rear_z),rear_z)[1]+.009
     return (x,leading*(1-t)+rear_y*t+.015*sin(pi*t),2.030*(1-t)+rear_z*t-.036*abs(x)*(1-t))
@@ -93,7 +93,7 @@ for kind,za,zb in panel_ranges:
             def sash(u,z):
                 k=clamp((z-za)/.42,0,1);k=k*k*(3-2*k)
                 return add(surface(s*(1-(1-u)*k),z),(0,.0023,0))
-            for a,b,m in [(.805,.828,'Navy'),(.828,.851,'Blue'),(.851,.867,'Navy'),(.867,.887,'Blue'),(.887,.905,'Navy'),(.905,1.,'Red')]:
+            for a,b,m in [(.60,.647,'Navy'),(.647,.694,'Blue'),(.694,.727,'Navy'),(.727,.768,'Blue'),(.768,.805,'Navy'),(.805,1.,'Red')]:
                 grid(sash,seq(a,b,6),seq(za+.004,zb,92),m)
 def sidesign(zlo,zhi,ylo,yhi,rect):
     for kind,za,zb in panel_ranges:
@@ -118,16 +118,18 @@ sidesign(.340,.560,.185,.465,(18, 1500, 320, 1885))
 sidesign(.305,.605,.613,.670,(14,1195,700,1326))
 sidesign(1.636,1.925,.192,.290,(729,1193,1121,1327))
 current='nose';part('Bonnet roundel, rally plate and lower valance decals')
-conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.233,.233,1.540,1.172),(1180,1155,1558,1486),22,12)
-conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.129,.129,1.048,.957),(1590,1166,1961,1315),12,5)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.205,.205,1.580,1.235),(1180,1155,1558,1486),22,12)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.090,.090,1.218,1.153),(1590,1166,1961,1315),12,5)
 def frontmark(xa,xb,ya,yb,z,rect):
     decal([(xa,ya,z),(xb,ya,z),(xb,yb,z),(xa,yb,z)],rect)
 for s in [-1,1]:
     x=s*.535
-    frontmark(x-.131,x+.131,.119,.185,2.033,(1116,944,1546,1052))
-    frontmark(x-.078,x+.078,.2825,.3115,2.021,(1574,949,2014,1031))
-frontmark(-.080,.080,.106,.191,2.034,(259, 0, 701, 235))
-frontmark(-.307,-.230,.401,.446,2.019,(19,1390,151,1467))
+    x=s*.57
+    frontmark(x-.145,x+.145,.186,.259,2.033,(1116,944,1546,1052))
+    x=s*.50
+    frontmark(x-.078,x+.078,.372,.401,2.021,(1574,949,2014,1031))
+frontmark(-.080,.080,.190,.275,2.034,(259, 0, 701, 235))
+frontmark(-.307,-.230,.505,.550,2.019,(19,1390,151,1467))
 for s in [-1,1]:
     # Flexible black flaps and a small body-coloured front wheel spat.
     current='tail';part('Rear gravel flap '+str(s))
@@ -156,10 +158,11 @@ def optical_lamp(x,y,z,r):
     tor((x,y,z+.002),Z,.952*r,.0024,'Reflector',48,8)
 current='nose';part('SIEM optical reflectors and lenses')
 for s in [-1,1]:
-    for off in [-.093,.093]:optical_lamp(s*.591+off,.433,2.028,.088)
+    for off in [-.093,.093]:
+        lx=s*.591+off;optical_lamp(lx,.507,2.028-.06*(abs(lx)/.8)**3,.088)
 current='lamps';part('Auxiliary optical reflectors and lenses')
 for x in [-.349,-.121,.121,.349]:
-    y=.590 if abs(x)>.2 else .596
+    y=.670 if abs(x)>.2 else .676
     optical_lamp(x,y,2.040-.036*abs(x),.102)
 current='canopy';part('Pressed A-pillar flanges')
 for s in [-1,1]:
@@ -182,4 +185,4 @@ for s in (-1,1):
     q=fixedside(s,.58,1.58,.009)
     cyl(q,add(q,(s*.009,0,0)),.017,'Gunmetal',24)
     cyl(add(q,(s*.009,0,0)),add(q,(s*.014,0,0)),.014,'Amber',24,.012)
-    grid(lambda y,t:mix((s*.785,y,1.965),apron(s*.785,y),t),seq(.117,.332,12),[0,1],'Ivory')
+    grid(lambda y,t:mix((s*.785,y,1.965),apron(s*.785,y),t),seq(.170,.445,12),[0,1],'Ivory')
