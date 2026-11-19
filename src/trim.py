@@ -2,7 +2,7 @@ X=(1,0,0);Y=(0,1,0);Z=(0,0,1)
 current='nose'
 part('Wraparound wing livery and front air ducts')
 for s in [-1,1]:
-    for z in [.765,1.713]:
+    for z in [.86,1.713]:
         q=surface(s*.806,z)
         tor(add(q,(0,.008,0)),Y,.014,.0026,'Silver',20,6)
         path([add(q,(-.012,.008,.003)),add(q,(.022,.008,.009))],.002,'Steel',6)
@@ -10,7 +10,7 @@ for s in [-1,1]:
     current='door'+str(s);part('Door furniture and inner trim')
     box((s*.761,.508,.02),(.014,.29,.78),'Charcoal')
     path([(s*.751,.555,.173),(s*.735,.507,.152),(s*.735,.513,.058),(s*.751,.551,.048)],.008,'Belt',8)
-    for z in [-.337,.389]:
+    for z in [-.20,.62]:
         bolt((s*.751,.57,z),(-s,0,0),.006,'Steel')
     current='rear'+('L' if s>0 else 'R')
     for prefix in ['rear','front']:
@@ -72,7 +72,7 @@ for s in (-1,1):
     grid(lambda t,h:mix(brow(s*.477,t),add(brow(s*.477,t),(0,-.094*(1-t)-.004,0)),h),seq(0,1,12),[0,1],'Ivory')
 # All coordinates for the printed graphics are in atlas pixels. Side graphics
 # are cropped at actual panel seams so they follow their panels on disassembly.
-panel_ranges=[('tail',-1.976,-.504),('door',-.499,.598),('nose',.605,1.968)]
+panel_ranges=[('tail',-1.976,-.272),('door',-.267,.717),('nose',.722,1.968)]
 for kind,za,zb in panel_ranges:
     for s in [-1,1]:
         current='door'+str(s) if kind=='door' else kind
@@ -161,13 +161,13 @@ for x in [-.349,-.121,.121,.349]:
 current='canopy';part('Pressed A-pillar flanges')
 for s in [-1,1]:
     for a,b in zip(seq(0,1,18),seq(0,1,18)[1:]):
-        def pillar(t):return mix((s*.805,.748,.562),(s*.556,1.117,.18),t)
+        def pillar(t):return mix((s*.805,.845,.612),(s*.550,1.095,.07),t)
         face([wind(s,a),wind(s,b),pillar(b),pillar(a)],'Ivory')
 for s in [-1,1]:
     current='door'+str(s);part('Sliding side window')
     def window(u,v):
-        lo=mix((s*.807,.75,.55),(s*.783,.798,-.49),u)
-        hi=mix((s*.556,1.108,.172),(s*.557,1.11,-.425),u)
+        lo=mix((s*.807,.845,.600),(s*.800,.845,-.255),u)
+        hi=mix((s*.552,1.085,.080),(s*.553,1.098,-.255),u)
         return add(mix(lo,hi,v),(s*.0045,0,0))
     pts=[window(u,v) for u,v in [(.35,.17),(.63,.17),(.63,.79),(.35,.79)]]
     path(pts+[pts[0]],.0031,'Steel',7)
