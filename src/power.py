@@ -42,7 +42,7 @@ def pipe(anchors,r,m,N=12):
                 j=(k+1)%N;face([last[k],last[j],ring[j],ring[k]],m,[ln[k],ln[j],ns[j],ns[k]])
         last,ln=ring,ns
 
-def gear(c,axis,rad,bore,w,teeth,m='Steel',phase=0,helix=0,cone=0):
+def gear(c,axis,rad,bore,w,teeth,m='Steel',phase=0,helix=0,cone=0,witness=False):
     """Open-bore gear with chamfered faces and a flanked tooth profile."""
     d=unit(axis);u,v=basis(d)
     pts=[]
@@ -54,12 +54,13 @@ def gear(c,axis,rad,bore,w,teeth,m='Steel',phase=0,helix=0,cone=0):
         return add(c,add(mul(d,h),add(mul(u,r*cos(a)),mul(v,r*sin(a)))))
     for j,(a,r) in enumerate(pts):
         A,R=pts[(j+1)%len(pts)]
+        finish='Ivory' if witness and j<5 else m
         for h,H,f,F in [(-w*.5,-w*.40,.98,1),(-w*.4,w*.4,1,1),(w*.4,w*.5,1,.98)]:
-            face([pt(h,a+helix*h/w,r*f),pt(h,A+helix*h/w,R*f),pt(H,A+helix*H/w,R*F),pt(H,a+helix*H/w,r*F)],m)
+            face([pt(h,a+helix*h/w,r*f),pt(h,A+helix*h/w,R*f),pt(H,A+helix*H/w,R*F),pt(H,a+helix*H/w,r*F)],finish)
         for h in [-w*.5,w*.5]:
             q=a+helix*h/w;Q=A+helix*h/w
-            face([pt(h,q,bore),pt(h,q,r*.98),pt(h,Q,R*.98),pt(h,Q,bore)],m)
-        face([pt(-w*.5,a-helix/2,bore),pt(w*.5,a+helix/2,bore),pt(w*.5,A+helix/2,bore),pt(-w*.5,A-helix/2,bore)],m)
+            face([pt(h,q,bore),pt(h,q,r*.98),pt(h,Q,R*.98),pt(h,Q,bore)],finish)
+        face([pt(-w*.5,a-helix/2,bore),pt(w*.5,a+helix/2,bore),pt(w*.5,A+helix/2,bore),pt(-w*.5,A-helix/2,bore)],finish)
 def cast_strip(z,xs,ys,depth,m):
     p=[(x,y,z) for x,y in zip(xs,ys)]
     for i in range(len(p)):
@@ -369,12 +370,18 @@ for j in range(4):
     a=pi*j/2+pi/4;cyl((-.04,.315+.047*cos(a),-1.291+.047*sin(a)),(.036,.315+.047*cos(a),-1.291+.047*sin(a)),.012,'Gunmetal',16)
 for s in [-1,1]:
     component('Side gear '+str(s),('左' if s>0 else '右')+'半轴齿轮','差速与终传',(.34+s*.20,.065,.26))
-    gear((s*.021,.315,-1.291),X,.029,.012,.012,16,'Steel',cone=.32)
+    gear((s*.021,.315,-1.291),X,.029,.012,.012,16,'Steel',cone=s*.32,witness=True)
+    bolt((s*.027,.334,-1.291),(s,0,0),.0026,'Gold')
     component('Drive flange '+str(s),('左' if s>0 else '右')+'半轴输出法兰','差速与终传',(.32+s*.36,.01,.18))
     cyl((s*.043,.315,-1.291),(s*.174,.315,-1.291),.018,'Steel')
     sleeve((s*.168,.315,-1.291),X,.043,.018,.012,'Gunmetal')
     for j in range(6):
         a=j*pi/3;bolt((s*.174,.315+.032*cos(a),-1.291+.032*sin(a)),(s,0,0),.0046)
-component('Differential pinions','差速行星齿轮与销轴','差速与终传',(.34,.205,.25))
-cyl((0,.277,-1.291),(0,.354,-1.291),.005,'Steel')
-for y in [.288,.342]:gear((0,y,-1.291),Y,.017,.005,.012,12,'Gunmetal',cone=.36)
+component('Differential cross pin','差速行星齿轮轴','差速与终传',(.34,.205,.25))
+cyl((0,.272,-1.291),(0,.358,-1.291),.005,'Steel',24)
+for side_ in [-1,1]:
+    y=.315+side_*.027
+    component('Spider bevel '+str(side_),('上' if side_>0 else '下')+'差速行星齿轮','差速与终传',(.34,.205+side_*.060,.25))
+    gear((0,y,-1.291),Y,.0195,.005,.012,12,'Gunmetal',cone=side_*.36,witness=True)
+    # An asymmetric dot stays on the rotating face, visible in the carrier frame.
+    cyl((.011,y+side_*.0062,-1.291),( .011,y+side_*.0075,-1.291),.0021,'Ivory',14)

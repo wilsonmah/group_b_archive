@@ -298,11 +298,16 @@ for i in range(5):
     cyl((x,.656,.385),(x,.656,.378),r,'Silver',20)
     cyl((x,.656,.378),(x,.656,.375),r*.86,'Black',20)
     path([(x-.004,.65,.372),(x+.013,.663,.372)],.0023,'Ivory',5)
-part('Steering, gear selector and pedals')
+part('Steering column')
 cyl((.376,.645,.421),(.376,.678,.212),.023,'Gunmetal')
+part('Steering wheel')
 tor((.376,.687,.183),(0,.32,-1),.135,.013,'Rubber',48)
 for a in [0,pi,1.5*pi]:
     cyl((.376,.687,.183),(.376+.122*cos(a),.687+.119*sin(a),.183+.038*sin(a)),.009,'Gunmetal',8)
+# Index stripe at the top of the wheel gives the driver's handwheel a visible zero.
+wheel_index=(.376,.687+.135/sqrt(1+.32**2),.183+.135*.32/sqrt(1+.32**2))
+cyl(add(wheel_index,(-.008,0,0)),add(wheel_index,(.008,0,0)),.0138,'Gold',20)
+part('Gear selector and pedals')
 cyl((0,.44,.086),(0,.599,.055),.008,'Steel')
 cyl((0,.581,.055),(0,.616,.055),.021,'Black',16)
 for i in range(3):box((.452-i*.076,.296,.427),(.045,.019,.072),'Silver')
@@ -502,12 +507,18 @@ for key,info in groups.items():
         child=dict(name=n,mesh=len(meshes));childID=len(nodes)
         # Rigid rotor and halfshaft axes attach to real assembly-space endpoints.
         if key in ('rearL','rearR'):
-            child['extras']=dict(driveRole='wheel',axis=[1,0,0],pivot=[0,.319,-1.22])
+            child['extras']=dict(driveRole='wheel',side=1 if key=='rearL' else -1,axis=[1,0,0],pivot=[0,.319,-1.22])
+        if key in ('frontL','frontR') or (key=='susp' and n.startswith(('Front brake rotor','Front caliper'))):
+            side_=(1 if key=='frontL' else -1) if key!='susp' else int(n.split()[-1])
+            role='caliper' if n.startswith('Front caliper') else 'frontWheel'
+            child['extras']=dict(driveRole=role,side=side_,pivot=[side_*.773,.319,1.22],axis=[1,0,0])
+        if key=='cockpit' and n=='Steering wheel':
+            child['extras']=dict(driveRole='handwheel',pivot=[.376,.687,.183],axis=unit((0,.32,-1)))
         if key=='susp' and n.startswith(('Rear halfshaft','Rear brake rotor')):
             side_=int(n.split()[-1])
             inner=(side_*.174,.315,-1.291);outer=(side_*.770,.319,-1.22)
-            child['extras']=(dict(driveRole='axle',pivot=inner,axis=mul(unit(sub(outer,inner)),side_))
-                if n.startswith('Rear halfshaft') else dict(driveRole='disc',pivot=outer,axis=[1,0,0]))
+            child['extras']=(dict(driveRole='axle',side=side_,pivot=inner,axis=mul(unit(sub(outer,inner)),side_))
+                if n.startswith('Rear halfshaft') else dict(driveRole='disc',side=side_,pivot=outer,axis=[1,0,0]))
         if meta:
             child.update(name=meta['zh']+' | '+n,translation=pivot,extras=meta)
             clip=internal_clips.setdefault(key,dict(name=info['en']+' - components',samplers=[],channels=[]))
