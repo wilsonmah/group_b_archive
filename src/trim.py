@@ -91,7 +91,7 @@ for kind,za,zb in panel_ranges:
         if kind=='nose':
             # The outer shoulder carries the wide red sash down to the lamps.
             def sash(u,z):
-                k=clamp((z-za)/.42,0,1);k=k*k*(3-2*k)
+                k=clamp((z-za)/.14,0,1);k=k*k*(3-2*k)
                 return add(surface(s*(1-(1-u)*k),z),(0,.0023,0))
             for a,b,m in [(.60,.647,'Navy'),(.647,.694,'Blue'),(.694,.727,'Navy'),(.727,.768,'Blue'),(.768,.805,'Navy'),(.805,1.,'Red')]:
                 grid(sash,seq(a,b,6),seq(za+.004,zb,92),m)
@@ -118,14 +118,14 @@ sidesign(.340,.560,.185,.465,(18, 1500, 320, 1885))
 sidesign(.305,.605,.613,.670,(14,1195,700,1326))
 sidesign(1.636,1.925,.192,.290,(729,1193,1121,1327))
 current='nose';part('Bonnet roundel, rally plate and lower valance decals')
-conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.205,.205,1.580,1.235),(1180,1155,1558,1486),22,12)
-conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.090,.090,1.218,1.153),(1590,1166,1961,1315),12,5)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.215,.215,1.430,1.075),(1180,1155,1558,1486),22,12)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.090,.090,1.055,.990),(1590,1166,1961,1315),12,5)
 def frontmark(xa,xb,ya,yb,z,rect):
     decal([(xa,ya,z),(xb,ya,z),(xb,yb,z),(xa,yb,z)],rect)
 for s in [-1,1]:
     x=s*.535
-    x=s*.57
-    frontmark(x-.145,x+.145,.186,.259,2.033,(1116,944,1546,1052))
+    x=s*.50
+    frontmark(x-.150,x+.150,.186,.259,2.033,(1116,944,1546,1052))
     x=s*.50
     frontmark(x-.078,x+.078,.372,.401,2.021,(1574,949,2014,1031))
 frontmark(-.080,.080,.190,.275,2.034,(259, 0, 701, 235))
@@ -159,26 +159,19 @@ def optical_lamp(x,y,z,r):
 current='nose';part('SIEM optical reflectors and lenses')
 for s in [-1,1]:
     for off in [-.093,.093]:
-        lx=s*.591+off;optical_lamp(lx,.507,2.028-.06*(abs(lx)/.8)**3,.088)
+        lx=s*.565+off;optical_lamp(lx,.507,2.028-.06*(abs(lx)/.8)**3,.088)
 current='lamps';part('Auxiliary optical reflectors and lenses')
 for x in [-.349,-.121,.121,.349]:
     y=.670 if abs(x)>.2 else .676
     optical_lamp(x,y,2.040-.036*abs(x),.102)
-current='canopy';part('Pressed A-pillar flanges')
-for s in [-1,1]:
-    for a,b in zip(seq(0,1,18),seq(0,1,18)[1:]):
-        def pillar(t):return mix((s*.805,.853,.652),(s*.550,1.144,.075),t)
-        face([wind(s,a),wind(s,b),pillar(b),pillar(a)],'Ivory')
 for s in [-1,1]:
     current='door'+str(s);part('Sliding side window')
-    def window(u,v):
-        lo=mix((s*.807,.853,.640),(s*.800,.853,-.255),u)
-        hi=mix((s*.552,1.133,.085),(s*.553,1.148,-.255),u)
-        return add(mix(lo,hi,v),(s*.0045,0,0))
-    pts=[window(u,v) for u,v in [(.35,.17),(.63,.17),(.63,.79),(.35,.79)]]
+    # Sliding hatch in the front of the door glass (side photo: 0.16 x 0.18 m, z 0.055-0.21).
+    def window(z,y):return (s*(.807-(.807-.580)*(y-.847)/(1.100-.847)+.0045),y,z)
+    pts=[window(z,y) for z,y in [(.210,.865),(.055,.865),(.055,1.040),(.210,1.040)]]
     path(pts+[pts[0]],.0031,'Steel',7)
-    for u in [.35,.63]:
-        p=window(u,.49);cyl(p,add(p,(s*.004,0,0)),.006,'Black',12)
+    for z in [.21,.055]:
+        p=window(z,.952);cyl(p,add(p,(s*.004,0,0)),.006,'Black',12)
 
 current='nose';part('Amber side repeaters and apron returns')
 for s in (-1,1):
