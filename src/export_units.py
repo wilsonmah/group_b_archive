@@ -8,7 +8,7 @@ def write(path,g,bin):
     j=json.dumps(g,ensure_ascii=False,separators=(',',':')).encode();j+=b' '*((-len(j))%4);bin+=b'\0'*((-len(bin))%4)
     path.write_bytes(struct.pack('<4sII',b'glTF',2,28+len(j)+len(bin))+struct.pack('<I4s',len(j),b'JSON')+j+struct.pack('<I4s',len(bin),b'BIN\0')+bin)
 g,raw=read(root/'Lancia_037.glb')
-for key,filename in [('engine','Lancia_037_Engine.glb'),('gearbox','Lancia_037_Transaxle.glb')]:
+for key,filename in [('engine','Lancia_037_Engine.glb'),('gearbox','Lancia_037_Transaxle.glb'),('susp','Lancia_037_Suspension.glb')]:
     idx=next(i for i in g['scenes'][0]['nodes'] if g['nodes'][i]['extras']['key']==key)
     source=g['nodes'][idx]
     h={'asset':g['asset'],'scene':0,'scenes':[{'nodes':[0],'name':source['extras']['zh']}],

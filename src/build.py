@@ -276,10 +276,10 @@ part('Triangulated front and rear frames')
 for end,length in [(1,1.83),(-1,1.89)]:
     for s in [-1,1]:
         a=(s*.656,.222,end*.63);b=(s*.539,.261,end*length);c=(s*.588,.594,end*1.24);d=(s*.598,.544,end*.64)
-        for p,q in [(a,b),(b,c),(c,d),(d,a),(a,c)]:cyl(p,q,.021,'Steel',10)
-        cyl((s*.57,.257,end*1.25),(s*.588,.594,end*1.24),.020,'Steel',10)
-    for z,y,w in [(length,.26,.54),(1.24,.586,.59),(.65,.24,.65)]:cyl((-w,y,end*z),(w,y,end*z),.018,'Steel',10)
-    cyl((-.54,.26,end*length),(.58,.56,end*1.245),.013,'Steel',10)
+        for p,q in [(a,b),(b,c),(c,d),(d,a),(a,c)]:cyl(p,q,.021,'Charcoal',10)
+        cyl((s*.57,.257,end*1.25),(s*.588,.594,end*1.24),.020,'Charcoal',10)
+    for z,y,w in [(length,.26,.54),(1.24,.586,.59),(.65,.24,.65)]:cyl((-w,y,end*z),(w,y,end*z),.018,'Charcoal',10)
+    cyl((-.54,.26,end*length),(.58,.56,end*1.245),.013,'Charcoal',10)
 part('Front radiator and cooling fan')
 box((0,.395,1.696),(.94,.31,.088),'Charcoal')
 for i in range(25):box(((i-12)*.035,.394,1.746),(.009,.274,.007),'Steel')
@@ -298,8 +298,6 @@ for i in range(5):
     cyl((x,.656,.385),(x,.656,.378),r,'Silver',20)
     cyl((x,.656,.378),(x,.656,.375),r*.86,'Black',20)
     path([(x-.004,.65,.372),(x+.013,.663,.372)],.0023,'Ivory',5)
-part('Steering column')
-cyl((.376,.645,.421),(.376,.678,.212),.023,'Gunmetal')
 part('Steering wheel')
 tor((.376,.687,.183),(0,.32,-1),.135,.013,'Rubber',48)
 for a in [0,pi,1.5*pi]:
@@ -334,46 +332,7 @@ for s in [-1,1]:
     cyl((s*.627,.328,.47),(s*.627,.68,-.442),.017,'Steel',10)
 cyl((-.585,.385,-.447),(.562,1.025,-.447),.018,'Steel')
 exec(compile((ROOT/'src/power.py').read_text(encoding='utf-8-sig'),'power.py','exec'))
-group('susp','Suspension and brakes','悬架与制动',(0,-.27,0),'双横臂、弹簧减振器、半轴和四轮制动盘，后桥采用双减振器示意。')
-for z in [-1.22,1.22]:
-    for s in [-1,1]:
-        part(('Front' if z>0 else 'Rear')+' corner '+str(s))
-        for y,dy in [(.244,0),(.423,-.009)]:
-            for dz in [-.188,.188]:
-                cyl((s*.443,y+dy,z+dz),(s*.771,y,z),.014,'Gunmetal',10)
-        cyl((s*.768,.24,z),(s*.768,.441,z),.031,'Gunmetal')
-        for d in ([0] if z>0 else [-.079,.079]):
-            a=(s*.713,.252,z+d);b=(s*.527,.566,z+d)
-            cyl(a,b,.017,'Steel');cyl(a,mix(a,b,.54),.031,'Gunmetal')
-            if z>0:spring(mix(a,b,.07),mix(a,b,.925),.038,.0075,'Gold')
-            for point in [a,b]:sleeve(point,Z,.024,.009,.030,'Gunmetal',20)
-        if z<0:
-            spring((s*.712,.270,z),(s*.535,.542,z),.043,.008,'Gold')
-            for c in [(s*.712,.270,z),(s*.535,.542,z)]:cyl(c,add(c,(0,.005,0)),.051,'Gunmetal',24)
-        pipe([(s*.73,.357,z-.105),(s*.69,.417,z-.107),(s*.60,.428,z-.16),(s*.53,.391,z-.21)],.004,'Rubber',8)
-        if z<0:
-            part('Rear halfshaft '+str(s))
-            inner=(s*.174,.315,-1.291);outer=(s*.770,.319,z)
-            axle=unit(sub(outer,inner))
-            a=mix(inner,outer,.045);b=mix(inner,outer,.955)
-            cyl(a,b,.019,'Steel',32)
-            for t in [.06,.94]:
-                c=mix(inner,outer,t);sleeve(c,axle,.039,.018,.073,'Gunmetal',28)
-                for n in range(5):
-                    tor(add(c,mul(axle,(n-2)*.011)),axle,.036-.002*abs(n-2),.005,'Rubber',32,7)
-            mark=unit(cross(axle,(0,1,0)))
-            cyl(add(a,mul(mark,.018)),add(b,mul(mark,.018)),.003,'Ivory',8)
-        part(('Front' if z>0 else 'Rear')+' brake rotor '+str(s))
-        cyl((s*.759,.319,z),(s*.796,.319,z),.134,'Steel',40)
-        tor((s*.798,.319,z),(1,0,0),.113,.003,'Gunmetal',36,5)
-        cyl((s*.792,.319,z),(s*.815,.319,z),.067,'Gunmetal',20)
-        for j in range(36):
-            a=j*pi/18
-            for r in [.09,.111]:
-                y=.319+r*cos(a+.14*(r>.1));Zp=z+r*sin(a+.14*(r>.1))
-                cyl((s*.7962,y,Zp),(s*.7966,y,Zp),.00265,'Black',8)
-        part(('Front' if z>0 else 'Rear')+' caliper '+str(s))
-        box((s*.782,.331,z-.119),(.061,.098,.050),'Gold')
+exec(compile((ROOT/'src/suspension.py').read_text(encoding='utf-8'),'suspension.py','exec'))
 for z in [-1.22,1.22]:
     for s in [-1,1]:
         rear=z<0;lab=('后' if rear else '前')+('左' if s>0 else '右')
@@ -520,6 +479,7 @@ for key,info in groups.items():
             child['extras']=(dict(driveRole='axle',side=side_,pivot=inner,axis=mul(unit(sub(outer,inner)),side_))
                 if n.startswith('Rear halfshaft') else dict(driveRole='disc',side=side_,pivot=outer,axis=[1,0,0]))
         if meta:
+            meta.update(child.get('extras', {}))
             child.update(name=meta['zh']+' | '+n,translation=pivot,extras=meta)
             clip=internal_clips.setdefault(key,dict(name=info['en']+' - components',samplers=[],channels=[]))
             clip['channels'].append(dict(sampler=len(clip['samplers']),target=dict(node=childID,path='translation')))
