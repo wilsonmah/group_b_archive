@@ -9,11 +9,12 @@ header{background:#101418;border-color:#3a4148;color:#f6f6f4;gap:24px}.brand{whi
 
 .runpanel,.opctrl{display:none}.operating .panel,.operating .ctrl{display:none}.operating .runpanel{display:block;min-height:0;overflow:auto;background:#f0f1ed;border-left:1px solid #8d9593;padding:22px 18px}.runpanel h2{font-size:24px;letter-spacing:-1px;margin:5px 0 18px}.runpanel .mono{color:#777e7e;font-size:10px}.runpanel fieldset{margin:0 0 18px;padding:0 0 17px;border:0;border-bottom:1px solid #c9cdca}.runpanel legend,.opline{font-size:13px;font-weight:bold}.runpanel legend{margin:0 0 10px}.switches,.gearset{display:flex;gap:3px}.switches button,.gearset button{flex:1;min-width:0;border:1px solid #b5bcb7;background:#f8f9f6;padding:7px 0;font-size:12px}.gearset button{font:600 15px Consolas,monospace}.switches button[aria-pressed=true],.gearset button[aria-pressed=true]{background:#273432;color:white;border-color:#273432}.specgrid{display:flex;gap:24px;margin:14px 0 9px}.specgrid span{font-size:10px;color:#67706c}.specgrid b{display:block;font:600 24px Consolas,monospace;color:#25332f;margin-top:3px}.runpanel p{font-size:12px;line-height:1.65;color:#49534e;margin:8px 0}.legend{display:flex;gap:14px;font-size:11px}.legend span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.gold:before{background:#d39537}.green:before{background:#25a990}.blue:before{background:#3387b7}#cylinders{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}#cylinders div{padding:8px 4px;font:10px Consolas,monospace;text-align:center;border-top:3px solid #a3a79e;background:#e5e8e2}#cylinders b{display:block;margin-top:4px;font-size:13px}#cylinders [data-stroke="0"]{border-color:#dd9031}#cylinders [data-stroke="1"]{border-color:#cc6850}#cylinders [data-stroke="2"]{border-color:#3690bc}.opline{display:flex;align-items:center;justify-content:space-between}.speed{margin-top:10px}.speed select{background:white;padding:4px;border:1px solid #adb4ae}.runpanel .note{font-size:11px;color:#68726c}.operating .opctrl{display:grid;grid-template-columns:auto minmax(60px,1fr) 47px auto;align-items:center;gap:14px;background:#eff0ed;padding:17px 25px;border-top:1px solid #afb5b1}.opctrl label{font-size:11px;color:#5a625c}.opctrl output{font:600 18px Consolas,monospace}.opctrl .tool{width:auto}.operating .caption h1{font-size:clamp(32px,3.9vw,57px)}
 @media(max-width:600px){.operating .runpanel{border-left:0}.operating .opctrl{padding:12px 8px;gap:5px}.opctrl .play{min-width:65px}.modetab{padding:0 6px}}
+.pathcaption{margin:10px 0 5px;font-size:10px;color:#67716d}.pathbuttons{display:flex;gap:3px}.pathbuttons button{padding:5px 0;flex:1;font-size:11px;border:1px solid #b5c1ba;background:#eef2ed}.pathbuttons button[aria-pressed=true]{background:#155861;color:white}.driveLabels{position:absolute;inset:0;pointer-events:none}.driveLabels span{position:absolute;padding:3px 6px;color:#fff;background:#18343de8;border-left:2px solid #64d3dc;font-size:11px;white-space:nowrap;transform:translate(-50%,-110%)}.driveLabels span:after{content:"";position:absolute;width:1px;height:13px;top:100%;left:50%;background:#87dde1}.driveLabels:empty{display:none}#bodyControl{margin-bottom:10px}.wheelmeters{display:flex;gap:5px}.wheelmeters>div{flex:1;display:flex;align-items:center;gap:8px;background:#dbe5e2;padding:7px 8px}.wheelmeters span{font-size:10px;color:#48635c}.wheelmeters b{display:block;font:600 18px Consolas,monospace;color:#183b39}.dial{position:relative;width:21px;height:21px;border:3px solid #597972;border-radius:50%;background:#e8eeeb}.dial:after{content:"";position:absolute;left:6px;top:-2px;width:3px;height:9px;background:#e7883d}.operating #lampToggle{display:none}#lampToggle[hidden],#bodyControl[hidden]{display:none}.switches button{white-space:nowrap}.operating .caption h1{font-size:clamp(30px,3vw,48px)}
 </style></head><body><header><div class="brand"><i class="mark"><b></b><b></b><b></b></i>RALLY ARCHIVE</div><nav aria-label="模型视图"><button class="modetab active">整车</button><button class="modetab">发动机</button><button class="modetab">变速箱</button><button class="modetab" id="runTab" aria-pressed="false">运转</button></nav><div class="headernote">TECHNICAL COLLECTION &nbsp; / &nbsp; GROUP B</div></header>
-<main class="layout"><section class="stage"><div class="view"><canvas aria-label="蓝旗亚037三维模型，可拖动旋转和滚轮缩放"></canvas><div class="caption"><div class="eyebrow" id="kicker">LANCIA &nbsp;/&nbsp; GROUP B</div><h1>RALLY 037</h1><p id="subtitle">蓝旗亚 037 拉力赛车</p></div><div class="viewid" id="mode"></div><div class="orient"><button id="home">初始视角</button><button id="side">侧视</button><button id="up">俯视</button></div></div><div class="ctrl"><button class="play" id="play">▶  拆解</button><div class="rangewrap"><div class="labels"><span id="assembled">整车</span><span id="scope">拆解进度</span><span>完全展开</span></div><input id="range" aria-label="拆解进度" type="range" min="0" max="100" value="0"></div><div class="pct"><span id="pct">00</span><small>%</small></div></div><div class="opctrl"><button id="runPlay" class="play">Ⅱ 暂停</button><div class="rangewrap"><label for="cycleInput">曲轴转角 · 四冲程循环</label><input id="cycleInput" type="range" min="0" max="720" value="0" step="1"></div><output id="angleVal">0°</output><button id="stepOp" class="tool">步进 15°</button></div></section>
-<aside class="panel"><div class="ph"><div class="mono" id="count">ASSEMBLY INDEX &nbsp;/&nbsp; 14</div><h2 id="listtitle">部件目录</h2><select id="family" aria-label="筛选零件类别" hidden></select></div><div class="list" id="list"></div><div class="info"><div class="mono" id="eng">MODEL OVERVIEW</div><h3 id="name">整车总览</h3><p id="desc">选择部件可定位总成，拖动下方进度条可查看拆解过程。</p><div id="perpart" hidden><div class="local-label"><label for="local">单件拆出</label><span id="localpct"></span></div><input id="local" type="range" min="0" max="100"></div><button class="tool" id="entry" hidden>进入内部拆解</button><button class="tool" id="resetParts" hidden>清除单件调整</button><button class="tool" id="isolate" hidden>单独查看</button><div class="help" id="help">点选零件 &nbsp; · &nbsp; 拖动旋转 &nbsp; · &nbsp; 滚轮缩放</div></div></aside><aside class="runpanel"><div class="mono">POWERTRAIN MONITOR</div><h2>运转观察</h2><fieldset><legend>观察范围</legend><div class="switches"><button data-focus="both">全总成</button><button data-focus="engine">发动机</button><button data-focus="gearbox">变速箱</button></div></fieldset>
-<fieldset><legend>变速箱挡位</legend><div id="gearset" class="gearset"><button data-gear="-1" aria-label="倒挡">R</button><button data-gear="0" aria-label="空挡">N</button><button data-gear="1" aria-label="1 挡">1</button><button data-gear="2" aria-label="2 挡">2</button><button data-gear="3" aria-label="3 挡">3</button><button data-gear="4" aria-label="4 挡">4</button><button data-gear="5" aria-label="5 挡">5</button></div><div class="specgrid"><span>挡位传动比<b id="ratio"></b></span><span>输出轴 r/min<b id="outRPM"></b></span></div><p id="route"></p><div class="legend"><span class="gold">输入</span><span class="green">接合</span><span class="blue">输出</span></div></fieldset>
-<fieldset><legend>四缸行程</legend><div id="cylinders"><div>1 缸<b></b></div><div>2 缸<b></b></div><div>3 缸<b></b></div><div>4 缸<b></b></div></div><p>点火顺序 1 → 3 → 4 → 2。蓝色为进气机构，红色为排气机构。</p></fieldset><fieldset><div class="opline"><label for="shell">外壳可见度</label><output id="shellVal">6%</output></div><input type="range" id="shell" min="0" max="100" value="6"><div class="opline speed"><label for="rpm">演示转速</label><select id="rpm"><option value="6">6 r/min</option><option value="12" selected>12 r/min</option><option value="24">24 r/min</option><option value="48">48 r/min</option></select></div></fieldset><p class="note">传动比取自模型齿数。配气采用简化的四冲程正时，差速器按直线等速行驶演示。</p></aside></main><footer><span>LANCIA RALLY 037 &nbsp; / &nbsp; 3D STUDY</span><span>结构示意模型</span></footer>
+<main class="layout"><section class="stage"><div class="view"><canvas aria-label="蓝旗亚037三维模型，可拖动旋转和滚轮缩放"></canvas><div class="caption"><div class="eyebrow" id="kicker">LANCIA &nbsp;/&nbsp; GROUP B</div><h1>RALLY 037</h1><p id="subtitle">蓝旗亚 037 拉力赛车</p></div><div class="driveLabels" id="driveLabels" aria-hidden="true"></div><div class="viewid" id="mode"></div><div class="orient"><button id="lampToggle" aria-pressed="true">辅助灯 · 开</button><button id="home">初始视角</button><button id="side">侧视</button><button id="up">俯视</button></div></div><div class="ctrl"><button class="play" id="play">▶  拆解</button><div class="rangewrap"><div class="labels"><span id="assembled">整车</span><span id="scope">拆解进度</span><span>完全展开</span></div><input id="range" aria-label="拆解进度" type="range" min="0" max="100" value="0"></div><div class="pct"><span id="pct">00</span><small>%</small></div></div><div class="opctrl"><button id="runPlay" class="play">Ⅱ 暂停</button><div class="rangewrap"><label for="cycleInput">曲轴转角 · 四冲程循环</label><input id="cycleInput" type="range" min="0" max="720" value="0" step="1"></div><output id="angleVal">0°</output><button id="stepOp" class="tool">步进 15°</button></div></section>
+<aside class="panel"><div class="ph"><div class="mono" id="count">ASSEMBLY INDEX &nbsp;/&nbsp; 14</div><h2 id="listtitle">部件目录</h2><select id="family" aria-label="筛选零件类别" hidden></select></div><div class="list" id="list"></div><div class="info"><div class="mono" id="eng">MODEL OVERVIEW</div><h3 id="name">整车总览</h3><p id="desc">选择部件可定位总成，拖动下方进度条可查看拆解过程。</p><div id="perpart" hidden><div class="local-label"><label for="local">单件拆出</label><span id="localpct"></span></div><input id="local" type="range" min="0" max="100"></div><button class="tool" id="entry" hidden>进入内部拆解</button><button class="tool" id="resetParts" hidden>清除单件调整</button><button class="tool" id="isolate" hidden>单独查看</button><div class="help" id="help">点选零件 &nbsp; · &nbsp; 拖动旋转 &nbsp; · &nbsp; 滚轮缩放</div></div></aside><aside class="runpanel"><div class="mono">POWERTRAIN MONITOR</div><h2>运转观察</h2><fieldset><legend>观察范围</legend><div class="switches"><button data-focus="vehicle">整车</button><button data-focus="both">动力总成</button><button data-focus="engine">发动机</button><button data-focus="gearbox">变速箱</button></div></fieldset>
+<fieldset><legend>变速箱挡位</legend><div id="gearset" class="gearset"><button data-gear="-1" aria-label="倒挡">R</button><button data-gear="0" aria-label="空挡">N</button><button data-gear="1" aria-label="1 挡">1</button><button data-gear="2" aria-label="2 挡">2</button><button data-gear="3" aria-label="3 挡">3</button><button data-gear="4" aria-label="4 挡">4</button><button data-gear="5" aria-label="5 挡">5</button></div><div class="specgrid"><span>挡位传动比<b id="ratio"></b></span><span>输出轴 r/min<b id="outRPM"></b></span></div><div class="wheelmeters" aria-label="左右后轮转速"><div><i class="dial"></i><span>左后轮<b id="rearLrpm"></b></span></div><div><i class="dial"></i><span>右后轮<b id="rearRrpm"></b></span></div></div><div id="pathChooser"><div class="pathcaption">点选动力路径</div><div class="pathbuttons"><button data-stage="engine">发动机</button><button data-stage="gear">变速箱</button><button data-stage="diff">差速器</button><button data-stage="axle">半轴</button><button data-stage="wheel">后轮</button></div></div><p id="route"></p><div class="legend"><span class="gold">输入</span><span class="green">接合</span><span class="blue">输出</span></div></fieldset>
+<fieldset><legend>四缸行程</legend><div id="cylinders"><div>1 缸<b></b></div><div>2 缸<b></b></div><div>3 缸<b></b></div><div>4 缸<b></b></div></div><p>点火顺序 1 → 3 → 4 → 2。蓝色为进气机构，红色为排气机构。</p></fieldset><fieldset><div id="bodyControl"><div class="opline"><label for="bodyAlpha">车身可见度</label><output id="bodyVal">12%</output></div><input type="range" id="bodyAlpha" min="0" max="100" value="12"></div><div class="opline"><label for="shell">外壳可见度</label><output id="shellVal">6%</output></div><input type="range" id="shell" min="0" max="100" value="6"><div class="opline speed"><label for="rpm">演示转速</label><select id="rpm"><option value="6">6 r/min</option><option value="12">12 r/min</option><option value="24">24 r/min</option><option value="48">48 r/min</option><option value="96" selected>96 r/min</option></select></div></fieldset><p class="note">传动比取自模型齿数。配气采用简化的四冲程正时，直线架空演示，两后轮等速。轮速单位为 r/min，负值表示倒转。</p></aside></main><footer><span>LANCIA RALLY 037 &nbsp; / &nbsp; 3D STUDY</span><span>结构示意模型</span></footer>
 <script id="data" type="application/octet-stream">__DATA__</script><script>
 'use strict';
 const $=id=>document.getElementById(id), can=document.querySelector('canvas'),gl=can.getContext('webgl',{antialias:true,alpha:false,preserveDrawingBuffer:true});
@@ -27,7 +28,7 @@ const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);gl.texIma
 const img=new Image(),im=g.bufferViews[g.images[0].bufferView],url=URL.createObjectURL(new Blob([raw.slice(start+im.byteOffset,start+im.byteOffset+im.byteLength)],{type:'image/png'}));img.onload=()=>{gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img);gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);URL.revokeObjectURL(url);dirty=true};img.src=url;
 function program(v,f){function sh(t,s){let a=gl.createShader(t);gl.shaderSource(a,s);gl.compileShader(a);if(!gl.getShaderParameter(a,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(a));return a}let p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,v));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,f));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));return p}
 const vs='attribute vec3 p,n;attribute vec2 uv;uniform mat4 vp,lp;uniform mat3 motion,normalMotion;uniform vec3 off;varying vec3 N,P;varying vec2 U;varying vec4 L;void main(){P=motion*p+off;N=normalMotion*n;U=uv;L=lp*vec4(P,1.);gl_Position=vp*vec4(P,1.);}';
-const fs=`precision highp float;varying vec3 N,P;varying vec2 U;varying vec4 L;uniform vec3 base,eye;uniform float metal,rough,tex,ground,dim,opacity;uniform sampler2D atlas,shadow;float vis(){vec3 l=L.xyz/L.w*.5+.5;float s=0.;vec4 centre=texture2D(shadow,l.xy);float penumbra=clamp((l.z-centre.r-centre.g/255.)*.20,.00065,.009);for(int i=0;i<16;i++){float t=float(i)+.5;vec2 dp=vec2(cos(2.39996*t),sin(2.39996*t))*sqrt(t/16.)*penumbra;vec4 c=texture2D(shadow,l.xy+dp);s+=step(l.z-.0007,c.r+c.g/255.);}return s/16.;}void main(){float v=vis();if(ground>.5){float radial=exp(-.043*dot(P.xz,P.xz));vec3 c=mix(vec3(.091,.107,.125),vec3(.297,.326,.349),radial);gl_FragColor=vec4(c*(.74+.26*v),1.);return;}vec3 b=base;if(tex>.5){vec4 d=texture2D(atlas,U);if(d.a<.32)discard;b=pow(d.rgb,vec3(2.2));}vec3 n=normalize(N),e=normalize(eye-P);if(dot(n,e)<0.)n=-n;vec3 li=normalize(vec3(-2.8,6.,3.6));float nd=max(0.,dot(n,li));vec3 refl=reflect(-e,n);
+const fs=`precision highp float;varying vec3 N,P;varying vec2 U;varying vec4 L;uniform vec3 base,eye;uniform float metal,rough,tex,ground,dim,opacity;uniform sampler2D atlas,shadow;float vis(){vec3 l=L.xyz/L.w*.5+.5;if(any(lessThan(l,vec3(0.)))||any(greaterThan(l,vec3(1.))))return 1.;float s=0.;vec4 centre=texture2D(shadow,l.xy);float penumbra=clamp((l.z-centre.r-centre.g/255.)*.20,.00065,.009);for(int i=0;i<16;i++){float t=float(i)+.5;vec2 dp=vec2(cos(2.39996*t),sin(2.39996*t))*sqrt(t/16.)*penumbra;vec4 c=texture2D(shadow,l.xy+dp);s+=step(l.z-.0007,c.r+c.g/255.);}return s/16.;}void main(){float v=vis();if(ground>.5){float radial=exp(-.043*dot(P.xz,P.xz));vec3 c=mix(vec3(.091,.107,.125),vec3(.297,.326,.349),radial);gl_FragColor=vec4(c*(.74+.26*v),1.);return;}vec3 b=base;if(tex>.5){vec4 d=texture2D(atlas,U);if(d.a<.32)discard;b=pow(d.rgb,vec3(2.2));}vec3 n=normalize(N),e=normalize(eye-P);if(dot(n,e)<0.)n=-n;vec3 li=normalize(vec3(-2.8,6.,3.6));float nd=max(0.,dot(n,li));vec3 refl=reflect(-e,n);
 float topPanel=exp(-pow((refl.y-.72)/(.17+.28*rough),2.)-pow((refl.z+.20)/(.67+.2*rough),2.));
 float rimPanel=exp(-pow((refl.z-.62)/(.12+.23*rough),2.)-pow((refl.y-.40)/(.22+.3*rough),2.));
 float strips=.15+1.6*topPanel+.91*rimPanel+.30*pow(max(0.,refl.y),4.);
@@ -48,12 +49,21 @@ gl.bindRenderbuffer(gl.RENDERBUFFER,dep);gl.renderbufferStorage(gl.RENDERBUFFER,
 const floor=buf(new Float32Array([-80,0,-80,80,0,-80,-80,0,80,-80,0,80,80,0,-80,80,0,80]));
 const dot=(a,b)=>a.reduce((v,x,i)=>v+x*b[i],0),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],unit=a=>a.map(x=>x/Math.hypot(...a)),sub=(a,b)=>a.map((x,i)=>x-b[i]);
 function matrix(eye,target,w,h){const depth=Math.max(.35,w*3.1);let z=unit(sub(eye,target)),x=unit(cross([0,1,0],z)),y=cross(z,x),a=[...x.map(v=>v/w),-dot(x,target)/w],b=[...y.map(v=>v/h),-dot(y,target)/h],c=[...z.map(v=>-v/depth),dot(z,target)/depth];return new Float32Array([a[0],b[0],c[0],0,a[1],b[1],c[1],0,a[2],b[2],c[2],0,a[3],b[3],c[3],1])}
+function photoMatrix(eye,target,w,h,dist){
+    const m=matrix(eye,target,w,h),z=unit(sub(eye,target)),near=dist*.24,far=dist*9;
+    const A=(far+near)/(far-near),B=2*far*near/(far-near);
+    for(let i=0;i<4;i++){
+        const row=i===3?1+dot(z,target)/dist:-z[i]/dist;
+        m[i*4+3]=row;m[i*4+2]=A*row-(i===3?B/dist:0);
+    }
+    return m;
+}
 function at(l,b,k){if(l<0)return;gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,k,gl.FLOAT,false,0,0)}
 function no(l,v){if(l<0)return;gl.disableVertexAttribArray(l);if(v.length===3)gl.vertexAttrib3fv(l,v);else gl.vertexAttrib2fv(l,v)}
 const tabs=[...document.querySelectorAll('.modetab:not(#runTab)')];
 const engines=roots.findIndex(r=>r.extras.key==='engine'),gears=roots.findIndex(r=>r.extras.key==='gearbox');
 let domain=-1,selectedNode=-1,unitSolo=false,filter='',moves=new Map();
-let t=0,yaw=.91,pitch=.285,zoom=1,sel=-1,solo=false,anim=null,dirty=true;
+let t=0,yaw=.71,pitch=.17,zoom=1,sel=-1,solo=false,anim=null,dirty=true;
 const stateCache=new Map();
 const viewState=()=>({t,yaw,pitch,zoom,sel,solo,selectedNode,unitSolo,filter,moves:new Map(moves)});
 const internal=()=>domain>=0;
@@ -62,7 +72,11 @@ function shift(d){
     const fraction=internal()?(moves.get(d.node)??t):(solo?0:t);
     return d.rest.map((v,i)=>v+fraction*motion[i]);
 }
+let lampsOn=true;
+const lampIndex=roots.findIndex(r=>r.extras.key==='lamps');
+$('lampToggle').onclick=()=>{lampsOn=!lampsOn;$('lampToggle').textContent='辅助灯 · '+(lampsOn?'开':'关');$('lampToggle').setAttribute('aria-pressed',lampsOn);dirty=true};
 function visible(d){
+    if(d.k===lampIndex&&!lampsOn&&!(solo&&sel===lampIndex))return false;
     if(op.on)return runVisible(d);
     if(internal())return d.k===domain&&(!unitSolo||d.node===selectedNode);
     return !solo||d.k===sel;
@@ -77,19 +91,19 @@ function render(){
  const dpr=Math.min(devicePixelRatio||1,2),w=Math.round(can.clientWidth*dpr),h=Math.round(can.clientHeight*dpr);
  if(can.width!==w||can.height!==h){can.width=w;can.height=h;dirty=true}if(!dirty||!w||!h)return;dirty=false;
  const active=draws.filter(visible);let origin=[0,.61+.50*t,0],halfW=(2.40+1.40*t)*zoom,low=Math.min(-.006,-.284*t-.008);
- if(op.on){const gear=op.focus==="gearbox",eng=op.focus==="engine";origin=[0,.43,eng?-.90:gear?-1.47:-1.20];halfW=(eng?.355:gear?.465:.695)*zoom;low=.195;motionFrame=new Map([...new Set(active.map(d=>d.node))].map(id=>[id,poseFor(id)]))}
+ if(op.on){const gear=op.focus==="gearbox",eng=op.focus==="engine";origin=[0,.43,eng?-.90:gear?-1.47:-1.20];halfW=(eng?.355:gear?.465:.695)*zoom;low=.195;if(op.focus==='vehicle'){origin=[0,.53,-.10];halfW=2.40*zoom;low=-.008}motionFrame=new Map([...new Set(active.map(d=>d.node))].map(id=>[id,poseFor(id)]))}
  else if(solo||internal()){let lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];for(const d of active){const off=shift(d);for(let i=0;i<3;i++){lo[i]=Math.min(lo[i],d.min[i]+off[i]);hi[i]=Math.max(hi[i],d.max[i]+off[i])}}origin=lo.map((v,i)=>(v+hi[i])/2);halfW=Math.max(...sub(hi,lo))*(internal()?.72:.71)*zoom;low=lo[1]-.017}
  const aspect=w/h,halfh=Math.max(halfW/aspect,halfW*.55);halfW=halfh*aspect;
  origin[1]+=halfh*(internal()?.10:.07);
- const dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],eye=origin.map((v,i)=>v+dir[i]*12),vp=matrix(eye,origin,halfW,halfh);
- const radius=op.on||solo||internal()?Math.max(.15,halfW*1.7):4.8;lastCamera={origin,dir,halfW,halfh};const light=matrix(origin.map((a,i)=>a+[-2.8,6,3.6][i]),origin,radius,radius);
+ const dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],photo=!op.on&&!internal()&&!solo&&t<1,dist=photo?6.4/Math.max(.09,1-t):12,eye=origin.map((v,i)=>v+dir[i]*dist),vp=photo?photoMatrix(eye,origin,halfW,halfh,dist):matrix(eye,origin,halfW,halfh);
+ const radius=op.on||solo||internal()?Math.max(.15,halfW*1.7):4.8;lastCamera={origin,dir,halfW,halfh,photo,dist};const light=matrix(origin.map((a,i)=>a+[-2.8,6,3.6][i]),origin,radius,radius);
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.viewport(0,0,res,res);gl.clearColor(1,1,1,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(shad);gl.uniformMatrix4fv(S.vp,false,light);
  for(let l=0;l<3;l++)gl.disableVertexAttribArray(l);
  for(const d of active){if(d.uv||d.alpha<1||(op.on&&motionFrame.get(d.node).alpha<1)||(internal()&&dimmed(d)))continue;at(S.p,d.p,3);motionUniforms(S,d);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,d.ib);gl.drawElements(gl.TRIANGLES,d.c,gl.UNSIGNED_SHORT,0)}
  gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,w,h);gl.clearColor(.091,.107,.125,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(main);gl.uniformMatrix4fv(M.vp,false,vp);gl.uniformMatrix4fv(M.lp,false,light);gl.uniform3fv(M.eye,eye);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);gl.uniform1i(M.atlas,0);gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,sm);gl.uniform1i(M.shadow,1);
  motionUniforms(M,null);gl.uniform1f(M.ground,1);gl.uniform3fv(M.off,[0,low,0]);at(M.p,floor,3);no(M.n,[0,1,0]);no(M.uv,[0,0]);if(pitch>=0)gl.drawArrays(gl.TRIANGLES,0,6);gl.uniform1f(M.ground,0);
- const opacity=d=>op.on?motionFrame.get(d.node).alpha:internal()&&dimmed(d)?Math.min(.14,d.alpha):d.alpha;const sorted=[...active].sort((a,b)=>opacity(b)-opacity(a));for(const d of sorted){if(opacity(d)<1){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false)}gl.uniform1f(M.opacity,opacity(d));motionUniforms(M,d);gl.uniform3fv(M.base,op.on?(metalColors[motionFrame.get(d.node).tag]||d.color):d.color);gl.uniform1f(M.metal,d.metal);gl.uniform1f(M.rough,d.rough);gl.uniform1f(M.dim,dimmed(d)?.77:0);gl.uniform1f(M.tex,d.uv?1:0);at(M.p,d.p,3);at(M.n,d.n,3);if(d.uv)at(M.uv,d.uv,2);else no(M.uv,[0,0]);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,d.ib);gl.drawElements(gl.TRIANGLES,d.c,gl.UNSIGNED_SHORT,0)}
- gl.depthMask(true);gl.disable(gl.BLEND);window.modelReady=true;
+ const opacity=d=>op.on?driveAlpha(d):internal()&&dimmed(d)?Math.min(.14,d.alpha):d.alpha;const sorted=[...active].sort((a,b)=>opacity(b)-opacity(a));for(const d of sorted){if(opacity(d)<1){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false)}gl.uniform1f(M.opacity,opacity(d));motionUniforms(M,d);gl.uniform3fv(M.base,op.on?(metalColors[motionFrame.get(d.node).tag]||d.color):d.color);gl.uniform1f(M.metal,d.metal);gl.uniform1f(M.rough,d.rough);gl.uniform1f(M.dim,dimmed(d)?.77:0);gl.uniform1f(M.tex,d.uv?1:0);at(M.p,d.p,3);at(M.n,d.n,3);if(d.uv)at(M.uv,d.uv,2);else no(M.uv,[0,0]);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,d.ib);gl.drawElements(gl.TRIANGLES,d.c,gl.UNSIGNED_SHORT,0)}
+ gl.depthMask(true);gl.disable(gl.BLEND);projectDriveLabels(vp);window.modelReady=true;
 }
 const rows=[];
 function currentName(){return internal()?roots[domain].extras.zh:'整车'}
@@ -141,19 +155,19 @@ function updateRows(){
 function switchMode(next){
     leaveRun();
     if(domain!==next){stateCache.set(domain,viewState());domain=next;
-        const v=stateCache.get(next)||{t:0,yaw:next===-1?.91:1.07,pitch:next===-1?.285:.36,zoom:1,sel:-1,solo:false,selectedNode:-1,unitSolo:false,filter:'',moves:new Map()};
+        const v=stateCache.get(next)||{t:0,yaw:next===-1?.71:1.07,pitch:next===-1?.175:.36,zoom:1,sel:-1,solo:false,selectedNode:-1,unitSolo:false,filter:'',moves:new Map()};
         ({t,yaw,pitch,zoom,sel,solo,selectedNode,unitSolo,filter,moves}=v);
     }
     anim=null;
     const inUnit=internal(),kind=domain===engines?'ENGINE':'TRANSAXLE',title=inUnit?(domain===engines?'TIPO 232 AR4':'ZF · 5 SPEED'):'RALLY 037';
     document.querySelector('h1').textContent=title;
-    $('subtitle').textContent=inUnit?(domain===engines?'2.0 升机械增压直列四缸':'五速手动变速驱动桥'):'蓝旗亚 037 · Evoluzione 1';
+    $('subtitle').textContent=inUnit?(domain===engines?'2.0 升机械增压直列四缸':'五速手动变速驱动桥'):'蓝旗亚 037 · Rallye de France · 5 号';
     $('kicker').textContent=inUnit?'LANCIA 037   /   '+kind:'LANCIA   /   GROUP B';
     tabs.forEach((b,i)=>{const on=next===[-1,engines,gears][i];b.classList.toggle('active',on);b.setAttribute('aria-pressed',on)});
     const ids=inUnit?roots[domain].children:[];
     $('count').textContent=(inUnit?'COMPONENT INDEX':'ASSEMBLY INDEX')+'  /  '+(inUnit?ids.length:roots.length);
     $('listtitle').textContent=inUnit?'零件目录':'总成目录';
-    $('family').hidden=!inUnit;
+    $('family').hidden=!inUnit;$('lampToggle').hidden=inUnit;
     if(inUnit){
         const opts=[new Option('全部零件',''),...Array.from(new Set(ids.map(i=>g.nodes[i].extras.family)),f=>new Option(f,f))];
         $('family').replaceChildren(...opts);$('family').value=filter;
@@ -169,14 +183,16 @@ $('resetParts').onclick=()=>{moves.clear();sync()};
 $('range').oninput=e=>{anim=null;if(internal())moves.clear();t=+e.target.value/100;sync()};
 $('play').onclick=()=>{if(anim)anim=null;else{if(internal())moves.clear();const end=t>=.995?0:1;anim={from:t,to:end,start:performance.now(),duration:Math.max(300,2350*Math.abs(t-end))}}sync()};
 function setView(y,p){yaw=y;pitch=p;zoom=1;dirty=true}
-$('home').onclick=()=>op.on?setRunFocus(op.focus):setView(internal()?1.07:.91,internal()?.36:.285);$('side').onclick=()=>setView(Math.PI/2,.025);$('up').onclick=()=>setView(Math.PI/2,1.565);
+$('home').onclick=()=>op.on?setRunFocus(op.focus):setView(internal()?1.07:.71,internal()?.36:.175);$('side').onclick=()=>setView(Math.PI/2,.025);$('up').onclick=()=>setView(Math.PI/2,1.565);
 
 function pickPart(clientX,clientY){
     if(!lastCamera||op.on)return;
     const {origin,dir,halfW,halfh}=lastCamera,rect=can.getBoundingClientRect();
     const right=unit(cross([0,1,0],dir)),up=cross(dir,right);
     const px=((clientX-rect.left)/rect.width*2-1)*halfW,py=(1-2*(clientY-rect.top)/rect.height)*halfh;
-    const eye=origin.map((x,i)=>x+px*right[i]+py*up[i]+12*dir[i]),ray=dir.map(x=>-x);
+    const plane=origin.map((x,i)=>x+px*right[i]+py*up[i]);
+    const eye=lastCamera.photo?origin.map((x,i)=>x+lastCamera.dist*dir[i]):plane.map((x,i)=>x+12*dir[i]);
+    const ray=unit(sub(plane,eye));
     let nearest=Infinity,hit;
     for(const d of draws){
         if(!visible(d)||d.uv)continue;
@@ -237,7 +253,7 @@ function rotation(axis,a){
 const vmul=(m,v)=>[m[0]*v[0]+m[3]*v[1]+m[6]*v[2],m[1]*v[0]+m[4]*v[1]+m[7]*v[2],m[2]*v[0]+m[5]*v[1]+m[8]*v[2]];
 const plus=(a,b)=>a.map((v,i)=>v+b[i]);
 function axialScale(axis,k){return identity.map((v,i)=>v+(k-1)*axis[i%3]*axis[Math.floor(i/3)])}
-const op={on:false,playing:true,focus:'both',gear:1,angle:0,output:0,rpm:12,shell:.06,last:null};
+const op={on:false,playing:true,focus:'vehicle',stage:null,body:.12,gear:1,angle:0,output:0,rpm:96,shell:.06,last:null};
 const metalColors={crank:[.68,.31,.058],rod:[.38,.49,.57],piston:[.70,.72,.73],intake:[.035,.39,.61],exhaust:[.76,.16,.071],input:[.88,.43,.068],mesh:[.03,.53,.42],output:[.055,.41,.71]};
 function classify(id,k){
     const meta=g.nodes[id].extras, en=meta.en,zh=meta.zh;
@@ -262,8 +278,18 @@ function classify(id,k){
     if(['Crownwheel','Differential carrier','Differential pinions'].includes(en)||en.startsWith('Side gear ')||en.startsWith('Drive flange '))return {role:'final'};
     return {role:'support'};
 }
+const finalDrive=13/45;
+function shaftRotation(axis,angle){
+    const [x,y,z]=axis,c=Math.cos(angle),s=Math.sin(angle),k=1-c;
+    return [c+x*x*k,y*x*k+z*s,z*x*k-y*s,x*y*k-z*s,c+y*y*k,z*y*k+x*s,x*z*k+y*s,y*z*k-x*s,c+z*z*k];
+}
 const motionDefs=new Map();
-for(const k of [engines,gears])for(const id of roots[k].children)motionDefs.set(id,classify(id,k));
+roots.forEach((r,k)=>r.children.forEach(id=>{
+    const extras=g.nodes[id].extras||{};
+    if(k===engines||k===gears)motionDefs.set(id,classify(id,k));
+    else if(extras.driveRole)motionDefs.set(id,{role:extras.driveRole,pivot:extras.pivot,axis:extras.axis});
+    else motionDefs.set(id,{role:r.extras.key.startsWith('front')?'frontWheel':'body',structural:['chassis','susp','cockpit'].includes(r.extras.key)});
+}));
 function poseFor(id){
     const def=motionDefs.get(id),a=op.angle,o=op.output,gear=op.gear,role=def.role;
     const reverse=gear===-1,engaged=gear!==0,slot=gear===-1?3:Math.ceil(gear/2);
@@ -296,19 +322,67 @@ function poseFor(id){
         case 'collar':case 'fork':
             if(role==='collar')turn('z',o,[0,.2784,0]);
             if(engaged&&slot===def.slot){delta=[0,0,gear>0&&gear%2===1?.020:-.020];tag='mesh'}break;
-        case 'final':turn('x',-o*13/45,[0,.315,-1.291]);if(engaged)tag='output';break;
+        case 'axle':case 'wheel':case 'disc':
+            mat=norm=shaftRotation(def.axis,-o*finalDrive);pivot=def.pivot;
+            if(role==='axle'&&engaged)tag='output';
+            if(role==='disc'&&engaged)tag='output';
+            break;
+        case 'body':alpha=def.structural?op.body*op.body:op.body;break;
+        case 'frontWheel':alpha=.19+.81*op.body;break;
+        case 'final':turn('x',-o*finalDrive,[0,.315,-1.291]);if(engaged)tag='output';break;
         case 'shell':alpha=op.shell;break;
     }
-    const rest=g.nodes[id].translation;
+    const rest=g.nodes[id].translation||zero;
     return {mat,norm,off:plus(plus(pivot,vmul(mat,sub(rest,pivot))),delta),tag,alpha};
 }
 let motionFrame=new Map();
 function runVisible(d){
-    if(d.k!==engines&&d.k!==gears)return false;
+    if(d.k!==engines&&d.k!==gears)return op.focus==='vehicle'&&(op.body>0||motionDefs.get(d.node).role!=='body');
     if(op.focus==='engine'&&d.k!==engines||op.focus==='gearbox'&&d.k!==gears)return false;
     const role=motionDefs.get(d.node).role;
     return role!=='omit'&&(role!=='shell'||op.shell>0);
 }
+const stageAnchors={
+    engine:[['发动机',0,.67,-.92]],gear:[['变速箱',0,.43,-1.61]],diff:[['差速器',0,.39,-1.29]],
+    axle:[['左半轴',.47,.35,-1.26],['右半轴',-.47,.35,-1.26]],
+    wheel:[['左后轮',.83,.65,-1.22],['右后轮',-.83,.65,-1.22]]
+};
+function driveStage(d){
+    const role=motionDefs.get(d.node).role;
+    if(d.k===engines)return 'engine';
+    if(role==='final'||role==='pinion')return 'diff';
+    if(d.k===gears)return 'gear';
+    if(role==='axle')return 'axle';
+    if(role==='wheel'||role==='disc')return 'wheel';
+    return '';
+}
+function driveAlpha(d){
+    let alpha=motionFrame.get(d.node).alpha*d.alpha;
+    if(op.focus==='vehicle'&&op.stage){
+        const stage=driveStage(d);
+        if(stage&&stage!==op.stage)alpha*=.32;
+    }
+    return alpha;
+}
+function selectStage(stage){
+    op.stage=stage;
+    for(const b of document.querySelectorAll('[data-stage]'))b.setAttribute('aria-pressed',String(b.dataset.stage===stage));
+    const labels=$('driveLabels');labels.replaceChildren();
+    for(const [name] of stageAnchors[stage]||[]){
+        const label=document.createElement('span');label.textContent=name;labels.appendChild(label);
+    }
+    dirty=true;
+}
+function projectDriveLabels(m){
+    if(!op.on||op.focus!=='vehicle'||!op.stage)return;
+    const anchors=stageAnchors[op.stage];
+    for(let j=0;j<anchors.length;j++){
+        const [,x,y,z]=anchors[j],w=m[3]*x+m[7]*y+m[11]*z+m[15];
+        const px=(m[0]*x+m[4]*y+m[8]*z+m[12])/w,py=(m[1]*x+m[5]*y+m[9]*z+m[13])/w;
+        const label=$('driveLabels').children[j];label.style.left=(px+1)*50+'%';label.style.top='calc('+((1-py)*50)+'% - 12px)';
+    }
+}
+for(const b of document.querySelectorAll('[data-stage]'))b.onclick=()=>selectStage(op.stage===b.dataset.stage?null:b.dataset.stage);
 function motionUniforms(pr,d){
     const pose=op.on&&d?motionFrame.get(d.node):null;
     gl.uniformMatrix3fv(pr.motion,false,pose?pose.mat:identity);
@@ -316,7 +390,9 @@ function motionUniforms(pr,d){
     if(d)gl.uniform3fv(pr.off,pose?pose.off:shift(d));
 }
 function setRunFocus(f){
-    op.focus=f;zoom=1;yaw=f==='gearbox'?1.12:1.39;pitch=f==='gearbox'?.29:.24;
+    op.focus=f;zoom=1;yaw=f==='vehicle'?2.32:f==='gearbox'?1.12:1.39;pitch=f==='vehicle'?.58:f==='gearbox'?.29:.24;
+    selectStage(null);$('pathChooser').hidden=f!=='vehicle';$('bodyControl').hidden=f!=='vehicle';
+    $('subtitle').textContent=f==='vehicle'?'整车透视 · 后轮驱动':'动力总成运转';
     for(const b of document.querySelectorAll('[data-focus]'))b.setAttribute('aria-pressed',String(b.dataset.focus===f));
     dirty=true;
 }
@@ -330,7 +406,7 @@ function operate(){
     setRunFocus(op.focus);runHud();dirty=true;
 }
 function leaveRun(){
-    if(!op.on)return;op.on=false;op.last=null;
+    if(!op.on)return;selectStage(null);op.on=false;op.last=null;
     ({yaw,pitch,zoom}=op.camera);document.body.classList.remove('operating');
     $('runTab').classList.remove('active');$('runTab').setAttribute('aria-pressed','false');
 }
@@ -339,7 +415,7 @@ function setGear(value){
     for(const b of $('gearset').children)b.setAttribute('aria-pressed',String(Number(b.dataset.gear)===value));
     const ratio=value===0?'—':value===-1?'−1.00':(drivenTeeth[value-1]/driveTeeth[value-1]).toFixed(2);
     $('ratio').textContent=ratio;
-    $('route').textContent=value===0?'离合器 → 输入轴 → 常啮合齿轮。接合套居中，动力在此中断。':value===-1?'输入轴 → 倒挡主动轮 → 倒挡惰轮 → 从动轮 → 接合套 → 输出轴 → 主减速器与半轴。':('输入轴 → '+value+' 挡主动轮（'+driveTeeth[value-1]+' 齿）→ 从动轮（'+drivenTeeth[value-1]+' 齿）→ 接合套 → 输出轴 → 主减速器与半轴。');
+    $('route').textContent=value===0?'离合器 → 输入轴 → 常啮合齿轮。接合套居中，动力在此中断。':value===-1?'输入轴 → 倒挡主动轮 → 倒挡惰轮 → 从动轮 → 接合套 → 输出轴 → 主减速器 → 差速器 → 左右半轴 → 两个后轮。':('输入轴 → '+value+' 挡主动轮（'+driveTeeth[value-1]+' 齿）→ 从动轮（'+drivenTeeth[value-1]+' 齿）→ 接合套 → 输出轴 → 主减速器 → 差速器 → 左右半轴 → 两个后轮。');
     runHud();dirty=true;
 }
 function advanceRun(rad){op.scrubDeg=null;op.angle+=rad;op.output+=rad*shaftSpeed(op.gear)}
@@ -347,7 +423,10 @@ function runHud(){
     const deg=op.scrubDeg??Math.floor(sw(op.angle,cycle)*180/Math.PI);
     $('angleVal').textContent=deg+'°';$('cycleInput').value=deg;
     $('runPlay').textContent=op.playing?'Ⅱ  暂停':'▶  运转';
-    $('outRPM').textContent=(Math.abs(shaftSpeed(op.gear))*op.rpm).toFixed(1);
+    $('outRPM').textContent=(op.playing?Math.abs(shaftSpeed(op.gear))*op.rpm:0).toFixed(1);
+    const rpm=op.playing?-shaftSpeed(op.gear)*op.rpm*finalDrive:0;
+    $('rearLrpm').textContent=$('rearRrpm').textContent=(rpm||0).toFixed(1);
+    for(const dial of document.querySelectorAll('.dial'))dial.style.transform='rotate('+(-op.output*finalDrive)+'rad)';
     const names=['做功','排气','进气','压缩'];
     for(let i=0;i<4;i++){
         const stage=Math.floor(sw(op.angle-firing[i],cycle)/Math.PI);
@@ -358,12 +437,14 @@ $('runTab').onclick=operate;
 for(const b of document.querySelectorAll('[data-focus]'))b.onclick=()=>setRunFocus(b.dataset.focus);
 for(const b of $('gearset').children)b.onclick=()=>setGear(Number(b.dataset.gear));
 $('rpm').onchange=e=>{op.rpm=Number(e.target.value);runHud()};
+$('bodyAlpha').oninput=e=>{op.body=Number(e.target.value)/100;$('bodyVal').textContent=e.target.value+'%';dirty=true};
 $('shell').oninput=e=>{op.shell=Number(e.target.value)/100;$('shellVal').textContent=e.target.value+'%';dirty=true};
 $('runPlay').onclick=()=>{op.playing=!op.playing;op.last=null;runHud()};
 $('cycleInput').oninput=e=>{op.playing=false;op.last=null;advanceRun(Number(e.target.value)*Math.PI/180-sw(op.angle,cycle));op.scrubDeg=Number(e.target.value);runHud();dirty=true};
 $('stepOp').onclick=()=>{op.playing=false;op.last=null;advanceRun(Math.PI/12);runHud();dirty=true};
 setGear(1);
 
-function tick(ms){if(op.on){if(op.playing&&op.last!==null&&ms>=op.last){advanceRun(Math.min(.12,(ms-op.last)/1000)*op.rpm*TAU/60);runHud();dirty=true}op.last=ms}if(anim){let u=Math.min(1,(ms-anim.start)/anim.duration);t=anim.from+(anim.to-anim.from)*u*u*(3-2*u);if(u>=1)anim=null;sync()}render();requestAnimationFrame(tick)}
+document.addEventListener('visibilitychange',()=>{op.last=null});
+function tick(ms){if(op.on&&!document.hidden){if(op.playing&&op.last!==null&&ms>=op.last){advanceRun(((ms-op.last)/1000)*op.rpm*TAU/60);runHud();dirty=true}op.last=ms}if(anim){let u=Math.min(1,(ms-anim.start)/anim.duration);t=anim.from+(anim.to-anim.from)*u*u*(3-2*u);if(u>=1)anim=null;sync()}render();requestAnimationFrame(tick)}
 switchMode(-1);requestAnimationFrame(tick);
 </script></body></html>

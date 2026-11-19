@@ -18,10 +18,13 @@ def mat(n,h,m=0,r=.45):
     rgb=[((int(h[i:i+2],16)/255+.055)/1.055)**2.4 if int(h[i:i+2],16)>10 else int(h[i:i+2],16)/255/12.92 for i in (0,2,4)]
     mids[n]=len(materials)
     materials.append(dict(name=n,pbrMetallicRoughness=dict(baseColorFactor=rgb+[1],metallicFactor=m,roughnessFactor=r),doubleSided=True))
-for a in [('Ivory','F2F1E9',.14,.26),('Pearl','D4D4C9',.25,.35),('Navy','142B4A',.13,.31),('Blue','4296C8',.1,.32),('Red','C82830',.13,.31),('Rubber','22252A',0,.84),('Tread','2A2C30',0,.88),('Charcoal','252B30',.25,.47),('Black','141A20',.14,.5),('Gunmetal','515B61',.62,.39),('Steel','9CA7AA',.8,.31),('Silver','CBCECA',.75,.28),('Alloy','E2DFD3',.48,.31),('Glass','344955',.43,.15),('Lens','DCE3E0',.48,.16),('Amber','E39B31',.18,.22),('Tail','AD2725',.15,.2),('Gold','B39663',.67,.35),('Exhaust','8D7562',.7,.39),('Seat','30363B',0,.9),('Belt','B9282D',0,.78),('Engine','912B2B',.48,.37),('Decal','FFFFFF',0,.44)]:mat(*a)
+for a in [('Ivory','F2F1E9',.14,.26),('Pearl','D4D4C9',.25,.35),('Navy','0C1B33',.13,.31),('Blue','50A7D3',.1,.32),('Red','DC182B',.13,.31),('Rubber','22252A',0,.84),('Tread','2A2C30',0,.88),('Charcoal','252B30',.25,.47),('Black','141A20',.14,.5),('Gunmetal','515B61',.62,.39),('Steel','9CA7AA',.8,.31),('Silver','CBCECA',.75,.28),('Alloy','E2DFD3',.48,.31),('Glass','344955',.43,.15),('Lens','DCE3E0',.48,.16),('Amber','E39B31',.18,.22),('Tail','AD2725',.15,.2),('Gold','B39663',.67,.35),('Exhaust','8D7562',.7,.39),('Seat','30363B',0,.9),('Belt','B9282D',0,.78),('Engine','912B2B',.48,.37),('Decal','FFFFFF',0,.44)]:mat(*a)
 glassmat=materials[mids['Glass']];glassmat['alphaMode']='BLEND';glassmat['pbrMetallicRoughness']['baseColorFactor'][3]=.55
 materials[-1]['pbrMetallicRoughness']['baseColorTexture']={'index':0}
 materials[-1]['alphaMode']='MASK';materials[-1]['alphaCutoff']=.32
+mat('Optical glass','E4F0ED',.08,.11)
+materials[-1]['alphaMode']='BLEND';materials[-1]['pbrMetallicRoughness']['baseColorFactor'][3]=.20
+mat('Reflector','D5D9D7',.96,.11)
 groups={};parts={};current=None
 def group(key,en,zh,vec,desc):
     global current
@@ -83,17 +86,17 @@ def interp(x,points):
         if x<=b:return p+(q-p)*(x-a)/(b-a)
     return points[-1][1]
 def decal(p,rect):
-    x,y,X,Y=rect;face(p,'Decal',uv=[(x/1024,Y/512),(X/1024,Y/512),(X/1024,y/512),(x/1024,y/512)])
+    x,y,X,Y=rect;face(p,'Decal',uv=[(x/2048,Y/2048),(X/2048,Y/2048),(X/2048,y/2048),(x/2048,y/2048)])
 def width(z):return interp(z,[(-2,.77),(-1.81,.91),(-1.24,.935),(-.63,.866),(-.47,.837),(.56,.823),(1.18,.907),(1.56,.888),(1.9,.81),(2,.775)])
 def top(z):return interp(z,[(-2,.716),(-1.74,.779),(-1.23,.813),(-.56,.80),(0,.734),(.57,.737),(1.12,.681),(1.47,.636),(1.79,.583),(2,.536)])
 def surface(u,z):
     wave=.077*math.exp(-((z-1.22)/.45)**2)+.024*math.exp(-((z+1.22)/.47)**2)
     a=abs(u);return (u*width(z),top(z)+wave*min(1,a/.79)**3-.035*max(0,(a-.86)/.14),z)
 def arch(z):
-    d=min(abs(z-1.22),abs(z+1.22));return .319+sqrt(max(0,.356**2-d**2)) if d<=.356 else max(.208,.319-(d-.356)*3.3)
+    d=min(abs(z-1.22),abs(z+1.22));return .319+sqrt(max(0,.356**2-d**2)) if d<=.356 else max(.153,.319-(d-.356)*3.3)
 def side(s,v,z):
     high=surface(1,z)[1];low=arch(z)
-    return (s*(width(z)-.019*(1-v)),low*(1-v)+high*v,z)
+    return (s*(width(z)-.035*(1-v)+.007*sin(pi*v)),low*(1-v)+high*v,z)
 def fixedside(s,y,z,offset=0):
     v=clamp((y-arch(z))/max(.014,surface(1,z)[1]-arch(z)),0,1)
     return (side(s,v,z)[0]+s*offset,y,z)
@@ -119,7 +122,7 @@ def conform(fn,uvrect,rect,nu=12,nv=6):
         for j in range(nv):
             u=i/nu;U=(i+1)/nu;v=j/nv;V=(j+1)/nv
             coords=[(u,v),(U,v),(U,V),(u,V)]
-            face([fn(a+(b-a)*k,c+(d-c)*h) for k,h in coords],'Decal',uv=[((x+(X-x)*k)/1024,(Y+(y-Y)*h)/512) for k,h in coords])
+            face([fn(a+(b-a)*k,c+(d-c)*h) for k,h in coords],'Decal',uv=[((x+(X-x)*k)/2048,(Y+(y-Y)*h)/2048) for k,h in coords])
 def hoodstripe(lo,hi):
     for s in [-1,1]:
         for u,U,m in [(.55,.588,'Navy'),(.588,.616,'Blue'),(.616,.664,'Red'),(.664,.692,'Blue'),(.692,.736,'Navy')]:
@@ -129,23 +132,31 @@ def plate(p,m,depth=(0,-.013,0)):
     for i in range(len(p)):face([p[i],q[i],q[(i+1)%len(p)],p[(i+1)%len(p)]],m)
 group('nose','Front clamshell','前翻式车头',(0,.49,.77),'四圆灯、中央格栅、百叶散热口及一体式前翼子板。')
 part('Front body moulding');bodysection(.604,1.97)
-part('Nose fascia');z=1.97
-face([(-.778,.536,z),(.778,.536,z),(.774,.346,z+.026),(-.774,.346,z+.026)],'Ivory')
-box((0,.302,1.957),(1.56,.088,.10),'Ivory');box((0,.239,1.934),(1.51,.048,.107),'Charcoal')
+part('Recessed twin headlamps and split grille')
+z=1.97
+face([(-.778,.536,z),(.778,.536,z),(.788,.326,z+.031),(-.788,.326,z+.031)],'Ivory')
 for s in [-1,1]:
-    x=s*.56
-    box((x,.449,1.994),(.377,.158,.038),'Black')
-    for dx in [-.091,.091]:
-        X=x+dx
-        cyl((X,.45,2.002),(X,.45,2.024),.075,'Silver',32)
-        cyl((X,.45,2.025),(X,.45,2.039),.064,'Lens',32,.060)
-        for j in range(-3,4):
-            half=sqrt(max(0,.054**2-(j*.014)**2));cyl((X+j*.014,.45-half,2.039),(X+j*.014,.45+half,2.039),.0017,'Silver',5)
-    box((s*.695,.305,2.01),(.115,.033,.018),'Amber')
-box((0,.439,1.99),(.695,.154,.042),'Charcoal')
-for j in range(-13,14):box((j*.025,.439,2.014),(.005,.142,.012),'Gunmetal')
-for j in range(4): box((0,.383+j*.036,2.02),(.682,.005,.008),'Steel')
-decal([(-.225,.261,2.013),(.225,.261,2.013),(.225,.337,2.013),(-.225,.337,2.013)],(7,264,568,335))
+    # Rounded oblong headlamp recess, with two separate ribbed lenses.
+    x=s*.591
+    box((x,.432,1.991),(.363,.172,.030),'Pearl')
+    for dx in [-.093,.093]:
+        xx=x+dx;cy=.433
+        tor((xx,cy,2.016),(0,0,1),.083,.005,'Ivory',48,8)
+    box((s*.196,.431,1.990),(.360,.142,.038),'Black')
+    for k in range(23):box((s*(.027+.0155*k),.431,2.011),(.0026,.135,.004),'Gunmetal')
+    for k in range(8):box((s*.196,.372+k*.017,2.013),(.35,.0028,.003),'Gunmetal')
+box((0,.222,1.979),(1.569,.207,.067),'Ivory')
+box((0,.249,2.015),(.825,.112,.010),'Black')
+for j in range(12):box((0,.200+j*.0086,2.022),(.811,.0027,.004),'Gunmetal')
+for s in [-1,1]:
+    box((s*.556,.238,2.015),(.133,.058,.01),'Black')
+    box((s*.70,.229,2.019),(.113,.065,.016),'Amber')
+    box((s*.658,.229,2.029),(.033,.060,.009),'Lens')
+    for a,b in zip(seq(1.594,1.971,16),seq(1.594,1.971,16)[1:]):
+        def cheek(z,y):return fixedside(s,y,z,0)
+        low=lambda z:interp(z,[(1.594,.153),(1.82,.132),(1.971,.118)])
+        face([cheek(a,low(a)),cheek(b,low(b)),cheek(b,.168),cheek(a,.168)],'Ivory')
+plate([(-.807,.117,2.051),(.807,.117,2.051),(.815,.119,1.957),(-.815,.119,1.957)],'Ivory',(0,-.009,0))
 part('Bonnet louvres and fasteners')
 for s in [-1,1]:
     for j in range(8):
@@ -153,7 +164,7 @@ for s in [-1,1]:
         face([add(surface(s*u,Z),(0,.006,0)) for u,Z in [(.12,z),(.42,z),(.42,z+.018),(.12,z+.018)]],'Charcoal')
     for z in [.671,1.77]:
         q=surface(s*.82,z);cyl(q,add(q,(0,.007,0)),.019,'Steel',14);cyl(add(q,(-.013,.009,0)),add(q,(.013,.009,0)),.003,'Black',6)
-conform(lambda u,z:add(surface(u,z),(0,.006,0)),(-.294,.294,1.58,1.19),(256,0,705,205))
+conform(lambda u,z:add(surface(u,z),(0,.006,0)),(-.220,.220,1.87,1.65),(259,0,702,200))
 group('tail','Rear clamshell','后翻式发动机罩',(-.45,1.44,-1.07),'后翼子板、透明发动机盖、通风百叶与车尾扰流板。')
 part('Rear body and engine aperture')
 # Side decks leave a real opening for the engine cover.
@@ -162,21 +173,8 @@ for s in [-1,1]:
     grid(lambda u,z:surface(s*u,z),[.63,.78,.86,.94,1],zs,'Ivory',s>0)
     grid(lambda v,z:side(s,v,z),[0,.23,1],sorted(set(zs+[-1.22+.356*cos(i*pi/32) for i in range(33)])),'Ivory',s<0)
 for a,b in [(-1.979,-1.68),(-.68,-.504)]:grid(surface,[-.63,0,.63],seq(a,b,4),'Ivory',True)
-hoodstripe(-1.977,-1.682)
+part('Wheel arch return lips')
 for s in [-1,1]:
-    for u,U,m in [(.66,.695,'Navy'),(.695,.72,'Blue'),(.72,.76,'Red'),(.76,.786,'Blue'),(.786,.82,'Navy')]:
-        grid(lambda a,z:add(surface(a*s,z),(0,.004,0)),[u,U],seq(-1.68,-.51,24),m)
-part('Rear quarter stripes and cooling slots')
-for s in [-1,1]:
-    for h,k,m in [(0,.020,'Navy'),(.020,.038,'Blue'),(.038,.072,'Red'),(.072,.091,'Blue'),(.091,.112,'Navy')]:
-        for za,zb in zip(zs,zs[1:]):
-            def stripe_y(z):return .423+.087*max(0,-z-.5)
-            if min(stripe_y(za)+k-arch(za),stripe_y(zb)+k-arch(zb))<=.001:continue
-            face([fixedside(s,max(arch(z),stripe_y(z)+y),z,.003) for z,y in [(za,h),(zb,h),(zb,k),(za,k)]],m)
-    for j in range(5):
-        za=-.552-j*.052
-        ya=.55+j*.018
-        face([fixedside(s,y,z,.005) for z,y in [(za,ya),(za-.024,ya+.008),(za-.073,.735),(za-.043,.743)]],'Charcoal')
     for center in [-1.22]:
         lip=[side(s,0,center+.356*cos(i*pi/44)) for i in range(45)]
         strip(lip,(-s*.045,0,0),'Gunmetal')
@@ -208,9 +206,12 @@ for s in [-1,1]:
         cyl((x,.565,-2.045),(x,.565,-2.058),.059,m,48,.054)
         for rad in [.024,.042,.051]:tor((x,.565,-2.059),(0,0,1),rad,.0017,m,40,6)
         for dx in [-.044,.044]:cyl((x+dx,.565,-2.055),(x+dx,.565,-2.061),.0025,'Silver',10)
-    plate([(s*.655,.73,-1.91),(s*.655,.854,-1.994),(s*.655,.844,-1.866)],'Gunmetal',(s*.02,0,0))
-plate([(-.882,.814,-1.868),(.882,.814,-1.868),(.894,.865,-2.046),(-.894,.865,-2.046)],'Ivory')
-for s in [-1,1]:plate([(s*.889,.803,-1.86),(s*.889,.875,-1.885),(s*.889,.895,-2.055),(s*.889,.833,-2.035)],'Ivory',(s*.009,0,0))
+    plate([(s*.804,.754,-1.709),(s*.804,1.020,-2.001),(s*.804,.752,-2.008)],'Ivory',(s*.012,0,0))
+def wing(x,t):return (x*(1+.018*t),.765+.257*t-.009*sin(pi*t),-1.720-.281*t)
+grid(wing,seq(-.817,.817,16),seq(0,1,10),'Ivory')
+grid(lambda x,t:add(wing(x,t),(0,-.007,-.005)),[-.817,.817],seq(0,1,10),'Pearl')
+for s in [-1,1]:strip([wing(s*.817,t) for t in seq(0,1,12)],(0,-.008,-.005),'Pearl')
+conform(lambda x,t:add(wing(x,t),(0,.003,.004)),(-.745,.745,.29,.88),(13,659,1444,776),32,4)
 decal([(.25,.51,-2.02),(-.25,.51,-2.02),(-.25,.592,-2.02),(.25,.592,-2.02)],(7,264,568,335))
 group('canopy','Roof and windscreen','车顶与风挡',(-.45,1.72,.015),'弧面前风挡、A 柱、车顶和雨刮器组成的可拆展示单元。')
 part('Windscreen, surround and wipers')
@@ -220,8 +221,8 @@ grid(wind,seq(-1,1,12),seq(0,1,5),'Glass')
 for s in [-1,1]:
     path([wind(s,t) for t in seq(0,1,6)],.022,'Ivory')
 for t in [0,1]:path([wind(u,t) for u in seq(-1,1,10)],.013,'Black')
-grid(lambda u,t:add(wind(u,t),(0,.002,.003)),seq(-1,1,10),[.858,.99],'Ivory')
-conform(lambda u,t:add(wind(u,t),(0,.004,.006)),(-.58,.58,.858,.995),(457,354,974,424),16,2)
+grid(lambda u,t:add(wind(u,t),(0,.002,.003)),seq(-1,1,10),[.844,.995],'Navy')
+conform(lambda u,t:add(wind(u,t),(0,.004,.006)),(-.91,.91,.855,.982),(10,524,1293,643),16,2)
 for s in [-1,1]:
     pts=[add(wind(s*.57,.025),(0,.006,.009)),add(wind(s*.27,.19),(0,.006,.011))]
     path(pts,.006,'Charcoal')
@@ -233,7 +234,6 @@ def roof(u,z):
 grid(roof,seq(-1,1,44),seq(-.53,.205,18),'Ivory',True)
 for s in [-1,1]:
     path([roof(s,z) for z in seq(-.53,.205,7)],.012,'Pearl')
-    for a,b,m in [(.6,.64,'Navy'),(.64,.674,'Blue'),(.674,.72,'Red'),(.72,.75,'Blue'),(.75,.79,'Navy')]:grid(lambda u,z:add(roof(u*s,z),(0,.002,0)),[a,b],seq(-.52,.195,9),m)
 for s in [-1,1]:
     group('door'+str(s),'Left door' if s>0 else 'Right door','左侧车门' if s>0 else '右侧车门',(s*1.22,.33,.16),'独立车门带侧窗、车号板、拉手与外后视镜。')
     part('Door outer skin and trim')
@@ -247,11 +247,6 @@ for s in [-1,1]:
         strip([side(s,v,z) for z in zz],(-s*.070,0,0),'Pearl')
     for z in [-.495,.59]:
         strip([side(s,v,z) for v in [0,1]],(-s*.07,0,0),'Pearl')
-    def badge(z0,z1,y0,y1,rect,off=.007):
-        za,zb=(z1,z0) if s>0 else (z0,z1)
-        decal([fixedside(s,y,z,off) for z,y in [(za,y0),(zb,y0),(zb,y1),(za,y1)]],rect)
-    badge(-.198,.146,.385,.699,(0,0,247,248),.013)
-    badge(.18,.50,.485,.66,(258,0,705,205))
     part('Side glass, window frames and door mirror')
     pts=[(s*.807,.75,.55),(s*.64,1.108,.172),(s*.641,1.11,-.425),(s*.783,.798,-.49)]
     face(pts,'Glass')
@@ -351,20 +346,29 @@ for z in [-1.22,1.22]:
             spring((s*.712,.270,z),(s*.535,.542,z),.043,.008,'Gold')
             for c in [(s*.712,.270,z),(s*.535,.542,z)]:cyl(c,add(c,(0,.005,0)),.051,'Gunmetal',24)
         pipe([(s*.73,.357,z-.105),(s*.69,.417,z-.107),(s*.60,.428,z-.16),(s*.53,.391,z-.21)],.004,'Rubber',8)
-        cyl((s*.174,.315,-1.291),(s*.267,.346,z),.023,'Gunmetal') if z<0 else None
         if z<0:
-            cyl((s*.207,.352,z),(s*.752,.318,z),.018,'Steel')
-            for x in [.262,.703]:
-                for i in range(4):cyl((s*(x+i*.011),.329,z),(s*(x+i*.011+.009),.329,z),.033+.006*sin(i*pi/3),'Rubber')
+            part('Rear halfshaft '+str(s))
+            inner=(s*.174,.315,-1.291);outer=(s*.770,.319,z)
+            axle=unit(sub(outer,inner))
+            a=mix(inner,outer,.045);b=mix(inner,outer,.955)
+            cyl(a,b,.019,'Steel',32)
+            for t in [.06,.94]:
+                c=mix(inner,outer,t);sleeve(c,axle,.039,.018,.073,'Gunmetal',28)
+                for n in range(5):
+                    tor(add(c,mul(axle,(n-2)*.011)),axle,.036-.002*abs(n-2),.005,'Rubber',32,7)
+            mark=unit(cross(axle,(0,1,0)))
+            cyl(add(a,mul(mark,.018)),add(b,mul(mark,.018)),.003,'Ivory',8)
+        part(('Front' if z>0 else 'Rear')+' brake rotor '+str(s))
         cyl((s*.759,.319,z),(s*.796,.319,z),.134,'Steel',40)
         tor((s*.798,.319,z),(1,0,0),.113,.003,'Gunmetal',36,5)
         cyl((s*.792,.319,z),(s*.815,.319,z),.067,'Gunmetal',20)
-        box((s*.782,.331,z-.119),(.061,.098,.050),'Gold')
         for j in range(36):
             a=j*pi/18
             for r in [.09,.111]:
                 y=.319+r*cos(a+.14*(r>.1));Zp=z+r*sin(a+.14*(r>.1))
                 cyl((s*.7962,y,Zp),(s*.7966,y,Zp),.00265,'Black',8)
+        part(('Front' if z>0 else 'Rear')+' caliper '+str(s))
+        box((s*.782,.331,z-.119),(.061,.098,.050),'Gold')
 for z in [-1.22,1.22]:
     for s in [-1,1]:
         rear=z<0;lab=('后' if rear else '前')+('左' if s>0 else '右')
@@ -385,21 +389,42 @@ for z in [-1.22,1.22]:
         for r in [.217,.264,.282]:tor((s*(outer-.001),.319,z),(1,0,0),r,.0018,'Tread',64,6)
         part('Cast alloy wheel and lug hardware')
         def wx(x):return (s*x,.319,z)
-        sleeve(wx((xc-w*.50+outer-.014)/2),X,.195,.175,w-.014,'Gunmetal',72)
-        tor(wx(outer-.027),X,.168,.006,'Steel',64,8)
-        tor(wx(outer-.002),(1,0,0),.183,.012,'Alloy',64,10)
-        tor(wx(outer-.004),(1,0,0),.153,.013,'Alloy',64,8)
-        cyl(wx(outer-.018),wx(outer+.001),.105,'Alloy',48,.096)
-        for j in range(12):
-            a=j*2*pi/12
-            def rp(x,r,t):return(s*x,.319+r*cos(t),z+r*sin(t))
-            p=[rp(outer+.002,.084,a-.192),rp(outer-.008,.157,a-.155),rp(outer-.008,.157,a+.145),rp(outer+.002,.084,a+.186)]
-            plate(p,'Alloy',(-s*.019,0,0))
+        sleeve(wx((xc-w*.50+outer-.014)/2),X,.200,.177,w-.014,'Gunmetal',72)
+        for radius,depth,wire in [(.194,.003,.005),(.187,-.009,.006),(.170,-.012,.005)]:
+            tor(wx(outer+depth),X,radius,wire,'Silver',80,8)
+        # Map a ring of circular holes onto a dished face in polar sectors.
+        count=12
+        for j in range(count):
+            centre=j*2*pi/count
+            rmid=.133;lo=.087;hi=.178
+            def rimpoint(u,v,back=0):
+                r=rmid+v*(hi-rmid if v>=0 else rmid-lo)
+                a=centre+u*pi/count
+                return (s*(outer-.030+.018*v*v+back),.319+r*cos(a),z+r*sin(a))
+            loops=[]
+            for h in [0,1]:
+                ring=[]
+                for angle in seq(0,2*pi,32)[:-1]:
+                    u,v=cos(angle),sin(angle)
+                    if h==0:
+                        u*=.020/(rmid*pi/count);v*=.020/(hi-rmid)
+                    else:
+                        scale=max(abs(u),abs(v));u/=scale;v/=scale
+                    ring.append((u,v))
+                loops.append(ring)
+            for k in range(32):
+                K=(k+1)%32
+                face([rimpoint(*a) for a in [loops[0][k],loops[0][K],loops[1][K],loops[1][k]]],'Silver')
+                a,b=loops[0][k],loops[0][K]
+                face([rimpoint(*a),rimpoint(*b),rimpoint(*b,-.012),rimpoint(*a,-.012)],'Gunmetal')
+            a=centre+.05
+            cyl((s*(outer-.009),.319+.181*cos(a),z+.181*sin(a)),(s*(outer+.001),.319+.181*cos(a),z+.181*sin(a)),.0035,'Steel',10)
+        cyl(wx(outer-.039),wx(outer-.009),.088,'Silver',56,.080)
         for j in range(4):
             a=pi/4+j*pi/2;y=.319+.055*cos(a);Z=z+.055*sin(a)
             cyl((s*(outer+.001),y,Z),(s*(outer+.010),y,Z),.014,'Gunmetal',6)
         cyl(wx(outer+.001),wx(outer+.014),.033,'Gunmetal',20)
-        cyl(wx(outer+.014),wx(outer+.017),.022,'Red',24)
+        cyl(wx(outer+.014),wx(outer+.017),.022,'Black',24)
 
 group('lamps','Auxiliary light pod','夜赛辅助灯组',(0,.55,1.58),'四盏辅助拉力灯及管式支架，安装在车头前缘。')
 part('Lamp carrier and stays')
@@ -410,19 +435,33 @@ part('Four competition driving lamps')
 for x in [-.349,-.121,.121,.349]:
     y=.671 if abs(x)>.2 else .700
     Z=1.955-.077*abs(x)
-    cyl((x,y,Z-.098),(x,y,Z-.035),.043,'Charcoal',32,.104)
-    cyl((x,y,Z-.035),(x,y,Z+.007),.104,'Black',40,.108)
-    cyl((x,y,Z+.007),(x,y,Z+.020),.108,'Silver',48,.104)
-    cyl((x,y,Z+.020),(x,y,Z+.033),.097,'Lens',48,.089)
-    tor((x,y,Z+.034),(0,0,1),.09,.0025,'Silver',48,6)
-    for k in range(-5,6):
-        dx=k*.015;h=sqrt(max(0,.084**2-dx*dx))
-        cyl((x+dx,y-h,Z+.034),(x+dx,y+h,Z+.034),.0024,'Silver',6)
-    for k in [-2,-1,0,1,2]:
-        dy=k*.026;w=sqrt(.084**2-dy*dy)
-        cyl((x-w,y+dy,Z+.0345),(x+w,y+dy,Z+.0345),.0014,'Pearl',6)
-
+    cyl((x,y,Z-.098),(x,y,Z-.035),.044,'Charcoal',40,.103)
+    tor((x,y,Z+.010),(0,0,1),.102,.008,'Ivory',56,10)
 exec(compile((ROOT/'src/trim.py').read_text(encoding='utf-8-sig'),'trim.py','exec'))
+
+# Retain the 2.440 m axle spacing. Set the outer coachwork to the nominal
+# 3.915 m length, 1.850 m maximum body width and 1.245 m roof height.
+def calibrate_coachwork():
+    width_scale=.925/.93495
+    overhang_scale=(3.915-3.16)/(4.112-3.16)
+    for (assembly,name),primitives in parts.items():
+        body=assembly in ('nose','tail','canopy','door1','door-1','lamps')
+        if not body and assembly not in ('cockpit','chassis') and name!='Silencer and outlets':continue
+        for positions,normals,_,_ in primitives.values():
+            for k in range(0,len(positions),3):
+                x,y,z=positions[k:k+3]
+                sx=width_scale if body else 1.
+                sy=1.;sz=1.
+                if body or assembly=='cockpit':
+                    u=clamp((y-.740)/.445,0,1)
+                    y+=.060*u*u*(3-2*u)
+                    sy+=.060*6*u*(1-u)/.445
+                if abs(z)>1.58:
+                    z=math.copysign(1.58+(abs(z)-1.58)*overhang_scale,z);sz=overhang_scale
+                positions[k:k+3]=array.array('f',(x*sx,y,z))
+                nx,ny,nz=normals[k:k+3]
+                normals[k:k+3]=array.array('f',unit((nx/sx,ny/sy,nz/sz)))
+calibrate_coachwork()
 blob=bytearray();views=[];accessors=[]
 def bv(data,target=None):
     while len(blob)%4:blob.append(0)
@@ -461,6 +500,14 @@ for key,info in groups.items():
             if T:attr['TEXCOORD_0']=acc(T,'VEC2',5126,34962)
             prims.append(dict(attributes=attr,indices=acc(indices,'SCALAR',5123 if indices.typecode=='H' else 5125,34963),material=mids[m]))
         child=dict(name=n,mesh=len(meshes));childID=len(nodes)
+        # Rigid rotor and halfshaft axes attach to real assembly-space endpoints.
+        if key in ('rearL','rearR'):
+            child['extras']=dict(driveRole='wheel',axis=[1,0,0],pivot=[0,.319,-1.22])
+        if key=='susp' and n.startswith(('Rear halfshaft','Rear brake rotor')):
+            side_=int(n.split()[-1])
+            inner=(side_*.174,.315,-1.291);outer=(side_*.770,.319,-1.22)
+            child['extras']=(dict(driveRole='axle',pivot=inner,axis=mul(unit(sub(outer,inner)),side_))
+                if n.startswith('Rear halfshaft') else dict(driveRole='disc',pivot=outer,axis=[1,0,0]))
         if meta:
             child.update(name=meta['zh']+' | '+n,translation=pivot,extras=meta)
             clip=internal_clips.setdefault(key,dict(name=info['en']+' - components',samplers=[],channels=[]))

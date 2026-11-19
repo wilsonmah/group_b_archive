@@ -2,33 +2,16 @@ X=(1,0,0);Y=(0,1,0);Z=(0,0,1)
 current='nose'
 part('Wraparound wing livery and front air ducts')
 for s in [-1,1]:
-    # The upper colour sweep follows the leading edge from the sill to the bonnet.
-    for v,V,m in [(.65,.70,'Navy'),(.70,.74,'Blue'),(.755,.82,'Navy'),(.82,.868,'Blue'),(.868,.99,'Red')]:
-        grid(lambda u,z:add(side(s,u,z),(s*.0028,0,0)),[v,V],seq(.606,1.97,64),m,s<0)
-    for a,b,m in [(.65,.688,'Navy'),(.688,.729,'Blue'),(.751,.799,'Navy'),(.799,.861,'Blue'),(.861,.995,'Red')]:
-        grid(lambda u,z:add(surface(s*u,z),(0,.004,0)),[a,b],seq(.608,1.965,44),m)
-    box((s*.56,.287,2.011),(.142,.060,.007),'Black')
-    box((s*.7,.287,2.012),(.099,.055,.009),'Amber')
-    for j in range(6):box((s*(.659+j*.015),.287,2.018),(.002,.047,.003),'Gold')
     for z in [.765,1.713]:
         q=surface(s*.806,z)
         tor(add(q,(0,.008,0)),Y,.014,.0026,'Silver',20,6)
         path([add(q,(-.012,.008,.003)),add(q,(.022,.008,.009))],.002,'Steel',6)
-box((0,.311,2.011),(.83,.073,.009),'Black')
-for j in range(-24,25):box((j*.016,.311,2.018),(.003,.062,.003),'Gunmetal')
-decal([(-.17,.228,1.993),(.17,.228,1.993),(.17,.262,1.993),(-.17,.262,1.993)],(5,262,573,335))
 for s in [-1,1]:
     current='door'+str(s);part('Door furniture and inner trim')
     box((s*.761,.508,.02),(.014,.29,.78),'Charcoal')
     path([(s*.751,.555,.173),(s*.735,.507,.152),(s*.735,.513,.058),(s*.751,.551,.048)],.008,'Belt',8)
     for z in [-.337,.389]:
         bolt((s*.751,.57,z),(-s,0,0),.006,'Steel')
-    # Side racing stripe tapering below the window.
-    for lo,hi,m in [(0,.016,'Navy'),(.016,.029,'Blue'),(.037,.054,'Navy'),(.054,.069,'Blue'),(.069,.104,'Red')]:
-        for a,b in zip(seq(-.496,.597,26),seq(-.496,.597,26)[1:]):
-            def dye(z):return .573+.026*z
-            if a<.147 and b>-.20:continue
-            face([fixedside(s,dye(z)+u,z,.004) for z,u in [(a,lo),(b,lo),(b,hi),(a,hi)]],m)
     current='rear'+('L' if s>0 else 'R')
     for prefix in ['rear','front']:
         current=prefix+('L' if s>0 else 'R');part('Tyre lettering, valve and bead')
@@ -72,24 +55,115 @@ for s in [-1,1]:
     tor((s*(x+.007),y,z),X,.027,.003,'Steel',28,6)
     for j in range(3):
         a=j*pi*2/3;bolt((s*(x+.006),y+.02*cos(a),z+.02*sin(a)),(s,0,0),.0025)
-conform(lambda u,v:(u,.816+.047*v+.004,-1.879-.151*v),(-.57,.57,0,1),(456,347,975,430),12,2)
+
 
 
 current='lamps';part('Moulded lamp pod and reflector bowls')
-for x in [-.349,-.121,.121,.349]:
-    yy=.671 if abs(x)>.2 else .700
-    zz=1.955-.077*abs(x)
-    shell((x,yy,zz+.0338),Z,[(0,.090),(.0005,.083),(-.009,.055),(-.016,.019),(-.015,.014)],'Silver',48)
-    for rad in [.018,.038,.064,.083]:
-        tor((x,yy,zz+.035),Z,rad,.0013,'Lens',52,5)
-    cyl((x,yy,zz+.035),(x,yy,zz+.038),.012,'Lens',20)
 for j in range(24):
     x=-.45+j*.0375;xx=x+.0375
     def podedge(q):
         return .576+.029*(1-(q/.46)**2)
     face([(x,podedge(x),1.874),(xx,podedge(xx),1.874),(xx,podedge(xx)+.029,1.970),(x,podedge(x)+.029,1.970)],'Ivory')
-current='nose';part('Front valance and bumper ducts')
+# All coordinates for the printed graphics are in atlas pixels. Side graphics
+# are cropped at actual panel seams so they follow their panels on disassembly.
+panel_ranges=[('tail',-1.976,-.504),('door',-.499,.598),('nose',.605,1.968)]
+for kind,za,zb in panel_ranges:
+    for s in [-1,1]:
+        current='door'+str(s) if kind=='door' else kind
+        part('Rallye de France shoulder ribbons '+str(s))
+        for lo,hi,m in [(0,.014,'Navy'),(.014,.027,'Blue'),(.027,.039,'Navy'),(.039,.085,'Red'),(.085,.100,'Navy'),(.100,.116,'Blue'),(.116,.134,'Navy')]:
+            def band(d,z):
+                high=surface(1,z)[1]
+                factor=interp(z,[(-1.976,1.29),(-1.20,1.01),(-.53,.76),(.54,.74),(1.23,1.05),(1.968,1.36)])
+                y=max(arch(z)+.001,high-d*factor)
+                return fixedside(s,y,z,.0033)
+            for a,b in zip(seq(za,zb,88),seq(za,zb,88)[1:]):
+                pts=[band(lo,a),band(lo,b),band(hi,b),band(hi,a)]
+                for indices in [(0,1,2),(0,2,3)]:
+                    tri=[pts[k] for k in indices]
+                    if dot(cross(sub(tri[1],tri[0]),sub(tri[2],tri[0])),cross(sub(tri[1],tri[0]),sub(tri[2],tri[0])))>1.e-16:face(tri,m)
+        if kind=='nose':
+            # The outer shoulder carries the wide red sash down to the lamps.
+            for a,b,m in [(.81,.842,'Navy'),(.842,.869,'Blue'),(.869,.891,'Navy'),(.891,.955,'Red'),(.955,.974,'Navy'),(.974,1.,'Blue')]:
+                grid(lambda u,z:add(surface(s*u,z),(0,.0023,0)),[a,b],seq(za,zb,42),m)
+def sidesign(zlo,zhi,ylo,yhi,rect):
+    for kind,za,zb in panel_ranges:
+        low,high=max(zlo,za),min(zhi,zb)
+        if low>=high:continue
+        for s in [-1,1]:
+            global current
+            current='door'+str(s) if kind=='door' else kind
+            part('No 5 event graphics '+str(s))
+            a,b=(high,low) if s>0 else (low,high)
+            def tx(z):return (zhi-z)/(zhi-zlo) if s>0 else (z-zlo)/(zhi-zlo)
+            x,y,Xp,Yp=rect
+            conform(lambda z,h:fixedside(s,h,z,.008),(a,b,ylo,yhi),(x+tx(a)*(Xp-x),y,x+tx(b)*(Xp-x),Yp),12,4)
+sidesign(-.131,.068,.244,.613,(1479,519,1630,796))
+sidesign(-.242,.164,.594,.674,(797,795,1237,917))
+sidesign(-.260,.182,.175,.234,(14,794,782,917))
+sidesign(-.865,-.275,.420,.752,(259,0,703,203))
+sidesign(-.798,-.388,.347,.396,(685,1062,1099,1124))
+sidesign(-.802,-.511,.188,.247,(676,943,1032,1033))
+sidesign(.323,.601,.482,.584,(13,945,323,1078))
+sidesign(.351,.550,.199,.456,(355,931,653,1155))
+sidesign(.322,.588,.632,.713,(14,1195,700,1326))
+sidesign(1.636,1.925,.179,.303,(729,1193,1121,1327))
+current='nose';part('Bonnet roundel, rally plate and lower valance decals')
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.224,.224,1.57,1.142),(1180,1155,1558,1486),22,12)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.129,.129,1.087,.914),(1590,1166,1961,1315),12,5)
+def frontmark(xa,xb,ya,yb,z,rect):
+    decal([(xa,ya,z),(xb,ya,z),(xb,yb,z),(xa,yb,z)],rect)
 for s in [-1,1]:
-    strip([(s*.753,.248,2.004),(s*.786,.251,1.972),(s*.823,.254,1.89),(s*.852,.258,1.79)],(0,.052,0),'Ivory')
-    for x in [.18,.32,.69]:
-        bolt((s*x,.354,2.01),Z,.004,'Gunmetal')
+    x=s*.535
+    frontmark(x-.169,x+.169,.128,.190,2.016,(1116,944,1546,1052))
+    frontmark(x-.078,x+.078,.278,.316,2.021,(1574,949,2014,1031))
+frontmark(-.14,.14,.123,.198,2.018,(259,0,700,203))
+frontmark(-.296,-.242,.401,.446,2.019,(19,1390,151,1467))
+for s in [-1,1]:
+    # Flexible black flaps and a small body-coloured front wheel spat.
+    current='tail';part('Rear gravel flap '+str(s))
+    plate([(s*.707,.263,-1.594),(s*.893,.276,-1.594),(s*.911,.061,-1.637),(s*.711,.059,-1.635)],'Rubber',(0,0,-.007))
+    current='nose';part('Front wheel spat '+str(s))
+    plate([(s*.737,.288,.835),(s*.865,.296,.839),(s*.877,.109,.799),(s*.748,.113,.801)],'Ivory',(0,0,-.007))
+current='canopy';part('Roof aerial and mounting ferrule')
+q=roof(.10,-.063)
+cyl(q,add(q,(0,.012,0)),.016,'Black',24)
+cyl(add(q,(0,.012,0)),add(q,(0,.069,-.006)),.0048,'Silver',12,.0038)
+cyl(add(q,(0,.069,-.006)),add(q,(0,.357,-.034)),.0023,'Gunmetal',10,.001)
+
+def optical_lamp(x,y,z,r):
+    # A hollow parabolic reflector is visible through the fluted glass cover.
+    c=(x,y,z)
+    shell(c,Z,[(-r*.49,r*.13),(-r*.45,r*.31),(-r*.35,r*.57),(-r*.20,r*.79),(-r*.065,r*.94),(0,r*.98)],'Reflector',64)
+    sleeve((x,y,z-.002),Z,r,r*.945,.016,'Silver',48)
+    cyl((x,y,z-r*.49),(x,y,z-r*.11),r*.095,'Silver',16,r*.14)
+    cyl((x-r*.19,y,z-r*.095),(x+r*.19,y,z-r*.095),r*.033,'Lens',16)
+    def lens(a,rr):return (x+rr*cos(a),y+rr*sin(a),z+.002+.13*r*(1-(rr/r)**2))
+    grid(lens,seq(0,2*pi,48),seq(r*.006,r*.943,9),'Optical glass')
+    for j in range(-10,11):
+        dx=j*r*.084;span=sqrt((r*.93)**2-dx*dx)
+        points=[(x+dx,y+dy,z+.003+.13*r*(1-(dx*dx+dy*dy)/r**2)) for dy in seq(-span,span,9)]
+        path(points,.00065,'Lens',5)
+    tor((x,y,z+.002),Z,.952*r,.0024,'Reflector',48,8)
+current='nose';part('SIEM optical reflectors and lenses')
+for s in [-1,1]:
+    for off in [-.093,.093]:optical_lamp(s*.591+off,.433,2.028,.080)
+current='lamps';part('Auxiliary optical reflectors and lenses')
+for x in [-.349,-.121,.121,.349]:
+    y=.671 if abs(x)>.2 else .700
+    optical_lamp(x,y,1.972-.077*abs(x),.102)
+current='canopy';part('Pressed A-pillar flanges')
+for s in [-1,1]:
+    for a,b in zip(seq(0,1,18),seq(0,1,18)[1:]):
+        def pillar(t):return mix((s*.805,.748,.562),(s*.643,1.117,.18),t)
+        face([wind(s,a),wind(s,b),pillar(b),pillar(a)],'Ivory')
+for s in [-1,1]:
+    current='door'+str(s);part('Sliding side window')
+    def window(u,v):
+        lo=mix((s*.807,.75,.55),(s*.783,.798,-.49),u)
+        hi=mix((s*.64,1.108,.172),(s*.641,1.11,-.425),u)
+        return add(mix(lo,hi,v),(s*.0045,0,0))
+    pts=[window(u,v) for u,v in [(.35,.17),(.63,.17),(.63,.79),(.35,.79)]]
+    path(pts+[pts[0]],.0031,'Steel',7)
+    for u in [.35,.63]:
+        p=window(u,.49);cyl(p,add(p,(s*.004,0,0)),.006,'Black',12)
