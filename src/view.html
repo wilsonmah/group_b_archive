@@ -1,0 +1,369 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lancia Rally 037 · 三维拆解模型</title><style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Arial,"Microsoft YaHei",sans-serif;color:#20241f;background:#eeeee6}body{display:flex;flex-direction:column}button,input{font:inherit}button{color:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid #bd381f;outline-offset:3px}header{height:58px;flex:none;border-bottom:1px solid #a6a79e;display:flex;align-items:center;justify-content:space-between;padding:0 30px;background:#f7f7f0}.brand{display:flex;align-items:center;gap:14px;font-size:13px;font-weight:800;letter-spacing:1.7px}.mark{display:flex;gap:3px;transform:skew(-22deg)}.mark b{width:7px;height:21px;background:#cb452c}.headernote,.mono{font:10px/1.5 Consolas,"Courier New",monospace;letter-spacing:1.6px}.headernote{color:#55594f}.layout{display:grid;grid-template-columns:minmax(0,1fr) 294px;flex:1;min-height:0}.stage{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0}.view{position:relative;flex:1;min-height:280px;overflow:hidden;background:#e9eae2}canvas{position:absolute;inset:0;height:100%;width:100%;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}.caption{position:absolute;left:34px;top:28px;pointer-events:none}.eyebrow{color:#a63825;font:700 11px/1.2 Consolas,monospace;letter-spacing:2px}.caption h1{font:800 clamp(37px,4.6vw,80px)/.98 Arial,sans-serif;letter-spacing:-.079em;margin:10px 0 8px}.caption p{font-size:13px;letter-spacing:1.5px;margin:0;color:#595c53}.orient{position:absolute;right:22px;bottom:19px;display:flex;gap:4px}.orient button,.tool{background:#f7f7f0d9;border:1px solid #acad9f;padding:7px 10px;font-size:11px}.orient button:hover,.tool:hover{background:#fff}.viewid{position:absolute;bottom:22px;left:34px;color:#5b5e54;font:10px Consolas,monospace;letter-spacing:1.5px}.ctrl{padding:18px 30px 20px;border-top:1px solid #b9bbb0;background:#f6f6ef;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center}.play{background:#262a24;color:white;border:0;min-width:104px;height:40px;font-size:13px;font-weight:bold}.play:hover{background:#3e463c}.pct{font:600 26px/1 Consolas,monospace;letter-spacing:-2px;min-width:67px;text-align:right}.pct small{font-size:14px}.rangewrap{display:grid;gap:5px}.labels{display:flex;justify-content:space-between;font-size:10px;color:#61665a}input[type=range]{width:100%;margin:0;accent-color:#bd482e;cursor:pointer}.panel{border-left:1px solid #a6a79e;background:#f7f7f0;display:flex;flex-direction:column;min-height:0}.ph{padding:24px 20px 13px}.ph .mono{color:#797d71}.ph h2{font-weight:700;font-size:23px;margin:4px 0 0;letter-spacing:-1px}.list{padding:0 18px;overflow:auto;flex:1}.row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-bottom:1px solid #d7d9ce;text-align:left;padding:0 8px;height:clamp(31px,4.55vh,48px);font-size:13px}.row .num{color:#929789;font:10px Consolas,monospace}.row .led{margin-left:auto;color:#9b9e90;font-size:13px}.row.on{background:#e7e8dd}.row.on .num,.row.on .led{color:#b43d28}.row:hover{background:#eceee4}.info{border-top:1px solid #c0c3b7;padding:15px 22px 17px}.info h3{margin:5px 0;font-size:15px}.info p{font-size:12px;line-height:1.6;color:#5c6156;margin:5px 0 10px}.info .mono{color:#858a7c;font-size:9px}.help{font-size:10px;letter-spacing:1px;color:#777d70}.tool{width:100%;font-size:12px}.tool[hidden]{display:none}footer{height:28px;flex:none;border-top:1px solid #aeb1a6;display:flex;align-items:center;justify-content:space-between;padding:0 27px;background:#e9ebe1;color:#656b5e;font:9px Consolas,monospace;letter-spacing:1.4px}canvas+div.error{position:absolute;top:45%;left:12%;right:12%;padding:20px;background:white}
+@media(max-width:800px){.layout{grid-template-columns:minmax(0,1fr) 218px}.ph{padding:16px}.list{padding:0 9px}.caption{left:18px;top:17px}.ctrl{gap:9px;padding:12px}.headernote{font-size:8px}header{padding:0 16px}.viewid{display:none}}
+@media(max-width:600px){body{height:auto;min-height:100%}header{height:47px}.layout{display:flex;flex-direction:column}.view{height:58vh;min-height:350px;flex:auto}.panel{border-left:0;border-top:1px solid #aaa}.list{display:grid;grid-template-columns:1fr 1fr}.row{height:36px}.ph{padding:13px 15px 5px}.ph h2{font-size:20px}.info{margin-top:10px}.headernote{display:none}.caption h1{font-size:39px}.orient{bottom:8px;right:8px}.info .help{display:none}footer{padding:0 10px;font-size:8px}}
+
+header{background:#101418;border-color:#3a4148;color:#f6f6f4;gap:24px}.brand{white-space:nowrap}.headernote{color:#a3adb3}.mark b{background:#ed4a31}nav{display:flex;height:100%;gap:7px;align-items:stretch}.modetab{border:0;border-bottom:3px solid transparent;background:none;color:#aab3ba;padding:0 19px;font-size:13px;font-weight:600}.modetab.active{color:white;border-color:#ef5037}.modetab:hover{background:#232a30}.view{background:#232a31}.caption{color:#fff}.eyebrow{color:#ff8d74}.caption h1{font-size:clamp(32px,4.05vw,65px);letter-spacing:-.065em}.caption p{color:#c2cbd2}.viewid{color:#bec7ce}.orient button{background:#1d242dd9;border-color:#58626b;color:#f2f4f6}.orient button:hover{background:#3a444a}.ctrl,.panel,header,footer{font-family:Arial,"Microsoft YaHei",sans-serif}.ctrl,.panel{background:#eff0ed}.ph{padding-top:19px}.row{height:clamp(31px,4.1vh,40px)}.row.on{background:#dde3e2}.row.on .led,.row.on .num{color:#be3f29}.info{padding-top:12px}.ph select{margin-top:9px;width:100%;border:1px solid #b9c0bc;background:#fafaf6;padding:6px;color:#28302f}.tool+.tool{margin-top:5px}.tool{background:#f8f9f6}#entry{background:#283636;color:#fff}.local-label{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#414b49;margin:7px 0}#perpart{margin-bottom:10px}#resetParts{font-size:11px}.info .help{line-height:1.6}footer{background:#e1e5e2}.panel{border-left-color:#626a6d}.headernote{font-family:Consolas,monospace}
+@media(max-width:850px){header{gap:8px}.headernote{display:none}.modetab{padding:0 13px}.caption{top:19px}.info{padding:12px}.list{min-height:110px}}
+@media(max-width:600px){.brand{font-size:10px;gap:8px;letter-spacing:1px}.modetab{padding:0 8px;font-size:12px}.panel .list{max-height:240px;min-height:55px;flex:auto}.caption h1{font-size:33px}.caption p{font-size:11px}}
+
+.runpanel,.opctrl{display:none}.operating .panel,.operating .ctrl{display:none}.operating .runpanel{display:block;min-height:0;overflow:auto;background:#f0f1ed;border-left:1px solid #8d9593;padding:22px 18px}.runpanel h2{font-size:24px;letter-spacing:-1px;margin:5px 0 18px}.runpanel .mono{color:#777e7e;font-size:10px}.runpanel fieldset{margin:0 0 18px;padding:0 0 17px;border:0;border-bottom:1px solid #c9cdca}.runpanel legend,.opline{font-size:13px;font-weight:bold}.runpanel legend{margin:0 0 10px}.switches,.gearset{display:flex;gap:3px}.switches button,.gearset button{flex:1;min-width:0;border:1px solid #b5bcb7;background:#f8f9f6;padding:7px 0;font-size:12px}.gearset button{font:600 15px Consolas,monospace}.switches button[aria-pressed=true],.gearset button[aria-pressed=true]{background:#273432;color:white;border-color:#273432}.specgrid{display:flex;gap:24px;margin:14px 0 9px}.specgrid span{font-size:10px;color:#67706c}.specgrid b{display:block;font:600 24px Consolas,monospace;color:#25332f;margin-top:3px}.runpanel p{font-size:12px;line-height:1.65;color:#49534e;margin:8px 0}.legend{display:flex;gap:14px;font-size:11px}.legend span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.gold:before{background:#d39537}.green:before{background:#25a990}.blue:before{background:#3387b7}#cylinders{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}#cylinders div{padding:8px 4px;font:10px Consolas,monospace;text-align:center;border-top:3px solid #a3a79e;background:#e5e8e2}#cylinders b{display:block;margin-top:4px;font-size:13px}#cylinders [data-stroke="0"]{border-color:#dd9031}#cylinders [data-stroke="1"]{border-color:#cc6850}#cylinders [data-stroke="2"]{border-color:#3690bc}.opline{display:flex;align-items:center;justify-content:space-between}.speed{margin-top:10px}.speed select{background:white;padding:4px;border:1px solid #adb4ae}.runpanel .note{font-size:11px;color:#68726c}.operating .opctrl{display:grid;grid-template-columns:auto minmax(60px,1fr) 47px auto;align-items:center;gap:14px;background:#eff0ed;padding:17px 25px;border-top:1px solid #afb5b1}.opctrl label{font-size:11px;color:#5a625c}.opctrl output{font:600 18px Consolas,monospace}.opctrl .tool{width:auto}.operating .caption h1{font-size:clamp(32px,3.9vw,57px)}
+@media(max-width:600px){.operating .runpanel{border-left:0}.operating .opctrl{padding:12px 8px;gap:5px}.opctrl .play{min-width:65px}.modetab{padding:0 6px}}
+</style></head><body><header><div class="brand"><i class="mark"><b></b><b></b><b></b></i>RALLY ARCHIVE</div><nav aria-label="模型视图"><button class="modetab active">整车</button><button class="modetab">发动机</button><button class="modetab">变速箱</button><button class="modetab" id="runTab" aria-pressed="false">运转</button></nav><div class="headernote">TECHNICAL COLLECTION &nbsp; / &nbsp; GROUP B</div></header>
+<main class="layout"><section class="stage"><div class="view"><canvas aria-label="蓝旗亚037三维模型，可拖动旋转和滚轮缩放"></canvas><div class="caption"><div class="eyebrow" id="kicker">LANCIA &nbsp;/&nbsp; GROUP B</div><h1>RALLY 037</h1><p id="subtitle">蓝旗亚 037 拉力赛车</p></div><div class="viewid" id="mode"></div><div class="orient"><button id="home">初始视角</button><button id="side">侧视</button><button id="up">俯视</button></div></div><div class="ctrl"><button class="play" id="play">▶  拆解</button><div class="rangewrap"><div class="labels"><span id="assembled">整车</span><span id="scope">拆解进度</span><span>完全展开</span></div><input id="range" aria-label="拆解进度" type="range" min="0" max="100" value="0"></div><div class="pct"><span id="pct">00</span><small>%</small></div></div><div class="opctrl"><button id="runPlay" class="play">Ⅱ 暂停</button><div class="rangewrap"><label for="cycleInput">曲轴转角 · 四冲程循环</label><input id="cycleInput" type="range" min="0" max="720" value="0" step="1"></div><output id="angleVal">0°</output><button id="stepOp" class="tool">步进 15°</button></div></section>
+<aside class="panel"><div class="ph"><div class="mono" id="count">ASSEMBLY INDEX &nbsp;/&nbsp; 14</div><h2 id="listtitle">部件目录</h2><select id="family" aria-label="筛选零件类别" hidden></select></div><div class="list" id="list"></div><div class="info"><div class="mono" id="eng">MODEL OVERVIEW</div><h3 id="name">整车总览</h3><p id="desc">选择部件可定位总成，拖动下方进度条可查看拆解过程。</p><div id="perpart" hidden><div class="local-label"><label for="local">单件拆出</label><span id="localpct"></span></div><input id="local" type="range" min="0" max="100"></div><button class="tool" id="entry" hidden>进入内部拆解</button><button class="tool" id="resetParts" hidden>清除单件调整</button><button class="tool" id="isolate" hidden>单独查看</button><div class="help" id="help">点选零件 &nbsp; · &nbsp; 拖动旋转 &nbsp; · &nbsp; 滚轮缩放</div></div></aside><aside class="runpanel"><div class="mono">POWERTRAIN MONITOR</div><h2>运转观察</h2><fieldset><legend>观察范围</legend><div class="switches"><button data-focus="both">全总成</button><button data-focus="engine">发动机</button><button data-focus="gearbox">变速箱</button></div></fieldset>
+<fieldset><legend>变速箱挡位</legend><div id="gearset" class="gearset"><button data-gear="-1" aria-label="倒挡">R</button><button data-gear="0" aria-label="空挡">N</button><button data-gear="1" aria-label="1 挡">1</button><button data-gear="2" aria-label="2 挡">2</button><button data-gear="3" aria-label="3 挡">3</button><button data-gear="4" aria-label="4 挡">4</button><button data-gear="5" aria-label="5 挡">5</button></div><div class="specgrid"><span>挡位传动比<b id="ratio"></b></span><span>输出轴 r/min<b id="outRPM"></b></span></div><p id="route"></p><div class="legend"><span class="gold">输入</span><span class="green">接合</span><span class="blue">输出</span></div></fieldset>
+<fieldset><legend>四缸行程</legend><div id="cylinders"><div>1 缸<b></b></div><div>2 缸<b></b></div><div>3 缸<b></b></div><div>4 缸<b></b></div></div><p>点火顺序 1 → 3 → 4 → 2。蓝色为进气机构，红色为排气机构。</p></fieldset><fieldset><div class="opline"><label for="shell">外壳可见度</label><output id="shellVal">6%</output></div><input type="range" id="shell" min="0" max="100" value="6"><div class="opline speed"><label for="rpm">演示转速</label><select id="rpm"><option value="6">6 r/min</option><option value="12" selected>12 r/min</option><option value="24">24 r/min</option><option value="48">48 r/min</option></select></div></fieldset><p class="note">传动比取自模型齿数。配气采用简化的四冲程正时，差速器按直线等速行驶演示。</p></aside></main><footer><span>LANCIA RALLY 037 &nbsp; / &nbsp; 3D STUDY</span><span>结构示意模型</span></footer>
+<script id="data" type="application/octet-stream">__DATA__</script><script>
+'use strict';
+const $=id=>document.getElementById(id), can=document.querySelector('canvas'),gl=can.getContext('webgl',{antialias:true,alpha:false,preserveDrawingBuffer:true});
+if(!gl){const msg=document.createElement('div');msg.className='error';msg.textContent='此浏览器无法启动 WebGL。请启用硬件加速，或在三维软件中打开配套 GLB 文件。';can.after(msg);throw Error('WebGL unavailable')}
+const raw=Uint8Array.from(atob($('data').textContent),c=>c.charCodeAt(0)),dv=new DataView(raw.buffer),jl=dv.getUint32(12,true),g=JSON.parse(new TextDecoder().decode(raw.subarray(20,20+jl))),start=28+jl;
+const V=(i)=>{let a=g.accessors[i],v=g.bufferViews[a.bufferView],C=({5126:Float32Array,5123:Uint16Array,5125:Uint32Array})[a.componentType];return new C(raw.buffer,start+v.byteOffset+(a.byteOffset||0),a.count*({VEC3:3,VEC2:2,SCALAR:1})[a.type])};
+const roots=g.scenes[0].nodes.map(i=>g.nodes[i]), draws=[];
+function buf(a,t=gl.ARRAY_BUFFER){let b=gl.createBuffer();gl.bindBuffer(t,b);gl.bufferData(t,a,gl.STATIC_DRAW);return b}
+roots.forEach((r,k)=>r.children.forEach(i=>g.meshes[g.nodes[i].mesh].primitives.forEach(p=>{let a=p.attributes,ac=g.accessors[a.POSITION],mi=g.materials[p.material].pbrMetallicRoughness;draws.push({k,node:i,positions:V(a.POSITION),triangles:V(p.indices),rest:g.nodes[i].translation||[0,0,0],p:buf(V(a.POSITION)),n:buf(V(a.NORMAL)),uv:a.TEXCOORD_0===undefined?null:buf(V(a.TEXCOORD_0)),ib:buf(V(p.indices),gl.ELEMENT_ARRAY_BUFFER),c:g.accessors[p.indices].count,color:mi.baseColorFactor.slice(0,3),alpha:mi.baseColorFactor[3],metal:mi.metallicFactor,rough:mi.roughnessFactor,min:ac.min,max:ac.max})})));
+const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([255,255,255,0]));
+const img=new Image(),im=g.bufferViews[g.images[0].bufferView],url=URL.createObjectURL(new Blob([raw.slice(start+im.byteOffset,start+im.byteOffset+im.byteLength)],{type:'image/png'}));img.onload=()=>{gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img);gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);URL.revokeObjectURL(url);dirty=true};img.src=url;
+function program(v,f){function sh(t,s){let a=gl.createShader(t);gl.shaderSource(a,s);gl.compileShader(a);if(!gl.getShaderParameter(a,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(a));return a}let p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,v));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,f));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));return p}
+const vs='attribute vec3 p,n;attribute vec2 uv;uniform mat4 vp,lp;uniform mat3 motion,normalMotion;uniform vec3 off;varying vec3 N,P;varying vec2 U;varying vec4 L;void main(){P=motion*p+off;N=normalMotion*n;U=uv;L=lp*vec4(P,1.);gl_Position=vp*vec4(P,1.);}';
+const fs=`precision highp float;varying vec3 N,P;varying vec2 U;varying vec4 L;uniform vec3 base,eye;uniform float metal,rough,tex,ground,dim,opacity;uniform sampler2D atlas,shadow;float vis(){vec3 l=L.xyz/L.w*.5+.5;float s=0.;vec4 centre=texture2D(shadow,l.xy);float penumbra=clamp((l.z-centre.r-centre.g/255.)*.20,.00065,.009);for(int i=0;i<16;i++){float t=float(i)+.5;vec2 dp=vec2(cos(2.39996*t),sin(2.39996*t))*sqrt(t/16.)*penumbra;vec4 c=texture2D(shadow,l.xy+dp);s+=step(l.z-.0007,c.r+c.g/255.);}return s/16.;}void main(){float v=vis();if(ground>.5){float radial=exp(-.043*dot(P.xz,P.xz));vec3 c=mix(vec3(.091,.107,.125),vec3(.297,.326,.349),radial);gl_FragColor=vec4(c*(.74+.26*v),1.);return;}vec3 b=base;if(tex>.5){vec4 d=texture2D(atlas,U);if(d.a<.32)discard;b=pow(d.rgb,vec3(2.2));}vec3 n=normalize(N),e=normalize(eye-P);if(dot(n,e)<0.)n=-n;vec3 li=normalize(vec3(-2.8,6.,3.6));float nd=max(0.,dot(n,li));vec3 refl=reflect(-e,n);
+float topPanel=exp(-pow((refl.y-.72)/(.17+.28*rough),2.)-pow((refl.z+.20)/(.67+.2*rough),2.));
+float rimPanel=exp(-pow((refl.z-.62)/(.12+.23*rough),2.)-pow((refl.y-.40)/(.22+.3*rough),2.));
+float strips=.15+1.6*topPanel+.91*rimPanel+.30*pow(max(0.,refl.y),4.);
+vec3 f0=mix(vec3(.038),b,metal);vec3 F=f0+(1.-f0)*pow(1.-max(0.,dot(n,e)),5.);
+float env=.40+.2*n.y+.30*max(0.,dot(n,normalize(vec3(3.,2.,-2.))));
+vec3 diffuse=b*(1.-.76*metal)*(env+nd*(.18+.60*v));
+vec3 reflected=strips*F*(1.-rough*.63)*vec3(.93,.97,1.03);
+vec3 key=vec3(1.,.94,.86)*pow(max(0.,dot(normalize(li+e),n)),mix(125.,13.,rough))*F*(1.6-.9*rough);
+vec3 lum=(diffuse+reflected+key)*1.10;
+vec3 col=pow(lum/(1.+.26*lum),vec3(1./2.2));
+gl_FragColor=vec4(mix(col,vec3(.28,.32,.35),dim),opacity);}`;
+const shadowF='precision highp float;void main(){float z=gl_FragCoord.z;gl_FragColor=vec4(floor(z*255.)/255.,fract(z*255.),0.,1.);}';
+const main=program(vs,fs),shad=program('attribute vec3 p;uniform mat4 vp;uniform mat3 motion;uniform vec3 off;void main(){gl_Position=vp*vec4(motion*p+off,1.);}',shadowF);
+function loc(pr){let r={};for(let n of ['p','n','uv'])r[n]=gl.getAttribLocation(pr,n);for(let n of ['motion','normalMotion','vp','lp','off','base','eye','metal','rough','tex','ground','dim','opacity','atlas','shadow'])r[n]=gl.getUniformLocation(pr,n);return r}
+const M=loc(main),S=loc(shad),sm=gl.createTexture(),fb=gl.createFramebuffer(),dep=gl.createRenderbuffer(),res=Math.min(2048,gl.getParameter(gl.MAX_TEXTURE_SIZE));
+gl.bindTexture(gl.TEXTURE_2D,sm);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,res,res,0,gl.RGBA,gl.UNSIGNED_BYTE,null);for(let p of [gl.TEXTURE_MIN_FILTER,gl.TEXTURE_MAG_FILTER])gl.texParameteri(gl.TEXTURE_2D,p,gl.NEAREST);for(let p of [gl.TEXTURE_WRAP_S,gl.TEXTURE_WRAP_T])gl.texParameteri(gl.TEXTURE_2D,p,gl.CLAMP_TO_EDGE);
+gl.bindRenderbuffer(gl.RENDERBUFFER,dep);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,res,res);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,sm,0);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,dep);gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+const floor=buf(new Float32Array([-80,0,-80,80,0,-80,-80,0,80,-80,0,80,80,0,-80,80,0,80]));
+const dot=(a,b)=>a.reduce((v,x,i)=>v+x*b[i],0),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],unit=a=>a.map(x=>x/Math.hypot(...a)),sub=(a,b)=>a.map((x,i)=>x-b[i]);
+function matrix(eye,target,w,h){const depth=Math.max(.35,w*3.1);let z=unit(sub(eye,target)),x=unit(cross([0,1,0],z)),y=cross(z,x),a=[...x.map(v=>v/w),-dot(x,target)/w],b=[...y.map(v=>v/h),-dot(y,target)/h],c=[...z.map(v=>-v/depth),dot(z,target)/depth];return new Float32Array([a[0],b[0],c[0],0,a[1],b[1],c[1],0,a[2],b[2],c[2],0,a[3],b[3],c[3],1])}
+function at(l,b,k){if(l<0)return;gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,k,gl.FLOAT,false,0,0)}
+function no(l,v){if(l<0)return;gl.disableVertexAttribArray(l);if(v.length===3)gl.vertexAttrib3fv(l,v);else gl.vertexAttrib2fv(l,v)}
+const tabs=[...document.querySelectorAll('.modetab:not(#runTab)')];
+const engines=roots.findIndex(r=>r.extras.key==='engine'),gears=roots.findIndex(r=>r.extras.key==='gearbox');
+let domain=-1,selectedNode=-1,unitSolo=false,filter='',moves=new Map();
+let t=0,yaw=.91,pitch=.285,zoom=1,sel=-1,solo=false,anim=null,dirty=true;
+const stateCache=new Map();
+const viewState=()=>({t,yaw,pitch,zoom,sel,solo,selectedNode,unitSolo,filter,moves:new Map(moves)});
+const internal=()=>domain>=0;
+function shift(d){
+    const motion=internal()?g.nodes[d.node].extras.vec:roots[d.k].extras.vec;
+    const fraction=internal()?(moves.get(d.node)??t):(solo?0:t);
+    return d.rest.map((v,i)=>v+fraction*motion[i]);
+}
+function visible(d){
+    if(op.on)return runVisible(d);
+    if(internal())return d.k===domain&&(!unitSolo||d.node===selectedNode);
+    return !solo||d.k===sel;
+}
+function dimmed(d){
+    if(op.on)return false;
+    if(internal())return selectedNode>=0&&d.node!==selectedNode;
+    return sel>=0&&d.k!==sel;
+}
+let lastCamera=null;
+function render(){
+ const dpr=Math.min(devicePixelRatio||1,2),w=Math.round(can.clientWidth*dpr),h=Math.round(can.clientHeight*dpr);
+ if(can.width!==w||can.height!==h){can.width=w;can.height=h;dirty=true}if(!dirty||!w||!h)return;dirty=false;
+ const active=draws.filter(visible);let origin=[0,.61+.50*t,0],halfW=(2.40+1.40*t)*zoom,low=Math.min(-.006,-.284*t-.008);
+ if(op.on){const gear=op.focus==="gearbox",eng=op.focus==="engine";origin=[0,.43,eng?-.90:gear?-1.47:-1.20];halfW=(eng?.355:gear?.465:.695)*zoom;low=.195;motionFrame=new Map([...new Set(active.map(d=>d.node))].map(id=>[id,poseFor(id)]))}
+ else if(solo||internal()){let lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];for(const d of active){const off=shift(d);for(let i=0;i<3;i++){lo[i]=Math.min(lo[i],d.min[i]+off[i]);hi[i]=Math.max(hi[i],d.max[i]+off[i])}}origin=lo.map((v,i)=>(v+hi[i])/2);halfW=Math.max(...sub(hi,lo))*(internal()?.72:.71)*zoom;low=lo[1]-.017}
+ const aspect=w/h,halfh=Math.max(halfW/aspect,halfW*.55);halfW=halfh*aspect;
+ origin[1]+=halfh*(internal()?.10:.07);
+ const dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],eye=origin.map((v,i)=>v+dir[i]*12),vp=matrix(eye,origin,halfW,halfh);
+ const radius=op.on||solo||internal()?Math.max(.15,halfW*1.7):4.8;lastCamera={origin,dir,halfW,halfh};const light=matrix(origin.map((a,i)=>a+[-2.8,6,3.6][i]),origin,radius,radius);
+ gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.viewport(0,0,res,res);gl.clearColor(1,1,1,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(shad);gl.uniformMatrix4fv(S.vp,false,light);
+ for(let l=0;l<3;l++)gl.disableVertexAttribArray(l);
+ for(const d of active){if(d.uv||d.alpha<1||(op.on&&motionFrame.get(d.node).alpha<1)||(internal()&&dimmed(d)))continue;at(S.p,d.p,3);motionUniforms(S,d);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,d.ib);gl.drawElements(gl.TRIANGLES,d.c,gl.UNSIGNED_SHORT,0)}
+ gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,w,h);gl.clearColor(.091,.107,.125,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(main);gl.uniformMatrix4fv(M.vp,false,vp);gl.uniformMatrix4fv(M.lp,false,light);gl.uniform3fv(M.eye,eye);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);gl.uniform1i(M.atlas,0);gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,sm);gl.uniform1i(M.shadow,1);
+ motionUniforms(M,null);gl.uniform1f(M.ground,1);gl.uniform3fv(M.off,[0,low,0]);at(M.p,floor,3);no(M.n,[0,1,0]);no(M.uv,[0,0]);if(pitch>=0)gl.drawArrays(gl.TRIANGLES,0,6);gl.uniform1f(M.ground,0);
+ const opacity=d=>op.on?motionFrame.get(d.node).alpha:internal()&&dimmed(d)?Math.min(.14,d.alpha):d.alpha;const sorted=[...active].sort((a,b)=>opacity(b)-opacity(a));for(const d of sorted){if(opacity(d)<1){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false)}gl.uniform1f(M.opacity,opacity(d));motionUniforms(M,d);gl.uniform3fv(M.base,op.on?(metalColors[motionFrame.get(d.node).tag]||d.color):d.color);gl.uniform1f(M.metal,d.metal);gl.uniform1f(M.rough,d.rough);gl.uniform1f(M.dim,dimmed(d)?.77:0);gl.uniform1f(M.tex,d.uv?1:0);at(M.p,d.p,3);at(M.n,d.n,3);if(d.uv)at(M.uv,d.uv,2);else no(M.uv,[0,0]);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,d.ib);gl.drawElements(gl.TRIANGLES,d.c,gl.UNSIGNED_SHORT,0)}
+ gl.depthMask(true);gl.disable(gl.BLEND);window.modelReady=true;
+}
+const rows=[];
+function currentName(){return internal()?roots[domain].extras.zh:'整车'}
+function updateControls(){
+    const n=selectedNode>=0?g.nodes[selectedNode].extras:null;
+    const root=sel>=0?roots[sel].extras:null;
+    const item=internal()?n:root;
+    $('isolate').hidden=!item;
+    $('isolate').textContent=(internal()?unitSolo:solo)?'返回总成视图':'单独查看';
+    $('entry').hidden=internal()||![engines,gears].includes(sel);
+    $('perpart').hidden=!internal()||!n;
+    if(n){const val=Math.round((moves.get(selectedNode)??t)*100);$('local').value=val;$('localpct').textContent=val+'%'}
+    $('eng').textContent=item?item.en.toUpperCase():internal()?'ASSEMBLY OVERVIEW':'MODEL OVERVIEW';
+    $('name').textContent=item?item.zh:currentName()+'总览';
+    $('desc').textContent=internal()?(n?n.family+' · “单件拆出”只移动此零件。':'拖动总成进度可展开全部零件，也可在目录中选择单件。'):(root?root.desc:'可查看整车爆炸图，或进入发动机、变速箱逐件拆解。');
+    $('help').hidden=!!item;
+    $('range').disabled=!internal()&&solo;
+    $('play').disabled=!internal()&&solo;
+    $('scope').textContent=internal()?'总成拆解进度':'整车拆解进度';
+    $('assembled').textContent=internal()?'装配位置':'整车';
+    $('range').setAttribute('aria-label',$('scope').textContent);
+    $('mode').textContent=internal()?(unitSolo?'PART INSPECTION':moves.size?'INDIVIDUAL DISASSEMBLY':t?'EXPLODED ASSEMBLY':'ASSEMBLED UNIT'):(solo?'ISOLATED ASSEMBLY':t?'EXPLODED VIEW':'ASSEMBLED VIEW');
+    const val=Math.round(t*100);$('range').value=val;$('pct').textContent=String(val).padStart(2,'0');
+    $('play').textContent=anim?'Ⅱ  暂停':t>=.995?'◀  复原':'▶  拆解';
+    $('resetParts').hidden=!internal()||!moves.size;
+    dirty=true;
+}
+const sync=updateControls;
+function updateRows(){
+    rows.length=0;$('list').replaceChildren();
+    const ids=internal()?roots[domain].children:roots.map((_,i)=>i);
+    const activeID=internal()?selectedNode:sel;
+    ids.forEach((id,j)=>{
+        const data=internal()?g.nodes[id].extras:roots[id].extras;
+        if(internal()&&filter&&data.family!==filter)return;
+        const btn=document.createElement('button');btn.className='row';btn.classList.toggle('on',id===activeID);
+        btn.setAttribute('aria-pressed',id===activeID);
+        const num=document.createElement('span');num.className='num';num.textContent=String(j+1).padStart(2,'0');
+        const name=document.createElement('span');name.textContent=data.zh;
+        const led=document.createElement('span');led.className='led';led.textContent=id===activeID?'●':'＋';btn.append(num,name,led);
+        btn.onclick=()=>{
+            if(internal()){unitSolo=false;selectedNode=selectedNode===id?-1:id}
+            else{solo=false;sel=sel===id?-1:id}
+            zoom=1;anim=null;updateRows();sync();
+        };
+        rows.push(btn);$('list').appendChild(btn);
+    });
+}
+function switchMode(next){
+    leaveRun();
+    if(domain!==next){stateCache.set(domain,viewState());domain=next;
+        const v=stateCache.get(next)||{t:0,yaw:next===-1?.91:1.07,pitch:next===-1?.285:.36,zoom:1,sel:-1,solo:false,selectedNode:-1,unitSolo:false,filter:'',moves:new Map()};
+        ({t,yaw,pitch,zoom,sel,solo,selectedNode,unitSolo,filter,moves}=v);
+    }
+    anim=null;
+    const inUnit=internal(),kind=domain===engines?'ENGINE':'TRANSAXLE',title=inUnit?(domain===engines?'TIPO 232 AR4':'ZF · 5 SPEED'):'RALLY 037';
+    document.querySelector('h1').textContent=title;
+    $('subtitle').textContent=inUnit?(domain===engines?'2.0 升机械增压直列四缸':'五速手动变速驱动桥'):'蓝旗亚 037 · Evoluzione 1';
+    $('kicker').textContent=inUnit?'LANCIA 037   /   '+kind:'LANCIA   /   GROUP B';
+    tabs.forEach((b,i)=>{const on=next===[-1,engines,gears][i];b.classList.toggle('active',on);b.setAttribute('aria-pressed',on)});
+    const ids=inUnit?roots[domain].children:[];
+    $('count').textContent=(inUnit?'COMPONENT INDEX':'ASSEMBLY INDEX')+'  /  '+(inUnit?ids.length:roots.length);
+    $('listtitle').textContent=inUnit?'零件目录':'总成目录';
+    $('family').hidden=!inUnit;
+    if(inUnit){
+        const opts=[new Option('全部零件',''),...Array.from(new Set(ids.map(i=>g.nodes[i].extras.family)),f=>new Option(f,f))];
+        $('family').replaceChildren(...opts);$('family').value=filter;
+    }
+    $('list').scrollTop=0;updateRows();sync();
+}
+tabs.forEach((b,i)=>b.onclick=()=>switchMode([-1,engines,gears][i]));
+$('family').onchange=e=>{filter=e.target.value;selectedNode=-1;unitSolo=false;zoom=1;updateRows();sync()};
+$('entry').onclick=()=>switchMode(sel);
+$('isolate').onclick=()=>{if(internal())unitSolo=!unitSolo;else solo=!solo;zoom=1;anim=null;sync()};
+$('local').oninput=e=>{if(selectedNode<0)return;anim=null;moves.set(selectedNode,+e.target.value/100);sync()};
+$('resetParts').onclick=()=>{moves.clear();sync()};
+$('range').oninput=e=>{anim=null;if(internal())moves.clear();t=+e.target.value/100;sync()};
+$('play').onclick=()=>{if(anim)anim=null;else{if(internal())moves.clear();const end=t>=.995?0:1;anim={from:t,to:end,start:performance.now(),duration:Math.max(300,2350*Math.abs(t-end))}}sync()};
+function setView(y,p){yaw=y;pitch=p;zoom=1;dirty=true}
+$('home').onclick=()=>op.on?setRunFocus(op.focus):setView(internal()?1.07:.91,internal()?.36:.285);$('side').onclick=()=>setView(Math.PI/2,.025);$('up').onclick=()=>setView(Math.PI/2,1.565);
+
+function pickPart(clientX,clientY){
+    if(!lastCamera||op.on)return;
+    const {origin,dir,halfW,halfh}=lastCamera,rect=can.getBoundingClientRect();
+    const right=unit(cross([0,1,0],dir)),up=cross(dir,right);
+    const px=((clientX-rect.left)/rect.width*2-1)*halfW,py=(1-2*(clientY-rect.top)/rect.height)*halfh;
+    const eye=origin.map((x,i)=>x+px*right[i]+py*up[i]+12*dir[i]),ray=dir.map(x=>-x);
+    let nearest=Infinity,hit;
+    for(const d of draws){
+        if(!visible(d)||d.uv)continue;
+        const off=shift(d),o=sub(eye,off);
+        let near=0,far=nearest;
+        for(let i=0;i<3;i++){
+            if(Math.abs(ray[i])<1e-8){if(o[i]<d.min[i]||o[i]>d.max[i]){far=-1;break}continue}
+            const a=(d.min[i]-o[i])/ray[i],b=(d.max[i]-o[i])/ray[i];
+            near=Math.max(near,Math.min(a,b));far=Math.min(far,Math.max(a,b));
+        }
+        if(far<near)continue;
+        const pos=d.positions,idx=d.triangles;
+        for(let j=0;j<idx.length;j+=3){
+            const a=pos.subarray(3*idx[j],3*idx[j]+3),b=pos.subarray(3*idx[j+1],3*idx[j+1]+3),c=pos.subarray(3*idx[j+2],3*idx[j+2]+3);
+            const ab=sub(b,a),ac=sub(c,a),h=cross(ray,ac),det=dot(ab,h);
+            if(Math.abs(det)<1e-10)continue;
+            const delta=sub(o,a),u=dot(delta,h)/det;if(u<0||u>1)continue;
+            const q=cross(delta,ab),v=dot(ray,q)/det;if(v<0||v+u>1)continue;
+            const dist=dot(ac,q)/det;if(dist>0&&dist<nearest){nearest=dist;hit=d}
+        }
+    }
+    if(!hit)return;
+    if(internal()){
+        selectedNode=hit.node;
+        if(filter&&filter!==g.nodes[hit.node].extras.family){filter='';$('family').value=''}
+    }else sel=hit.k;
+    anim=null;updateRows();sync();
+    const chosen=$('list').querySelector('.on');if(chosen)chosen.scrollIntoView({block:'nearest'});
+}
+let clickStart=null;
+const pointers=new Map();let pinch=0;can.onpointerdown=e=>{clickStart=pointers.size?null:[e.clientX,e.clientY];can.setPointerCapture(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);pinch=pointers.size===2?Math.hypot(...sub(...pointers.values())):0};
+can.onpointermove=e=>{if(!pointers.has(e.pointerId))return;let old=pointers.get(e.pointerId),p=[e.clientX,e.clientY];if(clickStart&&Math.hypot(...sub(p,clickStart))>4)clickStart=null;pointers.set(e.pointerId,p);if(pointers.size===2){let dist=Math.hypot(...sub(...pointers.values()));if(pinch&&dist)zoom=Math.max(.35,Math.min(3,zoom*pinch/dist));pinch=dist}else{yaw-=(p[0]-old[0])*.009;pitch=Math.max(-1.53,Math.min(1.565,pitch+(p[1]-old[1])*.006))}dirty=true};
+can.onpointerup=e=>{pointers.delete(e.pointerId);if(clickStart)pickPart(e.clientX,e.clientY);clickStart=null;pinch=0};can.onpointercancel=e=>{clickStart=null;pointers.delete(e.pointerId);pinch=0};can.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.35,Math.min(3,zoom*Math.exp(e.deltaY*.001)));dirty=true},{passive:false});
+const TAU=2*Math.PI, cycle=2*TAU, firing=[0,3*Math.PI,Math.PI,2*Math.PI];
+const driveTeeth=[14,18,23,27,31], drivenTeeth=driveTeeth.map(n=>48-n);
+const identity=[1,0,0,0,1,0,0,0,1],zero=[0,0,0];
+const sw=(a,n)=>((a%n)+n)%n;
+function crankLink(a,i){
+    const s=i===0||i===3?1:-1, r=.045,L=.119;
+    const px=-s*r*Math.sin(a),py=.36+s*r*Math.cos(a);
+    const pinY=py+Math.sqrt(L*L-px*px);
+    return {px,py,pinY,dy:pinY-(.36+s*r+L),rot:Math.asin(px/L),restPin:.36+s*r};
+}
+function valveLift(a,i,intake){
+    const phase=sw(a-firing[i],cycle);
+    const start=(intake?2:1)*Math.PI;
+    if(phase<start||phase>start+Math.PI)return 0;
+    return .010*Math.sin(phase-start)**2;
+}
+function shaftSpeed(gear){
+    if(gear===0)return 0;
+    return gear===-1?1:-driveTeeth[gear-1]/drivenTeeth[gear-1];
+}
+function rotation(axis,a){
+    const c=Math.cos(a),s=Math.sin(a);
+    return axis==='x'?[1,0,0,0,c,s,0,-s,c]:[c,s,0,-s,c,0,0,0,1];
+}
+const vmul=(m,v)=>[m[0]*v[0]+m[3]*v[1]+m[6]*v[2],m[1]*v[0]+m[4]*v[1]+m[7]*v[2],m[2]*v[0]+m[5]*v[1]+m[8]*v[2]];
+const plus=(a,b)=>a.map((v,i)=>v+b[i]);
+function axialScale(axis,k){return identity.map((v,i)=>v+(k-1)*axis[i%3]*axis[Math.floor(i/3)])}
+const op={on:false,playing:true,focus:'both',gear:1,angle:0,output:0,rpm:12,shell:.06,last:null};
+const metalColors={crank:[.68,.31,.058],rod:[.38,.49,.57],piston:[.70,.72,.73],intake:[.035,.39,.61],exhaust:[.76,.16,.071],input:[.88,.43,.068],mesh:[.03,.53,.42],output:[.055,.41,.71]};
+function classify(id,k){
+    const meta=g.nodes[id].extras, en=meta.en,zh=meta.zh;
+    const n=Number((zh.match(/^(\d)/)||[])[1]),i=n-1,side=zh.includes('进气')?-1:1;
+    if(k===engines){
+        if(en==='Crankshaft'||en==='Crank drive pulley')return {role:'crank',color:'crank'};
+        if(en.startsWith('Connecting rod '))return {role:'rod',i,color:'rod'};
+        if(/^(Piston |Wrist pin |Ring pack )/.test(en))return {role:'piston',i,color:'piston'};
+        if(en.endsWith(' camshaft')||en.startsWith('Timing wheel '))return {role:'cam',side,color:side<0?'intake':'exhaust'};
+        if(zh.includes('气门')&&Number.isInteger(i))return {role:en.endsWith(' spring')?'spring':'valve',i,side,color:side<0?'intake':'exhaust'};
+        if(['Iron crankcase','16-valve head casting','Oil sump casting','Head gasket'].includes(en)||en.endsWith(' cam cover'))return {role:'shell'};
+        return {role:'omit'};
+    }
+    if(en==='Bell housing'||en==='Tail cap'||en.startsWith('Transaxle '))return {role:'shell'};
+    if(['Flywheel ring gear','Clutch disc','Clutch pressure plate','输入 shaft'].includes(en))return {role:'input'};
+    if(en==='输出 shaft')return {role:'output'};
+    if(en.includes(' gear ')&&/^\d 挡/.test(zh))return {role:zh.includes('主动')?'driver':'driven',gear:n};
+    if(en.startsWith('Reverse gear '))return {role:en.endsWith('0')?'reverseIn':'reverseOut'};
+    if(en==='Reverse idler')return {role:'idler'};
+    if(en.startsWith('Sliding collar ')||en.startsWith('Selector fork '))return {role:en.startsWith('Sliding')?'collar':'fork',slot:Number(en.slice(-1))};
+    if(en==='Final drive pinion')return {role:'pinion'};
+    if(['Crownwheel','Differential carrier','Differential pinions'].includes(en)||en.startsWith('Side gear ')||en.startsWith('Drive flange '))return {role:'final'};
+    return {role:'support'};
+}
+const motionDefs=new Map();
+for(const k of [engines,gears])for(const id of roots[k].children)motionDefs.set(id,classify(id,k));
+function poseFor(id){
+    const def=motionDefs.get(id),a=op.angle,o=op.output,gear=op.gear,role=def.role;
+    const reverse=gear===-1,engaged=gear!==0,slot=gear===-1?3:Math.ceil(gear/2);
+    let mat=identity,norm=identity,pivot=zero,delta=zero,tag=def.color,alpha=1;
+    const turn=(axis,rad,centre)=>{mat=norm=rotation(axis,rad);pivot=centre};
+    switch(role){
+        case 'crank':turn('z',a,[0,.36,0]);break;
+        case 'rod':{
+            const v=crankLink(a,def.i);
+            turn('z',v.rot,[0,v.restPin,0]);delta=[v.px,v.py-v.restPin,0];break;
+        }
+        case 'piston':delta=[0,crankLink(a,def.i).dy,0];break;
+        case 'cam':turn('z',a/2,[def.side*.045,.629,0]);break;
+        case 'valve':case 'spring':{
+            const axis=unit([def.side*.36,1,0]),lift=valveLift(a,def.i,def.side<0);
+            if(role==='valve')delta=axis.map(x=>-x*lift);
+            else{
+                const k=1-lift/.038;
+                pivot=plus([def.side*.020,.553,0],axis.map(x=>x*.027));
+                mat=axialScale(axis,k);norm=axialScale(axis,1/k);
+            }break;
+        }
+        case 'input':turn('z',a,[0,.36,0]);tag='input';break;
+        case 'output':case 'pinion':turn('z',o,[0,.2784,0]);if(engaged)tag='output';break;
+        case 'driver':turn('z',a,[0,.36,0]);if(gear===def.gear)tag='input';break;
+        case 'driven':turn('z',a*shaftSpeed(def.gear),[0,.2784,0]);if(gear===def.gear)tag='mesh';break;
+        case 'reverseIn':turn('z',a,[0,.36,0]);if(reverse)tag='input';break;
+        case 'reverseOut':turn('z',a,[0,.2784,0]);if(reverse)tag='mesh';break;
+        case 'idler':turn('z',-a,[.038,.321,0]);if(reverse)tag='mesh';break;
+        case 'collar':case 'fork':
+            if(role==='collar')turn('z',o,[0,.2784,0]);
+            if(engaged&&slot===def.slot){delta=[0,0,gear>0&&gear%2===1?.020:-.020];tag='mesh'}break;
+        case 'final':turn('x',-o*13/45,[0,.315,-1.291]);if(engaged)tag='output';break;
+        case 'shell':alpha=op.shell;break;
+    }
+    const rest=g.nodes[id].translation;
+    return {mat,norm,off:plus(plus(pivot,vmul(mat,sub(rest,pivot))),delta),tag,alpha};
+}
+let motionFrame=new Map();
+function runVisible(d){
+    if(d.k!==engines&&d.k!==gears)return false;
+    if(op.focus==='engine'&&d.k!==engines||op.focus==='gearbox'&&d.k!==gears)return false;
+    const role=motionDefs.get(d.node).role;
+    return role!=='omit'&&(role!=='shell'||op.shell>0);
+}
+function motionUniforms(pr,d){
+    const pose=op.on&&d?motionFrame.get(d.node):null;
+    gl.uniformMatrix3fv(pr.motion,false,pose?pose.mat:identity);
+    if(pr.normalMotion)gl.uniformMatrix3fv(pr.normalMotion,false,pose?pose.norm:identity);
+    if(d)gl.uniform3fv(pr.off,pose?pose.off:shift(d));
+}
+function setRunFocus(f){
+    op.focus=f;zoom=1;yaw=f==='gearbox'?1.12:1.39;pitch=f==='gearbox'?.29:.24;
+    for(const b of document.querySelectorAll('[data-focus]'))b.setAttribute('aria-pressed',String(b.dataset.focus===f));
+    dirty=true;
+}
+function operate(){
+    if(op.on)return;
+    op.camera={yaw,pitch,zoom};op.on=true;op.last=null;anim=null;
+    document.body.classList.add('operating');tabs.forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false')});
+    $('runTab').classList.add('active');$('runTab').setAttribute('aria-pressed','true');
+    document.querySelector('h1').textContent='POWERTRAIN';$('kicker').textContent='LANCIA 037   /   KINEMATICS';
+    $('subtitle').textContent='动力总成运转';$('mode').textContent='LIVE CUTAWAY';
+    setRunFocus(op.focus);runHud();dirty=true;
+}
+function leaveRun(){
+    if(!op.on)return;op.on=false;op.last=null;
+    ({yaw,pitch,zoom}=op.camera);document.body.classList.remove('operating');
+    $('runTab').classList.remove('active');$('runTab').setAttribute('aria-pressed','false');
+}
+function setGear(value){
+    op.gear=value;
+    for(const b of $('gearset').children)b.setAttribute('aria-pressed',String(Number(b.dataset.gear)===value));
+    const ratio=value===0?'—':value===-1?'−1.00':(drivenTeeth[value-1]/driveTeeth[value-1]).toFixed(2);
+    $('ratio').textContent=ratio;
+    $('route').textContent=value===0?'离合器 → 输入轴 → 常啮合齿轮。接合套居中，动力在此中断。':value===-1?'输入轴 → 倒挡主动轮 → 倒挡惰轮 → 从动轮 → 接合套 → 输出轴 → 主减速器与半轴。':('输入轴 → '+value+' 挡主动轮（'+driveTeeth[value-1]+' 齿）→ 从动轮（'+drivenTeeth[value-1]+' 齿）→ 接合套 → 输出轴 → 主减速器与半轴。');
+    runHud();dirty=true;
+}
+function advanceRun(rad){op.scrubDeg=null;op.angle+=rad;op.output+=rad*shaftSpeed(op.gear)}
+function runHud(){
+    const deg=op.scrubDeg??Math.floor(sw(op.angle,cycle)*180/Math.PI);
+    $('angleVal').textContent=deg+'°';$('cycleInput').value=deg;
+    $('runPlay').textContent=op.playing?'Ⅱ  暂停':'▶  运转';
+    $('outRPM').textContent=(Math.abs(shaftSpeed(op.gear))*op.rpm).toFixed(1);
+    const names=['做功','排气','进气','压缩'];
+    for(let i=0;i<4;i++){
+        const stage=Math.floor(sw(op.angle-firing[i],cycle)/Math.PI);
+        const b=$('cylinders').children[i];b.querySelector('b').textContent=names[stage];b.dataset.stroke=stage;
+    }
+}
+$('runTab').onclick=operate;
+for(const b of document.querySelectorAll('[data-focus]'))b.onclick=()=>setRunFocus(b.dataset.focus);
+for(const b of $('gearset').children)b.onclick=()=>setGear(Number(b.dataset.gear));
+$('rpm').onchange=e=>{op.rpm=Number(e.target.value);runHud()};
+$('shell').oninput=e=>{op.shell=Number(e.target.value)/100;$('shellVal').textContent=e.target.value+'%';dirty=true};
+$('runPlay').onclick=()=>{op.playing=!op.playing;op.last=null;runHud()};
+$('cycleInput').oninput=e=>{op.playing=false;op.last=null;advanceRun(Number(e.target.value)*Math.PI/180-sw(op.angle,cycle));op.scrubDeg=Number(e.target.value);runHud();dirty=true};
+$('stepOp').onclick=()=>{op.playing=false;op.last=null;advanceRun(Math.PI/12);runHud();dirty=true};
+setGear(1);
+
+function tick(ms){if(op.on){if(op.playing&&op.last!==null&&ms>=op.last){advanceRun(Math.min(.12,(ms-op.last)/1000)*op.rpm*TAU/60);runHud();dirty=true}op.last=ms}if(anim){let u=Math.min(1,(ms-anim.start)/anim.duration);t=anim.from+(anim.to-anim.from)*u*u*(3-2*u);if(u>=1)anim=null;sync()}render();requestAnimationFrame(tick)}
+switchMode(-1);requestAnimationFrame(tick);
+</script></body></html>
