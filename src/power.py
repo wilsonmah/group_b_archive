@@ -355,6 +355,34 @@ for c,axis in [((plx,ply,-.652),Z),((-.262,.574,-.842),Y)]:
     for k in [-.0085,.0085]:
         q=add(c,mul(axis,k));tor(q,axis,.031,.0019,'Steel',32,6)
         bolt(add(q,mul(unit(cross(axis,X if axis!=X else Y)),.032)),unit(cross(axis,X if axis!=X else Y)),.0032)
+component('Blower inlet hose','增压器进气弯头与橡胶软管','进气与排气',(-.48,.10,-.22))
+# Cast end plate and elbow turn the blower inlet outboard towards the filter drum.
+box((-.226,.488,-1.0335),(.128,.094,.010),'Alloy')
+for dx in [-.056,.056]:
+    for dy in [-.040,.040]:bolt((-.226+dx,.488+dy,-1.0385),(0,0,-1),.0042)
+elbow=[(-.2195,.488,-1.036),(-.2195,.489,-1.054),(-.240,.494,-1.068),(-.282,.505,-1.070)]
+pipe(elbow,.028,'Alloy',24)
+hose=[(-.276,.504,-1.070),(-.312,.518,-1.071),(-.343,.548,-1.080),(-.357,.570,-1.096),(-.360,.575,-1.112)]
+pipe(hose,.030,'Black',20)
+pts=spline(hose,10)
+for k in range(2,len(pts)-2):tor(pts[k],unit(sub(pts[k+1],pts[k-1])),.0302,.0026,'Rubber',20,5)
+for c,axis in [((-.279,.5045,-1.070),unit(sub(hose[1],hose[0]))),((-.360,.575,-1.103),Z)]:
+    sleeve(c,axis,.0345,.0300,.020,'Rubber',28)
+    q=add(c,mul(axis,.004));tor(q,axis,.0348,.0018,'Steel',28,6)
+component('Air filter canister','铝制空气滤清器筒','进气与排气',(-.62,.18,-.30))
+fx,fy,fz=-.360,.575,-1.223
+# Spun aluminium drum: domed tail, rolled beads, tapered front neck to the hose.
+shell((fx,fy,fz),Z,[(-.097,0),(-.097,.048),(-.095,.061),(-.090,.067),(-.086,.068),(.086,.068),(.091,.065),(.095,.058),(.101,.042),(.104,.036),(.120,.036),(.120,0)],'Alloy',56)
+for dz in [-.074,-.058,.062,.078]:tor((fx,fy,fz+dz),Z,.068,.0022,'Silver',56,6)
+sleeve((fx,fy,fz+.084),Z,.0700,.0670,.010,'Rubber',56)
+for dz in [-.030,.030]:
+    tor((fx,fy,fz+dz),Z,.0695,.0016,'Steel',56,6)
+    box((fx,fy-.074,fz+dz),(.026,.012,.010),'Steel')
+    bolt((fx,fy-.080,fz+dz),(0,-1,0),.0042)
+box((fx,fy-.086,fz),(.034,.006,.090),'Gunmetal')
+cyl((fx,fy,fz-.097),(fx,fy,fz-.106),.012,'Alloy',24)
+cyl((fx,fy,fz-.106),(fx,fy,fz-.112),.0045,'Steel',10)
+plate([(fx-.018,fy-.003,fz-.112),(fx+.018,fy-.003,fz-.112),(fx+.018,fy+.003,fz-.112),(fx-.018,fy+.003,fz-.112)],'Steel',(0,0,-.006))
 component('Exhaust manifold','四合一排气歧管','进气与排气',(.52,.16,-.39))
 for i,z in enumerate(zs):
     pipe([(.114,.577,z),(.171,.597,z),(.231+i*.018,.577,z-.011),(.28+i*.012,.484,z-.057),(.303+i*.009,.412,z-.11),(.34,.382,-1.38)],.0185,'Exhaust',16)
