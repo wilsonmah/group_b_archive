@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lancia Rally 037 · 三维拆解模型</title><style>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wilson's Rally Archive</title><style>
 *{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Arial,"Microsoft YaHei",sans-serif;color:#20241f;background:#eeeee6}body{display:flex;flex-direction:column}button,input{font:inherit}button{color:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid #bd381f;outline-offset:3px}header{height:58px;flex:none;border-bottom:1px solid #a6a79e;display:flex;align-items:center;justify-content:space-between;padding:0 30px;background:#f7f7f0}.brand{display:flex;align-items:center;gap:14px;font-size:13px;font-weight:800;letter-spacing:1.7px}.mark{display:flex;gap:3px;transform:skew(-22deg)}.mark b{width:7px;height:21px;background:#cb452c}.headernote,.mono{font:10px/1.5 Consolas,"Courier New",monospace;letter-spacing:1.6px}.headernote{color:#55594f}.layout{display:grid;grid-template-columns:minmax(0,1fr) 294px;flex:1;min-height:0}.stage{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0}.view{position:relative;flex:1;min-height:280px;overflow:hidden;background:#e9eae2}canvas{position:absolute;inset:0;height:100%;width:100%;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}.caption{position:absolute;left:34px;top:28px;pointer-events:none}.eyebrow{color:#a63825;font:700 11px/1.2 Consolas,monospace;letter-spacing:2px}.caption h1{font:800 clamp(37px,4.6vw,80px)/.98 Arial,sans-serif;letter-spacing:-.079em;margin:10px 0 8px}.caption p{font-size:13px;letter-spacing:1.5px;margin:0;color:#595c53}.orient{position:absolute;right:22px;bottom:19px;display:flex;gap:4px}.orient button,.tool{background:#f7f7f0d9;border:1px solid #acad9f;padding:7px 10px;font-size:11px}.orient button:hover,.tool:hover{background:#fff}.viewid{position:absolute;bottom:22px;left:34px;color:#5b5e54;font:10px Consolas,monospace;letter-spacing:1.5px}.ctrl{padding:18px 30px 20px;border-top:1px solid #b9bbb0;background:#f6f6ef;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center}.play{background:#262a24;color:white;border:0;min-width:104px;height:40px;font-size:13px;font-weight:bold}.play:hover{background:#3e463c}.pct{font:600 26px/1 Consolas,monospace;letter-spacing:-2px;min-width:67px;text-align:right}.pct small{font-size:14px}.rangewrap{display:grid;gap:5px}.labels{display:flex;justify-content:space-between;font-size:10px;color:#61665a}input[type=range]{width:100%;margin:0;accent-color:#bd482e;cursor:pointer}.panel{border-left:1px solid #a6a79e;background:#f7f7f0;display:flex;flex-direction:column;min-height:0}.ph{padding:24px 20px 13px}.ph .mono{color:#797d71}.ph h2{font-weight:700;font-size:23px;margin:4px 0 0;letter-spacing:-1px}.list{padding:0 18px;overflow:auto;flex:1}.row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-bottom:1px solid #d7d9ce;text-align:left;padding:0 8px;height:clamp(31px,4.55vh,48px);font-size:13px}.row .num{color:#929789;font:10px Consolas,monospace}.row .led{margin-left:auto;color:#9b9e90;font-size:13px}.row.on{background:#e7e8dd}.row.on .num,.row.on .led{color:#b43d28}.row:hover{background:#eceee4}.info{border-top:1px solid #c0c3b7;padding:15px 22px 17px}.info h3{margin:5px 0;font-size:15px}.info p{font-size:12px;line-height:1.6;color:#5c6156;margin:5px 0 10px}.info .mono{color:#858a7c;font-size:9px}.help{font-size:10px;letter-spacing:1px;color:#777d70}.tool{width:100%;font-size:12px}.tool[hidden]{display:none}footer{height:28px;flex:none;border-top:1px solid #aeb1a6;display:flex;align-items:center;justify-content:space-between;padding:0 27px;background:#e9ebe1;color:#656b5e;font:9px Consolas,monospace;letter-spacing:1.4px}canvas+div.error{position:absolute;top:45%;left:12%;right:12%;padding:20px;background:white}
 @media(max-width:800px){.layout{grid-template-columns:minmax(0,1fr) 218px}.ph{padding:16px}.list{padding:0 9px}.caption{left:18px;top:17px}.ctrl{gap:9px;padding:12px}.headernote{font-size:8px}header{padding:0 16px}.viewid{display:none}}
 @media(max-width:600px){body{height:auto;min-height:100%}header{height:47px}.layout{display:flex;flex-direction:column}.view{height:58vh;min-height:350px;flex:auto}.panel{border-left:0;border-top:1px solid #aaa}.list{display:grid;grid-template-columns:1fr 1fr}.row{height:36px}.ph{padding:13px 15px 5px}.ph h2{font-size:20px}.info{margin-top:10px}.headernote{display:none}.caption h1{font-size:39px}.orient{bottom:8px;right:8px}.info .help{display:none}footer{padding:0 10px;font-size:8px}}
@@ -12,7 +12,10 @@ header{background:#101418;border-color:#3a4148;color:#f6f6f4;gap:24px}.brand{whi
 .pathcaption{margin:10px 0 5px;font-size:10px;color:#67716d}.pathbuttons{display:flex;gap:3px}.pathbuttons button{padding:5px 0;flex:1;font-size:11px;border:1px solid #b5c1ba;background:#eef2ed}.pathbuttons button[aria-pressed=true]{background:#155861;color:white}.driveLabels{position:absolute;inset:0;pointer-events:none}.driveLabels span{position:absolute;padding:3px 6px;color:#fff;background:#18343de8;border-left:2px solid #64d3dc;font-size:11px;white-space:nowrap;transform:translate(-50%,-110%)}.driveLabels span:after{content:"";position:absolute;width:1px;height:13px;top:100%;left:50%;background:#87dde1}.driveLabels:empty{display:none}#bodyControl{margin-bottom:10px}.wheelmeters{display:flex;gap:5px}.wheelmeters>div{flex:1;display:flex;align-items:center;gap:8px;background:#dbe5e2;padding:7px 8px}.wheelmeters span{font-size:10px;color:#48635c}.wheelmeters b{display:block;font:600 18px Consolas,monospace;color:#183b39}.dial{position:relative;width:21px;height:21px;border:3px solid #597972;border-radius:50%;background:#e8eeeb}.dial:after{content:"";position:absolute;left:6px;top:-2px;width:3px;height:9px;background:#e7883d}.operating #lampToggle{display:none}#lampToggle[hidden],#bodyControl[hidden]{display:none}.switches button{white-space:nowrap}.operating .caption h1{font-size:clamp(30px,3vw,48px)}
 #turnControls{margin-bottom:13px;padding-bottom:13px}.steerbox{display:flex;align-items:center;gap:13px}.steerinput{flex:1;min-width:0}.steerpresets{display:flex;justify-content:space-between}.steerpresets button{border:1px solid #b6c0ba;background:#f9faf7;font-size:11px;padding:3px 9px}.steerinput input{margin:7px 0}.dialwheel{width:62px;height:62px;flex:none;display:grid;place-items:center;touch-action:none;cursor:grab}.dialwheel:active{cursor:grabbing}.wheelrim{width:54px;height:54px;border:6px solid #26302d;border-radius:50%;position:relative;pointer-events:none;background:#e1e5df}.wheelrim:before{content:"";position:absolute;top:-6px;left:18px;height:7px;width:6px;background:#e9a637}.wheelrim:after{content:"";position:absolute;left:15px;top:15px;width:12px;height:12px;background:#485651;border-radius:50%}.wheelrim i{position:absolute;top:19px;left:21px;height:5px;width:22px;background:#485651;transform-origin:left center}.wheelrim i:nth-child(2){transform:rotate(90deg)}.wheelrim i:nth-child(3){transform:rotate(180deg)}.turnmetrics{display:flex;gap:8px;margin:8px 0;font-size:11px;color:#54675e}.turnmetrics span{flex:1}.turnmetrics b{color:#203c31}.diffLegend{flex-wrap:wrap;gap:7px;margin-top:7px}.diffLegend span:nth-child(1):before{background:#2fae92}.diffLegend span:nth-child(2):before{background:#4290bf}.diffLegend span:nth-child(3):before{background:#c67c38}#diffTools label{font-size:12px}#diffTools[hidden]{display:none}#diffTools input{accent-color:#a44932}.runpanel .switches button{padding:6px 0;font-size:11px}
  .runpanel .switches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.runpanel .switches button{padding:6px 1px} #axleInfo p{margin-top:3px;line-height:1.65} #axleInfo .tool{margin-top:2px}
-</style></head><body><header><div class="brand"><i class="mark"><b></b><b></b><b></b></i>RALLY ARCHIVE</div><nav aria-label="模型视图"><button class="modetab active">整车</button><button class="modetab">发动机</button><button class="modetab">变速箱</button><button class="modetab">悬挂</button><button class="modetab" id="runTab" aria-pressed="false">运转</button></nav><div class="headernote">TECHNICAL COLLECTION &nbsp; / &nbsp; GROUP B</div></header>
+#language,#aboutOpen,#aboutClose{font:600 12px Arial,sans-serif;cursor:pointer}#language{color:#f0f3ef;background:transparent;border:1px solid #586069;padding:6px 10px}#aboutOpen{border:0;background:transparent;text-decoration:underline;text-underline-offset:3px;color:#35423f}#aboutDialog{width:min(510px,92vw);max-height:85vh;overflow:auto;padding:24px 28px;background:#f7f7f1;color:#25312f;border:1px solid #87928c;border-top:4px solid #cb422a;font:15px/1.65 Arial,"Microsoft YaHei",sans-serif}#aboutDialog::backdrop{background:#10161bc9}.aboutHead{display:flex;align-items:center;justify-content:space-between}.aboutHead h2{margin:0;font-size:23px}#aboutClose{font-size:24px;background:transparent;border:0;color:#374742}#aboutDialog p{margin:12px 0}#aboutDialog p[lang=en]{color:#4e5955}#aboutDialog hr{border:0;border-top:1px solid #cad0cb;margin:18px 0}
+html[lang=en] .runpanel .switches{grid-template-columns:repeat(3,minmax(0,1fr))}html[lang=en] .row{height:auto;min-height:36px}html[lang=en] .row span:nth-child(2){line-height:1.25}
+@media(max-width:700px){header{display:grid;grid-template-columns:1fr auto;grid-template-rows:30px 32px;height:70px;gap:0 8px;align-items:center;padding:3px 12px}.brand{font-size:13px}header nav{grid-column:1/-1;grid-row:2;justify-self:stretch;justify-content:space-between}#language{grid-column:2;grid-row:1;padding:3px 8px}.modetab{padding:0 6px}}
+</style></head><body><header><div class="brand"><i class="mark"><b></b><b></b><b></b></i>Wilson's Rally Archive</div><nav aria-label="模型视图"><button class="modetab active">整车</button><button class="modetab">发动机</button><button class="modetab">变速箱</button><button class="modetab">悬挂</button><button class="modetab" id="runTab" aria-pressed="false">运转</button></nav><button type="button" id="language" lang="en">English</button></header>
 <main class="layout"><section class="stage"><div class="view"><canvas aria-label="蓝旗亚037三维模型，可拖动旋转和滚轮缩放"></canvas><div class="caption"><div class="eyebrow" id="kicker">LANCIA &nbsp;/&nbsp; GROUP B</div><h1>RALLY 037</h1><p id="subtitle">蓝旗亚 037 拉力赛车</p></div><div class="driveLabels" id="driveLabels" aria-hidden="true"></div><div class="viewid" id="mode"></div><div class="orient"><button id="lampToggle" aria-pressed="true">辅助灯 · 开</button><button id="home">初始视角</button><button id="side">侧视</button><button id="up">俯视</button></div></div><div class="ctrl"><button class="play" id="play">▶  拆解</button><div class="rangewrap"><div class="labels"><span id="assembled">整车</span><span id="scope">拆解进度</span><span>完全展开</span></div><input id="range" aria-label="拆解进度" type="range" min="0" max="100" value="0"></div><div class="pct"><span id="pct">00</span><small>%</small></div></div><div class="opctrl"><button id="runPlay" class="play">Ⅱ 暂停</button><div class="rangewrap"><label for="cycleInput">曲轴转角 · 四冲程循环</label><input id="cycleInput" type="range" min="0" max="720" value="0" step="1"></div><output id="angleVal">0°</output><button id="stepOp" class="tool">步进 15°</button></div></section>
 <aside class="panel"><div class="ph"><div class="mono" id="count">ASSEMBLY INDEX &nbsp;/&nbsp; 14</div><h2 id="listtitle">部件目录</h2><select id="family" aria-label="筛选零件类别" hidden></select></div><div class="list" id="list"></div><div class="info"><div class="mono" id="eng">MODEL OVERVIEW</div><h3 id="name">整车总览</h3><p id="desc">选择部件可定位总成，拖动下方进度条可查看拆解过程。</p><div id="perpart" hidden><div class="local-label"><label for="local">单件拆出</label><span id="localpct"></span></div><input id="local" type="range" min="0" max="100"></div><button class="tool" id="entry" hidden>进入内部拆解</button><button class="tool" id="resetParts" hidden>清除单件调整</button><button class="tool" id="isolate" hidden>单独查看</button><div class="help" id="help">点选零件 &nbsp; · &nbsp; 拖动旋转 &nbsp; · &nbsp; 滚轮缩放</div></div></aside><aside class="runpanel"><div class="mono">POWERTRAIN MONITOR</div><h2>运转观察</h2><fieldset><legend>观察范围</legend><div class="switches"><button data-focus="vehicle">整车</button><button data-focus="both">动力总成</button><button data-focus="engine">发动机</button><button data-focus="gearbox">变速箱</button><button data-focus="diff">差速器</button><button data-focus="frontAxle">前桥转向</button><button data-focus="rearAxle">后桥悬挂</button></div></fieldset>
 <fieldset id="axleInfo" hidden><legend id="axleTitle"></legend><p id="axleDescription"></p><button class="tool" id="axleExplode">逐件拆解悬挂</button></fieldset>
@@ -23,11 +26,17 @@ header{background:#101418;border-color:#3a4148;color:#f6f6f4;gap:24px}.brand{whi
 <div id="diffTools" hidden><label><input type="checkbox" id="followCarrier"> 随差速器壳观察</label><div class="legend diffLegend"><span>左半轴齿轮</span><span>右半轴齿轮</span><span>行星齿轮</span></div><p id="spiderReading"></p></div>
 <button id="diffZoom" class="tool">观察差速器内部</button></fieldset>
 <fieldset><legend>变速箱挡位</legend><div id="gearset" class="gearset"><button data-gear="-1" aria-label="倒挡">R</button><button data-gear="0" aria-label="空挡">N</button><button data-gear="1" aria-label="1 挡">1</button><button data-gear="2" aria-label="2 挡">2</button><button data-gear="3" aria-label="3 挡">3</button><button data-gear="4" aria-label="4 挡">4</button><button data-gear="5" aria-label="5 挡">5</button></div><div class="specgrid"><span>挡位传动比<b id="ratio"></b></span><span>输出轴 r/min<b id="outRPM"></b></span></div><div class="wheelmeters" aria-label="左右后轮转速"><div><i class="dial"></i><span><span id="rearLlabel">左后轮</span><b id="rearLrpm"></b></span></div><div><i class="dial"></i><span><span id="rearRlabel">右后轮</span><b id="rearRrpm"></b></span></div></div><div id="pathChooser"><div class="pathcaption">点选动力路径</div><div class="pathbuttons"><button data-stage="engine">发动机</button><button data-stage="gear">变速箱</button><button data-stage="diff">差速器</button><button data-stage="axle">半轴</button><button data-stage="wheel">后轮</button></div></div><p id="route"></p><div class="legend"><span class="gold">输入</span><span class="green">接合</span><span class="blue">输出</span></div></fieldset>
-<fieldset><legend>四缸行程</legend><div id="cylinders"><div>1 缸<b></b></div><div>2 缸<b></b></div><div>3 缸<b></b></div><div>4 缸<b></b></div></div><p>点火顺序 1 → 3 → 4 → 2。蓝色为进气机构，红色为排气机构。</p></fieldset><fieldset><div id="bodyControl"><div class="opline"><label for="bodyAlpha">车身可见度</label><output id="bodyVal">12%</output></div><input type="range" id="bodyAlpha" min="0" max="100" value="12"></div><div class="opline"><label for="shell">外壳可见度</label><output id="shellVal">6%</output></div><input type="range" id="shell" min="0" max="100" value="6"><div class="opline speed"><label for="rpm">演示转速</label><select id="rpm"><option value="6">6 r/min</option><option value="12">12 r/min</option><option value="24">24 r/min</option><option value="48">48 r/min</option><option value="96" selected>96 r/min</option></select></div></fieldset><p class="note">传动比取自模型齿数。配气采用简化的四冲程正时，转向按齿条及定长横拉杆求解，以认证表 16.8∶1 校准中位附近的转向比。轮速按左右前轮推算的平均曲率及理想差速关系计算。轮速单位为 r/min，负值表示倒转。</p></aside></main><footer><span>LANCIA RALLY 037 &nbsp; / &nbsp; 3D STUDY</span><span>结构示意模型</span></footer>
+<fieldset><legend>四缸行程</legend><div id="cylinders"><div>1 缸<b></b></div><div>2 缸<b></b></div><div>3 缸<b></b></div><div>4 缸<b></b></div></div><p>点火顺序 1 → 3 → 4 → 2。蓝色为进气机构，红色为排气机构。</p></fieldset><fieldset><div id="bodyControl"><div class="opline"><label for="bodyAlpha">车身可见度</label><output id="bodyVal">12%</output></div><input type="range" id="bodyAlpha" min="0" max="100" value="12"></div><div class="opline"><label for="shell">外壳可见度</label><output id="shellVal">6%</output></div><input type="range" id="shell" min="0" max="100" value="6"><div class="opline speed"><label for="rpm">演示转速</label><select id="rpm"><option value="6">6 r/min</option><option value="12">12 r/min</option><option value="24">24 r/min</option><option value="48">48 r/min</option><option value="96" selected>96 r/min</option></select></div></fieldset><p class="note">传动比取自模型齿数。配气采用简化的四冲程正时，转向按齿条及定长横拉杆求解，以认证表 16.8∶1 校准中位附近的转向比。轮速按左右前轮推算的平均曲率及理想差速关系计算。轮速单位为 r/min，负值表示倒转。</p></aside></main><footer><span>LANCIA RALLY 037 &nbsp; / &nbsp; 3D STUDY</span><button type="button" id="aboutOpen" aria-haspopup="dialog">关于 / About</button></footer>
+<dialog id="aboutDialog" aria-labelledby="aboutTitle"><div class="aboutHead"><h2 id="aboutTitle">关于 / About</h2><button id="aboutClose" aria-label="关闭 / Close" autofocus>×</button></div>
+<p lang="zh-CN">模型内部非公开结构基于公开历史资料进行工程化推导与 3D 复原，仅供机械原理学习与视觉参考。</p>
+<p lang="en">Internal structures for which no public drawings are available have been inferred from public historical sources and reconstructed in 3D solely for the study of mechanical principles and for visual reference.</p>
+<hr><p lang="zh-CN">Lancia 037 及相关历史涂装名称归原权利人所有，本站为非官方独立技术展示项目。</p>
+<p lang="en">The Lancia 037 name and the names of its historic liveries belong to their respective rights holders, and this site is an unofficial, independent technical exhibition.</p></dialog>
+<script>__LOCALE__</script>
 <script id="data" type="application/octet-stream">__DATA__</script><script>
 'use strict';
 const $=id=>document.getElementById(id), can=document.querySelector('canvas'),gl=can.getContext('webgl',{antialias:true,alpha:false,preserveDrawingBuffer:true});
-if(!gl){const msg=document.createElement('div');msg.className='error';msg.textContent='此浏览器无法启动 WebGL。请启用硬件加速，或在三维软件中打开配套 GLB 文件。';can.after(msg);throw Error('WebGL unavailable')}
+if(!gl){const msg=document.createElement('div');msg.className='error';const errorText='此浏览器无法启动 WebGL。请启用硬件加速，或在三维软件中打开配套 GLB 文件。';const updateError=()=>msg.textContent=tr(errorText);updateError();document.addEventListener('viewer-language',updateError);can.after(msg);throw Error('WebGL unavailable')}
 const raw=Uint8Array.from(atob($('data').textContent),c=>c.charCodeAt(0)),dv=new DataView(raw.buffer),jl=dv.getUint32(12,true),g=JSON.parse(new TextDecoder().decode(raw.subarray(20,20+jl))),start=28+jl;
 const V=(i)=>{let a=g.accessors[i],v=g.bufferViews[a.bufferView],C=({5126:Float32Array,5123:Uint16Array,5125:Uint32Array})[a.componentType];return new C(raw.buffer,start+v.byteOffset+(a.byteOffset||0),a.count*({VEC3:3,VEC2:2,SCALAR:1})[a.type])};
 const roots=g.scenes[0].nodes.map(i=>g.nodes[i]), draws=[];
@@ -73,7 +82,7 @@ const tabs=[...document.querySelectorAll('.modetab:not(#runTab)')];
 const engines=roots.findIndex(r=>r.extras.key==='engine'),gears=roots.findIndex(r=>r.extras.key==='gearbox');
 const suspension=roots.findIndex(r=>r.extras.key==='susp');
 let domain=-1,selectedNode=-1,unitSolo=false,filter='',moves=new Map();
-let t=0,yaw=.71,pitch=.17,zoom=1,sel=-1,solo=false,anim=null,dirty=true;
+let t=0,yaw=.63,pitch=.105,zoom=1,sel=-1,solo=false,anim=null,dirty=true;
 const stateCache=new Map();
 const viewState=()=>({t,yaw,pitch,zoom,sel,solo,selectedNode,unitSolo,filter,moves:new Map(moves)});
 const internal=()=>domain>=0;
@@ -84,7 +93,7 @@ function shift(d){
 }
 let lampsOn=true;
 const lampIndex=roots.findIndex(r=>r.extras.key==='lamps');
-$('lampToggle').onclick=()=>{lampsOn=!lampsOn;$('lampToggle').textContent='辅助灯 · '+(lampsOn?'开':'关');$('lampToggle').setAttribute('aria-pressed',lampsOn);dirty=true};
+$('lampToggle').onclick=()=>{lampsOn=!lampsOn;$('lampToggle').textContent=tr('辅助灯 · '+(lampsOn?'开':'关'));$('lampToggle').setAttribute('aria-pressed',lampsOn);dirty=true};
 function visible(d){
     if(d.k===lampIndex&&!lampsOn&&!(solo&&sel===lampIndex))return false;
     if(op.on)return runVisible(d);
@@ -105,7 +114,7 @@ function render(){
  else if(solo||internal()){let lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];for(const d of active){const off=shift(d);for(let i=0;i<3;i++){lo[i]=Math.min(lo[i],d.min[i]+off[i]);hi[i]=Math.max(hi[i],d.max[i]+off[i])}}origin=lo.map((v,i)=>(v+hi[i])/2);halfW=Math.max(...sub(hi,lo))*(internal()?.72:.71)*zoom;low=lo[1]-.017}
  const aspect=w/h,halfh=Math.max(halfW/aspect,halfW*.55);halfW=halfh*aspect;
  origin[1]+=halfh*(internal()?.10:.07);
- const dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],photo=!op.on&&!internal()&&!solo&&t<1,dist=photo?6.4/Math.max(.09,1-t):12,eye=origin.map((v,i)=>v+dir[i]*dist),vp=photo?photoMatrix(eye,origin,halfW,halfh,dist):matrix(eye,origin,halfW,halfh);
+ const dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],photo=!op.on&&!internal()&&!solo&&t<1,dist=photo?8.5/Math.max(.09,1-t):12,eye=origin.map((v,i)=>v+dir[i]*dist),vp=photo?photoMatrix(eye,origin,halfW,halfh,dist):matrix(eye,origin,halfW,halfh);
  const radius=op.on||solo||internal()?Math.max(.15,halfW*1.7):4.8;lastCamera={origin,dir,halfW,halfh,photo,dist};const light=matrix(origin.map((a,i)=>a+[-2.8,6,3.6][i]),origin,radius,radius);
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.viewport(0,0,res,res);gl.clearColor(1,1,1,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(shad);gl.uniformMatrix4fv(S.vp,false,light);
  for(let l=0;l<3;l++)gl.disableVertexAttribArray(l);
@@ -122,22 +131,22 @@ function updateControls(){
     const root=sel>=0?roots[sel].extras:null;
     const item=internal()?n:root;
     $('isolate').hidden=!item;
-    $('isolate').textContent=(internal()?unitSolo:solo)?'返回总成视图':'单独查看';
+    $('isolate').textContent=tr((internal()?unitSolo:solo)?'返回总成视图':'单独查看');
     $('entry').hidden=internal()||![engines,gears,suspension].includes(sel);
     $('perpart').hidden=!internal()||!n;
     if(n){const val=Math.round((moves.get(selectedNode)??t)*100);$('local').value=val;$('localpct').textContent=val+'%'}
-    $('eng').textContent=item?item.en.toUpperCase():internal()?'ASSEMBLY OVERVIEW':'MODEL OVERVIEW';
-    $('name').textContent=item?item.zh:currentName()+'总览';
-    $('desc').textContent=internal()?(n?n.family+' · “单件拆出”只移动此零件。':'拖动总成进度可展开全部零件，也可在目录中选择单件。'):(root?root.desc:'可查看整车爆炸图，或进入发动机、变速箱或悬挂逐件拆解。');
+    $('eng').textContent=item?englishName(item).toUpperCase():internal()?'ASSEMBLY OVERVIEW':'MODEL OVERVIEW';
+    $('name').textContent=item?partName(item):lang==='en'?(internal()?englishName(roots[domain].extras):'Vehicle')+' overview':currentName()+'总览';
+    $('desc').textContent=tr(internal()?(n?tr(n.family)+(lang==='en'?' · Remove part moves this part individually.':' · “单件拆出”只移动此零件。'):'拖动总成进度可展开全部零件，也可在目录中选择单件。'):(root?root.desc:'可查看整车爆炸图，或进入发动机、变速箱或悬挂逐件拆解。'));
     $('help').hidden=!!item;
     $('range').disabled=!internal()&&solo;
     $('play').disabled=!internal()&&solo;
-    $('scope').textContent=internal()?'总成拆解进度':'整车拆解进度';
-    $('assembled').textContent=internal()?'装配位置':'整车';
+    $('scope').textContent=tr(internal()?'总成拆解进度':'整车拆解进度');
+    $('assembled').textContent=tr(internal()?'装配位置':'整车');
     $('range').setAttribute('aria-label',$('scope').textContent);
     $('mode').textContent=internal()?(unitSolo?'PART INSPECTION':moves.size?'INDIVIDUAL DISASSEMBLY':t?'EXPLODED ASSEMBLY':'ASSEMBLED UNIT'):(solo?'ISOLATED ASSEMBLY':t?'EXPLODED VIEW':'ASSEMBLED VIEW');
     const val=Math.round(t*100);$('range').value=val;$('pct').textContent=String(val).padStart(2,'0');
-    $('play').textContent=anim?'Ⅱ  暂停':t>=.995?'◀  复原':'▶  拆解';
+    $('play').textContent=tr(anim?'Ⅱ  暂停':t>=.995?'◀  复原':'▶  拆解');
     $('resetParts').hidden=!internal()||!moves.size;
     dirty=true;
 }
@@ -152,7 +161,7 @@ function updateRows(){
         const btn=document.createElement('button');btn.className='row';btn.classList.toggle('on',id===activeID);
         btn.setAttribute('aria-pressed',id===activeID);
         const num=document.createElement('span');num.className='num';num.textContent=String(j+1).padStart(2,'0');
-        const name=document.createElement('span');name.textContent=data.zh;
+        const name=document.createElement('span');name.textContent=partName(data);
         const led=document.createElement('span');led.className='led';led.textContent=id===activeID?'●':'＋';btn.append(num,name,led);
         btn.onclick=()=>{
             if(internal()){unitSolo=false;selectedNode=selectedNode===id?-1:id}
@@ -165,21 +174,25 @@ function updateRows(){
 function switchMode(next){
     leaveRun();
     if(domain!==next){stateCache.set(domain,viewState());domain=next;
-        const v=stateCache.get(next)||{t:0,yaw:next===-1?.71:1.07,pitch:next===-1?.175:.36,zoom:1,sel:-1,solo:false,selectedNode:-1,unitSolo:false,filter:'',moves:new Map()};
+        const v=stateCache.get(next)||{t:0,yaw:next===-1?.63:1.07,pitch:next===-1?.105:.36,zoom:1,sel:-1,solo:false,selectedNode:-1,unitSolo:false,filter:'',moves:new Map()};
         ({t,yaw,pitch,zoom,sel,solo,selectedNode,unitSolo,filter,moves}=v);
     }
     anim=null;
+    refreshDomain();
+}
+function refreshDomain(){
+    const next=domain;
     const inUnit=internal(),kind=domain===suspension?'SUSPENSION':domain===engines?'ENGINE':'TRANSAXLE',title=inUnit?(domain===suspension?'SUSPENSION':domain===engines?'TIPO 232 AR4':'ZF · 5 SPEED'):'RALLY 037';
     document.querySelector('h1').textContent=title;
-    $('subtitle').textContent=inUnit?(domain===suspension?'前后桥、转向与制动':domain===engines?'2.0 升机械增压直列四缸':'五速手动变速驱动桥'):'蓝旗亚 037 · Rallye de France · 5 号';
+    $('subtitle').textContent=tr(inUnit?(domain===suspension?'前后桥、转向与制动':domain===engines?'2.0 升机械增压直列四缸':'五速手动变速驱动桥'):'蓝旗亚 037 · Rallye de France · 5 号');
     $('kicker').textContent=inUnit?'LANCIA 037   /   '+kind:'LANCIA   /   GROUP B';
     tabs.forEach((b,i)=>{const on=next===[-1,engines,gears,suspension][i];b.classList.toggle('active',on);b.setAttribute('aria-pressed',on)});
     const ids=inUnit?roots[domain].children:[];
     $('count').textContent=(inUnit?'COMPONENT INDEX':'ASSEMBLY INDEX')+'  /  '+(inUnit?ids.length:roots.length);
-    $('listtitle').textContent=inUnit?'零件目录':'总成目录';
+    $('listtitle').textContent=tr(inUnit?'零件目录':'总成目录');
     $('family').hidden=!inUnit;$('lampToggle').hidden=inUnit;
     if(inUnit){
-        const opts=[new Option('全部零件',''),...Array.from(new Set(ids.map(i=>g.nodes[i].extras.family)),f=>new Option(f,f))];
+        const opts=[new Option(tr('全部零件'),''),...Array.from(new Set(ids.map(i=>g.nodes[i].extras.family)),f=>new Option(tr(f),f))];
         $('family').replaceChildren(...opts);$('family').value=filter;
     }
     $('list').scrollTop=0;updateRows();sync();
@@ -193,7 +206,7 @@ $('resetParts').onclick=()=>{moves.clear();sync()};
 $('range').oninput=e=>{anim=null;if(internal())moves.clear();t=+e.target.value/100;sync()};
 $('play').onclick=()=>{if(anim)anim=null;else{if(internal())moves.clear();const end=t>=.995?0:1;anim={from:t,to:end,start:performance.now(),duration:Math.max(300,2350*Math.abs(t-end))}}sync()};
 function setView(y,p){yaw=y;pitch=p;zoom=1;dirty=true}
-$('home').onclick=()=>op.on?setRunFocus(op.focus):setView(internal()?1.07:.71,internal()?.36:.175);$('side').onclick=()=>setView(Math.PI/2,.025);$('up').onclick=()=>setView(Math.PI/2,1.565);
+$('home').onclick=()=>op.on?setRunFocus(op.focus):setView(internal()?1.07:.63,internal()?.36:.105);$('side').onclick=()=>setView(Math.PI/2,.025);$('up').onclick=()=>setView(Math.PI/2,1.565);
 
 function pickPart(clientX,clientY){
     if(!lastCamera||op.on)return;
@@ -476,7 +489,7 @@ function selectStage(stage){
     for(const b of document.querySelectorAll('[data-stage]'))b.setAttribute('aria-pressed',String(b.dataset.stage===stage));
     const labels=$('driveLabels');labels.replaceChildren();
     for(const [name] of stageAnchors[stage]||[]){
-        const label=document.createElement('span');label.textContent=name;labels.appendChild(label);
+        const label=document.createElement('span');label.textContent=tr(name);labels.appendChild(label);
     }
     dirty=true;
 }
@@ -499,17 +512,20 @@ function motionUniforms(pr,d){
 function setRunFocus(f){
     op.focus=f;zoom=1;yaw=f==='vehicle'?(op.steer?1.78:2.32):f==='diff'?.38:f==='gearbox'?1.12:1.39;pitch=f==='vehicle'?(op.steer?.91:.58):f==='diff'?.28:f==='gearbox'?.29:.24;
     if(isAxleFocus(f)){yaw=f==='frontAxle'?.40:2.62;pitch=f==='frontAxle'?.67:.32}
+    selectStage(null);refreshFocus(f);
+}
+function refreshFocus(f){
     $('axleInfo').hidden=!isAxleFocus(f);
-    $('axleTitle').textContent=f==='frontAxle'?'前桥 · 转向传动':'后桥 · 弹簧与减振';
-    $('axleDescription').textContent=f==='frontAxle'?'转动方向盘，观察两处万向节、输入小齿轮、滑动齿条和两根横拉杆。转向节绕上下球铰连线摆动。':'每个后轮配一根中央螺旋弹簧，前后各有一支减振器。下方的反置叉臂和纵向定位杆共同约束轮毂立柱。';
-    selectStage(null);$('pathChooser').hidden=f!=='vehicle';$('bodyControl').hidden=f!=='vehicle';
-    $('subtitle').textContent=f==='vehicle'?'整车透视 · 后轮驱动':f==='diff'?'差速器 · 半轴齿轮与行星齿轮':'动力总成运转';
+    $('axleTitle').textContent=tr(f==='frontAxle'?'前桥 · 转向传动':'后桥 · 弹簧与减振');
+    $('axleDescription').textContent=tr(f==='frontAxle'?'转动方向盘，观察两处万向节、输入小齿轮、滑动齿条和两根横拉杆。转向节绕上下球铰连线摆动。':'每个后轮配一根中央螺旋弹簧，前后各有一支减振器。下方的反置叉臂和纵向定位杆共同约束轮毂立柱。');
+    $('pathChooser').hidden=f!=='vehicle';$('bodyControl').hidden=f!=='vehicle';
+    $('subtitle').textContent=tr(f==='vehicle'?'整车透视 · 后轮驱动':f==='diff'?'差速器 · 半轴齿轮与行星齿轮':'动力总成运转');
     document.querySelector('h1').textContent=f==='diff'?'DIFFERENTIAL':'POWERTRAIN';
     if(isAxleFocus(f)){
         document.querySelector('h1').textContent=f==='frontAxle'?'FRONT AXLE':'REAR AXLE';
-        $('subtitle').textContent=f==='frontAxle'?'齿轮齿条转向 · 上叉臂与下横臂':'反置下叉臂 · 单弹簧与双减振器';
+        $('subtitle').textContent=tr(f==='frontAxle'?'齿轮齿条转向 · 上叉臂与下横臂':'反置下叉臂 · 单弹簧与双减振器');
     }
-    $('diffTools').hidden=f!=='diff';$('diffZoom').textContent=f==='diff'?'返回整车观察':'观察差速器内部';
+    $('diffTools').hidden=f!=='diff';$('diffZoom').textContent=tr(f==='diff'?'返回整车观察':'观察差速器内部');
     for(const b of document.querySelectorAll('[data-focus]'))b.setAttribute('aria-pressed',String(b.dataset.focus===f));
     dirty=true;
 }
@@ -519,7 +535,7 @@ function operate(){
     document.body.classList.add('operating');tabs.forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false')});
     $('runTab').classList.add('active');$('runTab').setAttribute('aria-pressed','true');
     document.querySelector('h1').textContent='POWERTRAIN';$('kicker').textContent='LANCIA 037   /   KINEMATICS';
-    $('subtitle').textContent='动力总成运转';$('mode').textContent='LIVE CUTAWAY';
+    $('subtitle').textContent=tr('动力总成运转');$('mode').textContent='LIVE CUTAWAY';
     setRunFocus(op.focus);runHud();dirty=true;
 }
 function leaveRun(){
@@ -527,12 +543,17 @@ function leaveRun(){
     ({yaw,pitch,zoom}=op.camera);document.body.classList.remove('operating');
     $('runTab').classList.remove('active');$('runTab').setAttribute('aria-pressed','false');
 }
+function englishRoute(gear){
+    if(!gear)return 'Clutch → input shaft → constant-mesh gears. The centred sleeve disconnects the output.';
+    const train=gear<0?'reverse drive gear → idler → driven gear':'gear '+gear+' driver ('+driveTeeth[gear-1]+' teeth) → driven gear ('+drivenTeeth[gear-1]+' teeth)';
+    return 'Input shaft → '+train+' → sliding sleeve → output shaft → final drive → differential → half-shafts → rear wheels.';
+}
 function setGear(value){
     op.gear=value;
     for(const b of $('gearset').children)b.setAttribute('aria-pressed',String(Number(b.dataset.gear)===value));
     const ratio=value===0?'—':value===-1?'−1.00':(drivenTeeth[value-1]/driveTeeth[value-1]).toFixed(2);
     $('ratio').textContent=ratio;
-    $('route').textContent=value===0?'离合器 → 输入轴 → 常啮合齿轮。接合套居中，动力在此中断。':value===-1?'输入轴 → 倒挡主动轮 → 倒挡惰轮 → 从动轮 → 接合套 → 输出轴 → 主减速器 → 差速器 → 左右半轴 → 两个后轮。':('输入轴 → '+value+' 挡主动轮（'+driveTeeth[value-1]+' 齿）→ 从动轮（'+drivenTeeth[value-1]+' 齿）→ 接合套 → 输出轴 → 主减速器 → 差速器 → 左右半轴 → 两个后轮。');
+    $('route').textContent=lang==='en'?englishRoute(value):value===0?'离合器 → 输入轴 → 常啮合齿轮。接合套居中，动力在此中断。':value===-1?'输入轴 → 倒挡主动轮 → 倒挡惰轮 → 从动轮 → 接合套 → 输出轴 → 主减速器 → 差速器 → 左右半轴 → 两个后轮。':('输入轴 → '+value+' 挡主动轮（'+driveTeeth[value-1]+' 齿）→ 从动轮（'+drivenTeeth[value-1]+' 齿）→ 接合套 → 输出轴 → 主减速器 → 差速器 → 左右半轴 → 两个后轮。');
     runHud();dirty=true;
 }
 function advanceRun(rad){
@@ -545,18 +566,18 @@ function advanceRun(rad){
 function runHud(){
     const deg=op.scrubDeg??Math.floor(sw(op.angle,cycle)*180/Math.PI);
     $('angleVal').textContent=deg+'°';$('cycleInput').value=deg;
-    $('runPlay').textContent=op.playing?'Ⅱ  暂停':'▶  运转';
+    $('runPlay').textContent=tr(op.playing?'Ⅱ  暂停':'▶  运转');
     $('outRPM').textContent=(op.playing?Math.abs(shaftSpeed(op.gear))*op.rpm:0).toFixed(1);
     const rpm=op.playing?-shaftSpeed(op.gear)*op.rpm*finalDrive:0;
     $('rearLrpm').textContent=(rpm*steering.left.rear||0).toFixed(1);
     $('rearRrpm').textContent=(rpm*steering.right.rear||0).toFixed(1);
     const dials=document.querySelectorAll('.dial');for(let i=0;i<2;i++)dials[i].style.transform='rotate('+wheelPhase(i===0?1:-1)+'rad)';
     const spinRPM=Math.abs(rpm*(steering.left.rear-1)*16/12);
-    $('spiderReading').textContent='壳体 '+(rpm||0).toFixed(1)+' r/min · 行星齿轮相对销轴自转 '+spinRPM.toFixed(1)+' r/min';
+    $('spiderReading').textContent=(lang==='en'?'Carrier ':'壳体 ')+(rpm||0).toFixed(1)+(lang==='en'?' rpm · Spider spin ':' r/min · 行星齿轮相对销轴自转 ')+spinRPM.toFixed(1)+' r/min';
     const names=['做功','排气','进气','压缩'];
     for(let i=0;i<4;i++){
         const stage=Math.floor(sw(op.angle-firing[i],cycle)/Math.PI);
-        const b=$('cylinders').children[i];b.querySelector('b').textContent=names[stage];b.dataset.stroke=stage;
+        const b=$('cylinders').children[i];b.querySelector('b').textContent=tr(names[stage]);b.dataset.stroke=stage;
     }
 }
 $('runTab').onclick=operate;
@@ -570,13 +591,13 @@ $('cycleInput').oninput=e=>{op.playing=false;op.last=null;advanceRun(Number(e.ta
 $('stepOp').onclick=()=>{op.playing=false;op.last=null;advanceRun(Math.PI/12);runHud();dirty=true};
 function setSteering(value){
     op.steer=Math.max(-450,Math.min(450,Math.round(value)));steering=steeringGeometry(op.steer);
-    const direction=op.steer<0?'左':op.steer>0?'右':'';
+    const direction=op.steer<0?(lang==='en'?'L ':'左'):op.steer>0?(lang==='en'?'R ':'右'):'';
     $('handAngle').value=op.steer;$('handValue').textContent=direction+Math.abs(op.steer)+'°';
     $('handGraphic').style.transform='rotate('+op.steer+'deg)';
     for(const [id,side] of [['flAngle',1],['frAngle',-1]])
         $(id).textContent=direction+(Math.abs(sideGeometry(side).yaw)/radPerDegree).toFixed(1)+'°';
-    $('rearLlabel').textContent=op.steer?'左后 · '+(op.steer<0?'内侧':'外侧'):'左后轮';
-    $('rearRlabel').textContent=op.steer?'右后 · '+(op.steer>0?'内侧':'外侧'):'右后轮';
+    $('rearLlabel').textContent=lang==='en'?'Rear left'+(op.steer?(op.steer<0?' · inner':' · outer'):''):(op.steer?'左后 · '+(op.steer<0?'内侧':'外侧'):'左后轮');
+    $('rearRlabel').textContent=lang==='en'?'Rear right'+(op.steer?(op.steer>0?' · inner':' · outer'):''):(op.steer?'右后 · '+(op.steer>0?'内侧':'外侧'):'右后轮');
     runHud();dirty=true;
 }
 $('handAngle').oninput=e=>setSteering(Number(e.target.value));
@@ -592,6 +613,12 @@ rim.onpointermove=e=>{
     dragPoint.angle=a;setSteering(dragPoint.value);
 };
 rim.onpointerup=rim.onpointercancel=rim.onlostpointercapture=()=>{dragPoint=null};
+document.addEventListener('viewer-language',()=>{
+    if(op.on){refreshFocus(op.focus);selectStage(op.stage)}
+    else refreshDomain();
+    $('lampToggle').textContent=tr('辅助灯 · '+(lampsOn?'开':'关'));
+    setGear(op.gear);setSteering(op.steer);dirty=true;
+});
 setGear(1);
 
 document.addEventListener('visibilitychange',()=>{op.last=null});

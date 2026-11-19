@@ -1,12 +1,14 @@
-# Lancia Rally 037 · 5 号赛车整车透视与拆解
+# Wilson's Rally Archive
 
-[在线打开查看器](https://wilsonmah.github.io/lancia-037/)
+[中文查看器](https://wilsonmah.github.io/lancia-037/?lang=zh) · [English viewer](https://wilsonmah.github.io/lancia-037/?lang=en)
+
+Lancia Rally 037 · Rallye de France · 5 号赛车整车透视与拆解。右上角可切换语言，页脚「关于 / About」提供中英双语的模型复原说明和权利归属声明。
 
 [直接打开转弯演示](https://wilsonmah.github.io/lancia-037/?demo=turn)
 
 [直接观察前桥转向与后桥悬挂](https://wilsonmah.github.io/lancia-037/?demo=suspension)
 
-以两张 Rallye de France 5 号车参考图为依据，重绘 Martini 肩线、车门号码、车组姓名和比赛标识，重建多孔轮圈、前灯组、前唇与高位尾翼。车身按名义车长 3.915 m、最宽处 1.850 m、车顶高度 1.245 m 和轴距 2.440 m 校准。可在整车页切换四盏辅助灯。
+以 5 号车为涂装基准，结合三张实车照片调整车头楔形、辅助灯罩、前后翼子板肩线、风挡、后侧进气口与尾翼。按赛事照片重绘 Martini 肩线、车门号码、车组姓名和比赛标识，重建多孔轮圈、前灯组、前唇与高位尾翼。车身按名义车长 3.915 m、最宽处 1.850 m、车顶高度 1.245 m 和轴距 2.440 m 校准。可在整车页切换四盏辅助灯。
 
 下载仓库并用支持 WebGL 的浏览器打开 `index.html`，即可离线使用。查看器已内嵌模型和贴图。
 
