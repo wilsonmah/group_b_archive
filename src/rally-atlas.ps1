@@ -18,17 +18,18 @@ function word($t,$x,$y,$w,$h,$color,$family='Arial',$style=1){
 }
 $dark='#0e1626';$red='#de1726';$white='#fffefa'
 function martini($x,$y,$w,$h){
- ellipse ($x+$w*.31) $y ($w*.38) $h $red
- rect $x ($y+$h*.258) $w ($h*.484) '#967946'
- rect ($x+$w*.008) ($y+$h*.275) ($w*.984) ($h*.451) '#15171b'
- word 'MARTINI' ($x+$w*.045) ($y+$h*.305) ($w*.91) ($h*.389) $white
+ # Round red disc behind a gold-edged black bar, as printed: bar 0.53 x 0.16 m, disc 0.28 m.
+ ellipse ($x+($w-$h)/2) $y $h $h $red
+ rect $x ($y+$h*.214) $w ($h*.572) '#967946'
+ rect ($x+$w*.010) ($y+$h*.236) ($w*.980) ($h*.528) '#15171b'
+ word 'MARTINI' ($x+$w*.055) ($y+$h*.300) ($w*.89) ($h*.400) $white
 }
 function pirelli($x,$y,$w,$h,$color){
  word 'PIRELLI' $x ($y+$h*.2) $w ($h*.79) $color 'Arial' 3
  rect ($x+$w*.08) $y ($w*.91) ($h*.15) $color
 }
 word '5' 24 6 197 235 $dark
-martini 262 3 436 195
+martini 262 3 436 229
 word 'L A N C I A' 10 265 554 66 $white
 word 'RALLY 037' 8 355 415 66 $dark
 word 'LANCIA' 461 352 505 70 $dark
@@ -44,13 +45,13 @@ rect 797 795 440 122 '#192748'
 word 'Rothmans' 817 812 401 87 $white 'Times New Roman'
 word 'MAGNETI' 22 950 283 57 $dark
 word 'MARELLI' 17 1013 296 58 $dark
-word 'speedline' 370 942 267 32 $white 'Arial' 3
-rect 361 935 288 48 $dark
-word 'speedline' 369 944 272 29 $white 'Arial' 3
-word 'BILSTEIN' 369 986 270 35 $dark
-word 'brembo' 369 1028 270 37 $dark
-word 'FERODO' 369 1073 270 33 $dark
-word 'sabelt' 369 1116 270 34 $dark 'Arial' 3
+# Sponsor stack drawn at the 0.22 x 0.28 m panel on the door, so it is printed unstretched.
+rect 26 1504 286 66 $dark
+word 'speedline' 40 1513 258 46 $white 'Arial' 3
+word 'BILSTEIN' 34 1586 270 54 $dark
+word 'brembo' 46 1658 246 58 $dark
+word 'FERODO' 44 1736 250 52 $dark
+word 'sabelt' 62 1808 214 58 $dark 'Arial' 3
 word 'olivetti' 682 950 344 77 $dark
 word 'pininfarina' 690 1069 402 49 $dark 'Times New Roman' 3
 pirelli 1120 948 421 100 '#171819'

@@ -72,7 +72,7 @@ for s in (-1,1):
     grid(lambda t,h:mix(brow(s*.477,t),add(brow(s*.477,t),(0,-.094*(1-t)-.004,0)),h),seq(0,1,12),[0,1],'Ivory')
 # All coordinates for the printed graphics are in atlas pixels. Side graphics
 # are cropped at actual panel seams so they follow their panels on disassembly.
-panel_ranges=[('tail',-1.976,-.272),('door',-.267,.717),('nose',.722,1.968)]
+panel_ranges=[('tail',-1.8156,-.272),('door',-.267,.717),('nose',.722,1.968)]
 for kind,za,zb in panel_ranges:
     for s in [-1,1]:
         current='door'+str(s) if kind=='door' else kind
@@ -80,7 +80,7 @@ for kind,za,zb in panel_ranges:
         for lo,hi,m in [(0,.047,'Red'),(.047,.063,'Navy'),(.063,.080,'Blue'),(.080,.092,'Navy'),(.092,.110,'Blue'),(.110,.126,'Navy')]:
             def band(d,z):
                 high=surface(1,z)[1]
-                factor=interp(z,[(-1.976,1.29),(-1.20,1.01),(-.53,.76),(.54,.74),(1.23,1.05),(1.968,1.36)])
+                factor=sinterp(z,[(-1.816,1.25),(-1.20,1.10),(-.53,1.02),(.54,1.02),(1.23,1.40),(1.968,1.70)])
                 y=max(arch(z)+.001,high-d*factor)
                 return fixedside(s,y,z,.0033)
             for a,b in zip(seq(za,zb,88),seq(za,zb,88)[1:]):
@@ -90,8 +90,11 @@ for kind,za,zb in panel_ranges:
                     if dot(cross(sub(tri[1],tri[0]),sub(tri[2],tri[0])),cross(sub(tri[1],tri[0]),sub(tri[2],tri[0])))>1.e-16:face(tri,m)
         if kind=='nose':
             # The outer shoulder carries the wide red sash down to the lamps.
+            def sash(u,z):
+                k=clamp((z-za)/.42,0,1);k=k*k*(3-2*k)
+                return add(surface(s*(1-(1-u)*k),z),(0,.0023,0))
             for a,b,m in [(.805,.828,'Navy'),(.828,.851,'Blue'),(.851,.867,'Navy'),(.867,.887,'Blue'),(.887,.905,'Navy'),(.905,1.,'Red')]:
-                grid(lambda u,z:add(surface(s*u,z),(0,.0023,0)),seq(a,b,6),seq(za,zb,92),m)
+                grid(sash,seq(a,b,6),seq(za+.004,zb,92),m)
 def sidesign(zlo,zhi,ylo,yhi,rect):
     for kind,za,zb in panel_ranges:
         low,high=max(zlo,za),min(zhi,zb)
@@ -105,30 +108,30 @@ def sidesign(zlo,zhi,ylo,yhi,rect):
             x,y,Xp,Yp=rect
             conform(lambda z,h:fixedside(s,h,z,.008),(a,b,ylo,yhi),(x+tx(a)*(Xp-x),y,x+tx(b)*(Xp-x),Yp),12,4)
 sidesign(-.131,.068,.244,.613,(1479,519,1630,796))
-sidesign(-.242,.164,.594,.674,(797,795,1237,917))
-sidesign(-.260,.182,.175,.234,(14,794,782,917))
-sidesign(-.865,-.275,.420,.752,(259,0,703,203))
-sidesign(-.798,-.388,.347,.396,(685,1062,1099,1124))
-sidesign(-.802,-.511,.188,.247,(676,943,1032,1033))
-sidesign(.323,.601,.482,.584,(13,945,323,1078))
-sidesign(.351,.550,.199,.456,(355,931,653,1155))
-sidesign(.322,.588,.632,.713,(14,1195,700,1326))
-sidesign(1.636,1.925,.179,.303,(729,1193,1121,1327))
+sidesign(-.242,.164,.578,.690,(797,795,1237,917))
+sidesign(-.260,.182,.169,.240,(14,794,782,917))
+sidesign(-.835,-.305,.447,.729,(259, 0, 701, 235))
+sidesign(-.798,-.388,.341,.402,(685,1062,1099,1124))
+sidesign(-.802,-.511,.181,.254,(676,943,1032,1033))
+sidesign(.323,.601,.473,.593,(13,945,323,1078))
+sidesign(.340,.560,.185,.465,(18, 1500, 320, 1885))
+sidesign(.305,.605,.613,.670,(14,1195,700,1326))
+sidesign(1.636,1.925,.192,.290,(729,1193,1121,1327))
 current='nose';part('Bonnet roundel, rally plate and lower valance decals')
-conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.224,.224,1.57,1.142),(1180,1155,1558,1486),22,12)
-conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.129,.129,1.087,.914),(1590,1166,1961,1315),12,5)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.233,.233,1.540,1.172),(1180,1155,1558,1486),22,12)
+conform(lambda u,z:add(surface(u,z),(0,.004,0)),(-.129,.129,1.048,.957),(1590,1166,1961,1315),12,5)
 def frontmark(xa,xb,ya,yb,z,rect):
     decal([(xa,ya,z),(xb,ya,z),(xb,yb,z),(xa,yb,z)],rect)
 for s in [-1,1]:
     x=s*.535
-    frontmark(x-.169,x+.169,.125,.179,2.033,(1116,944,1546,1052))
-    frontmark(x-.078,x+.078,.278,.316,2.021,(1574,949,2014,1031))
-frontmark(-.14,.14,.123,.183,2.034,(259,0,700,203))
-frontmark(-.296,-.242,.401,.446,2.019,(19,1390,151,1467))
+    frontmark(x-.131,x+.131,.119,.185,2.033,(1116,944,1546,1052))
+    frontmark(x-.078,x+.078,.2825,.3115,2.021,(1574,949,2014,1031))
+frontmark(-.080,.080,.106,.191,2.034,(259, 0, 701, 235))
+frontmark(-.307,-.230,.401,.446,2.019,(19,1390,151,1467))
 for s in [-1,1]:
     # Flexible black flaps and a small body-coloured front wheel spat.
     current='tail';part('Rear gravel flap '+str(s))
-    plate([(s*.707,.263,-1.594),(s*.893,.276,-1.594),(s*.911,.061,-1.637),(s*.711,.059,-1.635)],'Rubber',(0,0,-.007))
+    plate([(s*.707,.263,-1.590),(s*.893,.276,-1.590),(s*.911,.061,-1.614),(s*.711,.059,-1.613)],'Rubber',(0,0,-.006))
     current='nose';part('Front wheel spat '+str(s))
     plate([(s*.737,.288,.835),(s*.865,.296,.839),(s*.877,.109,.799),(s*.748,.113,.801)],'Ivory',(0,0,-.007))
 current='canopy';part('Roof aerial and mounting ferrule')
@@ -161,13 +164,13 @@ for x in [-.349,-.121,.121,.349]:
 current='canopy';part('Pressed A-pillar flanges')
 for s in [-1,1]:
     for a,b in zip(seq(0,1,18),seq(0,1,18)[1:]):
-        def pillar(t):return mix((s*.805,.845,.612),(s*.550,1.095,.07),t)
+        def pillar(t):return mix((s*.805,.853,.652),(s*.550,1.144,.075),t)
         face([wind(s,a),wind(s,b),pillar(b),pillar(a)],'Ivory')
 for s in [-1,1]:
     current='door'+str(s);part('Sliding side window')
     def window(u,v):
-        lo=mix((s*.807,.845,.600),(s*.800,.845,-.255),u)
-        hi=mix((s*.552,1.085,.080),(s*.553,1.098,-.255),u)
+        lo=mix((s*.807,.853,.640),(s*.800,.853,-.255),u)
+        hi=mix((s*.552,1.133,.085),(s*.553,1.148,-.255),u)
         return add(mix(lo,hi,v),(s*.0045,0,0))
     pts=[window(u,v) for u,v in [(.35,.17),(.63,.17),(.63,.79),(.35,.79)]]
     path(pts+[pts[0]],.0031,'Steel',7)
