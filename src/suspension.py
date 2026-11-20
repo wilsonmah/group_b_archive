@@ -145,6 +145,14 @@ def build_suspension():
             cyl(link_anchor,p(.413,.235,math.copysign(.22,link_anchor[2]-z)),.014,'Charcoal',12)
             if not front:
                 sleeve(springtop,Y,.060,.032,.013,'Gunmetal',26)
+            if side==1:
+                # Left-hand hardpoints for the viewer's wheel-travel solver. Every arm pivots on
+                # a fore-aft axis, so each corner is a four-bar linkage in the transverse plane.
+                hardpoints.setdefault('travel',{})[zone]=dict(
+                    z=z,lowerInner=inner_lo,lowerBall=lower if front else p(.733,.237),upperInner=upper_pivots[0][:2],
+                    upperBall=upper,hub=p(.773 if front else .77,.319),foot=foot,top=springtop,
+                    linkAnchor=link_anchor,locator=mix(inner_lo,lower,.80) if front else p(.733,.237,.126),
+                    shaftInner=None if front else (.174,.315,-1.291))
             def corner(en,zh,family,travel,**motion):
                 fitting(axle_name+' '+en+' '+str(side),('左' if side==1 else '右')+loc+' · '+zh,
                         family,travel,zone,side=side,**motion)

@@ -52,6 +52,10 @@ const englishText = {
   '前桥上叉臂、下横臂及纵向定位杆；后桥反置下叉臂、中央弹簧及双减振器。可进入内部拆解。':'Front upper wishbones, lower transverse arms and radius rods. Rear reversed lower wishbones, central springs and twin dampers. Open the assembly to inspect each part.',
   '拉力胎、白色多孔合金轮圈、轮毂与紧固螺栓。':'Rally tyre, perforated alloy wheel, hub and fasteners.',
   '四盏辅助拉力灯及管式支架，安装在车头前缘。':'Four auxiliary driving lamps on a braced carrier at the leading edge of the bonnet.',
+  '悬挂行程':'Suspension travel', '同向跳动':'Bounce', '车身侧倾':'Body roll', '左轮单跳':'Left wheel only', '车轮行程':'Wheel travel',
+  '完全回弹':'Full droop', '静态车高':'Ride height', '完全压缩':'Full bump', '▶ 路面起伏':'▶ Rough road', 'Ⅱ 停止起伏':'Ⅱ Stop road',
+  '前桥':'Front axle', '后桥':'Rear axle', '左':'Left', '右':'Right', '外倾角变化':'Camber change', '弹簧长度':'Spring length', '轮心横移':'Hub lateral shift',
+  '每个车轮按上下叉臂铰点求解横向平面内的四连杆。弹簧与减振器沿轴线伸缩，纵向定位杆、半轴与横拉杆随之摆动。未计算轮跳转向与稳定杆扭转。':'Each wheel is solved as a four-bar linkage in the transverse plane from the wishbone pivots. Springs and dampers extend and compress along their axes; radius rods, half-shafts and track rods follow. Bump steer and anti-roll bar twist are not modelled.',
   '此浏览器无法启动 WebGL。请启用硬件加速，或在三维软件中打开配套 GLB 文件。':'WebGL could not start. Enable hardware acceleration or open the GLB model in a 3D viewer.'
 };
 const languageKey='wilson-rally-language';
