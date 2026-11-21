@@ -1,6 +1,6 @@
 // Keep model identifiers and select values independent of the display language.
 const englishText = {
-  '整车':'Car', '发动机':'Engine', '变速箱':'Gearbox', '悬挂':'Suspension', '运转':'Run',
+  '整车':'Car', '播放音乐':'Play music', '暂停音乐':'Pause music', '下一首':'Next track', '背景音乐':'Background music', '发动机':'Engine', '变速箱':'Gearbox', '悬挂':'Suspension', '运转':'Run',
   '模型视图':'Model views', '蓝旗亚 037 拉力赛车':'Lancia Rally 037',
   '蓝旗亚037三维模型，可拖动旋转和滚轮缩放':'3D Lancia 037. Drag to orbit and scroll to zoom.',
   '辅助灯 · 开':'Aux lamps · on', '辅助灯 · 关':'Aux lamps · off', '初始视角':'Home view', '侧视':'Side', '俯视':'Top',
