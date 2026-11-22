@@ -1,89 +1,106 @@
 # Lancia Rally 037 · Wilson's Group B Archive
 
-[← 返回车型目录](../../README.md)
+[← Back to the catalogue](../../README.md)
 
-[中文查看器](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?lang=zh) · [English viewer](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?lang=en)
+[Chinese viewer](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?lang=zh) · [English viewer](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?lang=en)
 
-Lancia Rally 037 · Rallye de France · 5 号赛车整车透视与拆解。右上角可切换语言，页脚「关于 / About」提供中英双语的模型复原说明和权利归属声明。
+A see-through, take-apart study of the Lancia Rally 037, Rallye de France, car Nº 5. Switch languages at the top right; the "关于 / About" link in the footer carries bilingual notes on how the model was reconstructed and who owns the rights.
 
-[直接打开转弯演示](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?demo=turn)
+[Open the turning demo](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?demo=turn) · [Open the front steering and rear suspension](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?demo=suspension) · [Open the suspension travel demo](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?demo=travel)
 
-[直接观察前桥转向与后桥悬挂](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?demo=suspension)
+## Body and livery
 
-[直接观察悬挂行程](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/?demo=travel)
+The livery follows car Nº 5. Period photographs set the wedge nose, the auxiliary lamp pod, the front and rear wing shoulders, the windscreen, the rear side intakes and the rear wing. The Martini ribbons, door number, crew names and event graphics are redrawn from rally photographs, and the multi-hole wheels, headlamps, front lip and high rear wing are rebuilt.
 
-以 5 号车为涂装基准，结合三张实车照片调整车头楔形、辅助灯罩、前后翼子板肩线、风挡、后侧进气口与尾翼。按赛事照片重绘 Martini 肩线、车门号码、车组姓名和比赛标识，重建多孔轮圈、前灯组、前唇与高位尾翼。车身按名义车长 3.915 m、最宽处 1.850 m、车顶高度 1.245 m 和轴距 2.440 m 校准。侧面轮廓以两张正侧面实车照片为基准：以前后轮心距 2.440 m 和轮胎半径定比例，逐 5.5 cm 比对车顶、风挡、翼子板与尾翼的外轮廓，误差基本在 ±1 cm 以内（个别点为雨刮和天线）。据此将腰线抬到水平约 0.845 m，前翼子板顶约 0.84 m 并向车头降到约 0.62 m；风挡为环抱式：下沿中段在轮距中点前约 0.82 m，两角向后收到后视镜旁约 0.62 m 处的 A 柱根部，上沿前移到约 0.19 m，使风挡上半段与侧面照片吻合；车门缝线定在中点后 0.27 m 与前 0.72 m；门窗前缘从后视镜后方（0.49 m）陡升到 0.19 m 处的圆角，上沿随车顶略向前下降，A 柱与车顶侧梁为整片车身色面板；B 柱后为固定三角窗，后缘随飞扶壁前倾；车顶为单一浅拱，最高约 1.226 m（含进气口约 1.24 m），向风挡和发动机盖回落；前悬约 0.85 m、后悬约 0.62 m；尾翼由发动机盖玻璃后方以约 26° 斜升，鳍尖高约 1.16 m，鳍板后缘斜收。正面参照照片收窄座舱：风挡上沿宽约 1.03 m，A 柱与侧窗明显内倾，两侧留出宽阔的翼子板肩部。风挡前方为三个独立的百叶出风口，车顶前缘有低矮进气口。不同赛车的离地高度与门槛颜色不同，车身下缘仍沿用原有设定。车身按实测尺寸直接建模，不再做纵向拉伸或尾部压缩；截面与腰线采用单调三次样条插值，避免折痕。拉花均按贴图原始宽高比贴附：MARTINI 标志为 0.53 m 宽、圆盘直径 0.28 m 的正圆；门侧赞助商栏为 0.22 × 0.28 m；尾翼 MARTINI RACING、车头 PIRELLI、圆标与号码牌均不变形。Martini 饰条在车门约 0.13 m 宽，向车头渐宽至约 0.21 m，翼子板顶部的饰带在车门缝线后 0.14 m 内转到肩部，不再出现断层或 S 形弯折。车头与车尾的俯视、正视和后视布局参照 [GetOutlines 1983 Lancia Rally 037 Martini 四视图](https://getoutlines.com/blueprints/9680/1983-lancia-rally-037-martini-coupe-blueprints)，只取其相对比例，绝对尺寸仍以实车照片为准：按 5 号车棚拍、Goodwood 与正面照片，前机盖从风挡根部（约 0.87 m）沿一条直线降到车头（约 0.63 m），只在最前 0.2 m 圆滑收到灯眉，前轮上方不再有鼓包；引擎盖是与翼子板几乎齐平的平板（风挡根部低 1.5 cm、车头低 0.5 cm），两侧分缝线在俯视中是直线，由风挡处距中线 0.43 m 渐开到车头 0.50 m，不再随轮拱外鼓弯曲；饰带内缘贴分缝线，前后各一对插销；三个 0.24 m 宽的百叶出风口紧贴风挡下沿一字排开，号码牌和 LANCIA 圆标紧接其前；两组大灯中心距车身中线 0.565 m，中心高约 0.51 m，格栅填满两组大灯之间的整个灯高，下进气口在 0.29–0.42 m；车头平面弧度不再剪切灯具。车尾按 Goodwood 与 Tour de Corse 实车后视照片：尾翼由两侧整高鳍板托起，后缘下方是约 0.24 m 高的竖直白色尾面（LANCIA MARTINI）；其下 0.51–0.91 m 为整宽黑色细密钢丝网板，可透视发动机舱，上部挂车牌，中间 PIRELLI，左右下角各一盏圆形尾灯；网板下方为一道细白横梁，再往下不封闭，可见变速箱与排气；车尾两角挂白色大挡泥板；发动机盖为透明玻璃，前角各一个百叶出风口，不再有横向黑条；车尾末端宽度保持接近最大车宽。可在整车页切换四盏辅助灯。
+- **Overall size:** calibrated to a nominal length of 3.915 m, maximum width 1.850 m, roof height 1.245 m and wheelbase 2.440 m.
+- **Side profile:** taken from two square-on side photographs, scaled by the 2.440 m axle spacing and the tyre radius. The roof, windscreen, wings and rear wing were checked every 5.5 cm and are generally within ±1 cm (the wipers and aerial are the exceptions).
+- **Waist and wings:** the waist is level at about 0.845 m; the front wing tops sit at about 0.84 m and fall to about 0.62 m at the nose.
+- **Windscreen:** a wraparound screen. The base is about 0.82 m ahead of the wheelbase centre across the middle and sweeps back to the A-pillar feet beside the mirrors at about 0.62 m; the header sits about 0.19 m ahead, so the upper screen matches the side photograph.
+- **Doors and glass:** door shut lines at 0.27 m behind and 0.72 m ahead of the centre. The door glass rises steeply from just behind the mirror (0.49 m) to a rounded corner at 0.19 m, with its top edge falling slightly forward with the roof. The A-pillars and cant rails are single body-colour panels. Behind the B-pillar is a fixed quarter light whose rear edge leans with the flying buttress.
+- **Roof:** a single shallow crown, highest at about 1.226 m (about 1.24 m including the roof scoop), falling to the windscreen and the engine cover.
+- **Overhangs and wing:** front overhang about 0.85 m, rear about 0.62 m. The rear wing rises at about 26° from behind the engine-cover glass to fin tips about 1.16 m high, with raked fin trailing edges.
+- **Front view:** the cabin narrows as in the head-on photograph. The screen header is about 1.03 m wide, the A-pillars and side glass lean in clearly, and broad wing shoulders remain on either side. Three separate louvred outlets sit ahead of the windscreen, and there is a low intake at the front of the roof.
+- **Ride height:** ride height and sill colour vary between cars, so the lower body edge keeps the original setting.
+- **Construction:** the body is modelled directly to the measured dimensions, with no longitudinal stretching or tail compression. Sections and the waistline use monotone cubic interpolation to avoid creases.
+- **Decals:** every graphic keeps its artwork's own aspect ratio. The MARTINI logo is 0.53 m wide with a true-circle 0.28 m disc; the sponsor panel on the door is 0.22 × 0.28 m; the MARTINI RACING wing graphic, the nose PIRELLI, the roundel and the rally plate are undistorted. The Martini ribbons are about 0.13 m wide on the doors and widen to about 0.21 m at the nose; the ribbons on the wing tops turn up onto the shoulder within 0.14 m of the door seam, with no break or S-bend.
+- **Nose and tail layout:** the plan, front and rear layouts follow the [GetOutlines 1983 Lancia Rally 037 Martini four-view drawing](https://getoutlines.com/blueprints/9680/1983-lancia-rally-037-martini-coupe-blueprints) for relative proportions only; absolute dimensions still come from the photographs.
+- **Bonnet:** from the studio photographs of Nº 5, the Goodwood photograph and the head-on photograph. The front clamshell falls in one straight line from the screen base (about 0.87 m) to the nose (about 0.63 m), rounding into the lamp brow only in the last 0.2 m, with no hump over the front wheel. The bonnet is a flat panel almost flush with the wings (1.5 cm lower at the screen base, 0.5 cm at the nose). Its shut lines are straight in plan, opening from 0.43 m off the centreline at the screen to 0.50 m at the nose, rather than bowing out with the wheel arches. The inner edge of the ribbons sits on the shut lines, and there is a pair of pins at each end. Three 0.24 m louvred outlets sit in a row right against the screen base, with the rally plate and LANCIA roundel immediately ahead.
+- **Front fascia:** the headlamp pairs are centred 0.565 m from the centreline at a height of about 0.51 m; the grille fills the full lamp height between them; the lower intake runs from 0.29 to 0.42 m. The nose's plan curve no longer shears the lamps.
+- **Tail:** from the Goodwood and Tour de Corse rear photographs. The wing stands on full-height fins, with a vertical white face about 0.24 m tall (LANCIA MARTINI) under its trailing edge. Below that, from 0.51 to 0.91 m, is a full-width fine black wire-mesh panel you can see into the engine bay through, with the plate at the top, PIRELLI in the middle and a round lamp in each lower corner. Under the panel is a thin white beam; below that the tail is open, showing the gearbox and exhaust. Large white flaps hang at the rear corners. The engine cover is clear glass with a louvred outlet in each front corner, without cross bars. The tail end stays close to full body width.
+- The four auxiliary lamps can be switched on the vehicle page.
 
-下载仓库并用支持 WebGL 的浏览器打开本目录下的 `index.html`，即可离线使用。查看器已内嵌模型和贴图。
+Download the repository and open `index.html` in this folder in any WebGL browser to use it offline; the viewer embeds the model and textures.
 
-![动力总成运转模式](images/Lancia_037_Operation.png)
+![Powertrain motion study](images/Lancia_037_Operation.png)
 
-## 运转
+## Motion study
 
-打开「运转」默认进入整车透视。可以分别调节车身与动力总成外壳的可见度，也可以切换到动力总成、发动机或变速箱近景。点击动力路径中的部件名称，会在模型上标出对应位置。
+The "运转 / Run" tab opens a see-through view of the whole car. You can set the visibility of the body and the powertrain casings separately, or switch to close-ups of the powertrain, engine or gearbox. Clicking a component in the power path highlights it on the model.
 
-- 曲轴、四根连杆与活塞由同一曲柄滑块模型驱动。两根凸轮轴以半曲轴转速旋转，带动十六个气门及其弹簧。面板按 1 → 3 → 4 → 2 的点火顺序显示各缸行程。
-- 暂停后可拖动 0–720° 曲轴转角，或每次步进 15°。演示转速可在 6、12、24、48、96 r/min 之间切换。
-- 选择 1–5 挡时，金色显示输入路径，绿色显示接合齿轮与接合套，蓝色显示输出路径。空挡让输入端和空套齿轮继续旋转。倒挡通过惰轮改变输出方向。
-- 13 齿主动锥齿轮驱动 45 齿大齿圈。回正时两个后轮同速，转弯时差速器壳的转速等于两侧后轮转速的平均值。半轴沿两端等速万向节之间的轴线旋转，倒挡显示负轮速。
+- The crankshaft, four connecting rods and pistons are driven by one slider-crank model. The two camshafts turn at half crank speed and drive the sixteen valves and their springs. The panel shows each cylinder's stroke in the firing order 1 → 3 → 4 → 2.
+- When paused you can drag the crank angle through 0–720° or step it 15° at a time. The demo speed can be set to 6, 12, 24, 48 or 96 rpm.
+- In gears 1–5 the input path is shown in gold, the engaged gear and sliding collar in green, and the output path in blue. In neutral the input side and the free-running gears keep turning. Reverse changes the output direction through an idler.
+- A 13-tooth drive pinion turns a 45-tooth crownwheel. With the wheel straight both rear wheels turn at the same speed; in a turn the differential carrier turns at the average of the two rear wheels. The halfshafts rotate about the axis between their constant-velocity joints, and reverse shows negative wheel speed.
 
-## 转弯演示
+## Turning demo
 
-拖动屏幕上的方向盘，或使用滑块、「左转」「回正」「右转」按钮。座舱方向盘和前轮同步转动。面板分别显示两个前轮的转角，以及内、外侧后轮的转速。保持发动机转速和挡位不变，从左转切到右转，可以看到较快的一侧随之对调。
+Drag the on-screen steering wheel, or use the slider or the left / centre / right buttons. The cockpit steering wheel and the front wheels turn together. The panel shows each front wheel's angle and the speed of the inner and outer rear wheels. Keep the engine speed and gear constant and switch from a left to a right turn to see the faster side swap over.
 
-点击「观察差速器内部」可近看行星锥齿轮随壳体公转。勾选「随差速器壳观察」固定观察视角后，齿面上的浅色标记显示行星齿轮在转弯时如何绕自身轴线转动。
+"Look inside the differential" zooms in on the spider gears orbiting with the carrier. With "follow the differential carrier" ticked the view rides with the carrier, and light marks on the gear teeth show how the spider gears spin on their own axes in a turn.
 
-![随差速器壳观察齿轮](images/Lancia_037_Differential.png)
+![Gears seen from the differential carrier](images/Lancia_037_Differential.png)
 
-## 前后悬挂与转向
+## Suspension and steering
 
-在「运转」中选「前桥转向」，拖动方向盘可以看到转向柱、两处万向节、输入小齿轮、齿条和横拉杆依次传动。半透明的转向机壳露出齿条。每个前轮的转向节绕上下球铰的连线旋转，转角由定长横拉杆的两个球头位置求出。
+In the Run tab, choose "前桥转向 / Front steering" and drag the steering wheel to watch the column, its two universal joints, the input pinion, the rack and the track rods move in turn. The translucent rack housing shows the rack. Each front upright turns about the line through its upper and lower ball joints, and its angle is solved from the positions of the two ball joints on a fixed-length track rod.
 
-前桥使用上叉臂、下横臂及纵向定位杆，每侧装同轴弹簧减振器，两侧以横向稳定杆相连。选择「后桥悬挂」可以看到每侧的上叉臂、反置下叉臂、纵向定位杆，以及中央螺旋弹簧前后各一支的独立减振器。在顶部「悬挂」页可以筛选零件、单独取下弹簧或减振器，也可展开整个总成。
+The front axle uses upper wishbones, lower transverse arms and longitudinal locating links, with a coil-over damper on each side and an anti-roll bar between them. "后桥悬挂 / Rear suspension" shows the upper wishbone, inverted lower wishbone and longitudinal link on each side, plus a central coil spring with a separate damper ahead of and behind it. On the "悬挂 / Suspension" tab you can filter parts, remove a spring or damper on its own, or explode the whole assembly.
 
-| 前桥转向 | 后桥悬挂 |
+| Front steering | Rear suspension |
 | --- | --- |
-| ![齿条、横拉杆与转向节](images/Lancia_037_FrontAxle.png) | ![中央弹簧与两侧减振器](images/Lancia_037_RearAxle.png) |
+| ![Rack, track rods and uprights](images/Lancia_037_FrontAxle.png) | ![Central spring and twin dampers](images/Lancia_037_RearAxle.png) |
 
-FIA B-210 基础认证表第 701、702、707、804 项及照片 T/U 记录了前后独立悬挂、螺旋弹簧、每个前轮一支和每个后轮两支减振器，以及 16.8∶1 的齿轮齿条转向。模型以该比值校准中位附近的转向几何，再对照裸车架侧照和赛车剖视图布置零件。比赛用车的铰点三维坐标、杆长、安装角和转向机内部尺寸为重建值。悬挂类零件按静态车高展示，方向盘控制前轮转向。[FIA B-210 原始认证表](https://historicdb.fia.com/sites/default/files/car_attachment/1662976801/homologation_form_number_210_group_b.pdf) · [前后导向机构说明](https://en.wikipedia.org/wiki/Lancia_Rally_037#Suspension) · [后桥双减振器资料](https://www.wrcwings.tech/2024/01/02/lancia-rally-037/)
+Items 701, 702, 707 and 804 and photos T/U of FIA basic homologation form B-210 record independent front and rear suspension, coil springs, one damper per front wheel and two per rear wheel, and 16.8:1 rack-and-pinion steering. The model calibrates the steering geometry around centre to that ratio, then places the parts against side photographs of the bare chassis and cutaway drawings of the rally car. The pivot coordinates, link lengths, mounting angles and rack internals of the competition car are reconstructions. Suspension parts are shown at static ride height, and the steering wheel steers the front wheels. [Original FIA B-210 homologation form](https://historicdb.fia.com/sites/default/files/car_attachment/1662976801/homologation_form_number_210_group_b.pdf) · [Front and rear suspension layout](https://en.wikipedia.org/wiki/Lancia_Rally_037#Suspension) · [Rear twin-damper notes](https://www.wrcwings.tech/2024/01/02/lancia-rally-037/)
 
-### 悬挂行程
+### Suspension travel
 
-在「运转」的「整车」「前桥转向」「后桥悬挂」中，「悬挂行程」面板可以让车轮在 −70 mm（完全回弹）到 +70 mm（完全压缩）之间上下运动：
+In the Run tab's vehicle, front steering and rear suspension views, the "悬挂行程 / Wheel travel" panel moves the wheels between −70 mm (full rebound) and +70 mm (full bump):
 
-- 「同向跳动」两侧车轮同时上下，「车身侧倾」左右两侧反向，「左轮单跳」只移动左侧车轮。
-- 「路面起伏」连续播放颠簸，后桥比前桥稍晚经过同一处路面。
-- 所有上下叉臂的内侧铰点都沿车身纵向，因此每个车轮按横向平面内的四连杆求解：下臂绕内铰点转动，转向节保持上下球铰间距，上叉臂随之摆动。弹簧与减振器沿轴线伸缩，纵向定位杆、后半轴和前横拉杆随之摆动；转向与车轮行程可同时作用。
-- 面板显示两侧的车轮行程、外倾角变化、弹簧长度变化和轮心横移。按重建的铰点，压缩 70 mm 时前轮外倾约 −2.7°、后轮约 −1.2°，弹簧缩短约 50 mm。
-- 轮跳转向和稳定杆扭转未计算。
+- "Heave" moves both wheels together, "Roll" moves the two sides in opposite directions, and "Left wheel" moves only the left wheel.
+- "Rough road" plays a continuous sequence of bumps, with the rear axle reaching each bump slightly after the front.
+- Every wishbone's inner pivots run fore and aft, so each wheel is solved as a four-bar linkage in the transverse plane: the lower arm turns about its inner pivot, the upright keeps the ball-joint spacing, and the upper wishbone follows. Springs and dampers extend and compress along their axes, while the longitudinal links, rear halfshafts and front track rods swing with them; steering and wheel travel can act at the same time.
+- The panel shows wheel travel, camber change, spring length change and wheel-centre lateral shift on both sides. With the reconstructed pivots, 70 mm of bump gives about −2.7° of camber at the front and about −1.2° at the rear, with about 50 mm of spring compression.
+- Bump steer and anti-roll bar twist are not calculated.
 
-![后桥侧倾时的弹簧、叉臂与半轴](images/Lancia_037_Travel.png)
+![Springs, wishbones and halfshafts with the rear axle in roll](images/Lancia_037_Travel.png)
 
-## 拆解与模型
+## Teardown and models
 
-整车分为 15 个总成。发动机有 84 个可选零件或小组件，变速箱有 45 个，悬挂、转向与制动总成有 52 个。点击模型或目录可选择部件，通过滑块单独拆出、复原或整体展开。
+The car is split into 15 assemblies. The engine has 84 selectable parts or sub-assemblies, the transaxle 45, and the suspension, steering and brakes 52. Click the model or the list to select a part, then use the slider to remove it on its own, put it back or explode everything.
 
-### 发动机舱细节
+### Engine bay detail
 
-发动机外观按 Tipo 232 AR4 实车发动机舱照片细化：
+The engine's exterior is refined from photographs of a real Tipo 232 AR4 engine bay:
 
-- 两个独立的金色皱纹漆凸轮轴盖，铸有红色凸起「ABARTH」字样、纵向加强筋和周边紧固螺栓，中间露出火花塞井。
-- 红色硅胶火花塞帽与黑色高压线，跨过进气侧凸轮轴盖后由分线卡束成一束，接到进气凸轮轴飞轮端的分电器，另有点火线圈。
-- 进气侧为圆筒形焊接铝制稳压腔，带圆顶封头、焊缝、螺栓凸台、六角接头与倒刺管嘴。前端经方形法兰节气门体（含油门摇臂和双回位弹簧）、红色硅胶接头与卡箍，以铝制弯管连到 Volumex 增压器出口。
-- 增压器进气端为铸铝端盖与弯头，经黑色波纹橡胶软管接到进气侧的铝制圆筒空气滤清器。滤清器带圆顶尾盖、滚压加强筋、黑色橡胶箍、钢制固定箍带与尾端蝶形螺母。
-- 排气歧管改为镀铝钢的哑光银色，各缸带法兰与螺柱。
-- 凸轮轴盖通风编织管、带蓝红阳极氧化接头的铝制干式油底壳储油罐，以及外缠金色隔热螺旋的机油管。
+- Two separate gold crinkle-finish cam covers with raised red cast "ABARTH" lettering, longitudinal ribs and perimeter bolts, with the spark plug wells exposed between them.
+- Red silicone plug caps and black HT leads, bundled by a separator clip over the intake-side cam cover and run to the distributor at the flywheel end of the intake camshaft, plus an ignition coil.
+- On the intake side, a welded cylindrical aluminium plenum with domed end caps, weld seams, bolt bosses, hex fittings and barbed spigots. At its front, a square-flanged throttle body (with throttle lever and twin return springs), a red silicone coupling with clamps and a bent aluminium tube lead to the Volumex supercharger outlet.
+- The supercharger inlet has a cast aluminium end cover and elbow, connected by a black corrugated rubber hose to a cylindrical aluminium air filter on the intake side. The filter has a domed end cap, rolled stiffening ribs, a black rubber band, steel mounting straps and a wing nut at the end.
+- The exhaust manifold is matt silver aluminised steel, with a flange and studs at each cylinder.
+- A braided cam-cover breather hose, an aluminium dry-sump oil tank with blue and red anodised fittings, and oil lines wrapped in gold heat-shield spiral.
 
-- [整车 GLB](models/Lancia_037.glb)
-- [发动机 GLB](models/Lancia_037_Engine.glb)
-- [变速驱动桥 GLB](models/Lancia_037_Transaxle.glb)
-- [悬挂、转向与制动 GLB](models/Lancia_037_Suspension.glb)
+Downloads:
 
-GLB 保留独立网格与拆解动画。运转模式的曲柄连杆、气门正时、选挡、转向与差速运动由浏览器实时计算。气门升程取简化的四冲程曲线，传动比按模型齿数计算。转弯轮速按两前轮指向所推算的平均曲率计算，差速器采用理想开放式运动关系。内部尺寸与传动细节为结构示意。
+- [Full car GLB](models/Lancia_037.glb)
+- [Engine GLB](models/Lancia_037_Engine.glb)
+- [Transaxle GLB](models/Lancia_037_Transaxle.glb)
+- [Suspension, steering and brakes GLB](models/Lancia_037_Suspension.glb)
 
-## 从源码重新生成
+The GLBs keep separate meshes and the teardown animations. The Run mode's crank train, valve timing, gear selection, steering and differential motion are calculated live in the browser. Valve lift uses a simplified four-stroke curve and gear ratios come from the modelled tooth counts. Turning wheel speeds use the mean curvature implied by the two front wheel angles, and the differential uses ideal open-differential kinematics. Internal dimensions and drivetrain details are schematic.
 
-在仓库根目录使用 Python 3 依次运行以下命令。生成器仅使用 Python 标准库。
+## Rebuilding from source
+
+Run these commands with Python 3 in this folder (`cars/lancia-037/`). The generator uses only the Python standard library.
 
 ```sh
 python src/build.py
@@ -91,4 +108,4 @@ python src/export_units.py
 python src/pack.py
 ```
 
-生成的 GLB 位于 `models/`，离线查看器为本目录下的 `index.html`（在本目录运行 `python src/build.py && python src/export_units.py && python src/pack.py` 重新生成）。网页界面与运转逻辑在 `src/view.html`，动力总成几何在 `src/power.py`。
+The GLBs are written to `models/` and the offline viewer to `index.html` in this folder. The web interface and Run logic live in `src/view.html`, and the powertrain geometry in `src/power.py`.

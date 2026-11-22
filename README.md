@@ -1,35 +1,36 @@
 # Wilson's Group B Archive
 
-B 组拉力赛车（1982–1986）的可拆解 3D 档案。每台车按实车照片逐线校准车身与涂装，并重建发动机、变速箱和悬挂，可在浏览器里拆开、旋转和运转。
+An archive of Group B rally cars (1982–1986) as exploded 3D studies. Each car's body and livery are calibrated line by line against period photographs, and its engine, gearbox and suspension are rebuilt so you can take them apart, turn them over and run them in the browser.
 
-An archive of Group B rally cars as exploded 3D studies, calibrated against period photographs.
+[Open the archive](https://wilsonmah.github.io/group_b_archive/)
 
-[打开主页 / Open the archive](https://wilsonmah.github.io/group_b_archive/)
+## Catalogue
 
-## 车型目录
-
-| # | 车型 | 内容 | 查看 |
+| # | Car | Contents | View |
 |---|---|---|---|
-| 01 | Lancia Rally 037 · Martini Racing 5 号 | 整车拆解、发动机、变速箱、悬挂与转向、运转演示 | [3D 查看器](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/) · [说明](cars/lancia-037/README.md) |
+| 01 | Lancia Rally 037 · Martini Racing Nº 5 | Full teardown, engine, transaxle, suspension and steering, motion study | [3D viewer](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/) · [Notes](cars/lancia-037/README.md) |
+| 02 | Audi Sport quattro S1 E2 · HB Audi Team Nº 2 | Full teardown, turbocharged inline-five, quattro drivetrain, MacPherson suspension, rear-mounted cooling | [3D viewer](https://wilsonmah.github.io/group_b_archive/cars/audi-quattro-s1/) · [Notes](cars/audi-quattro-s1/README.md) |
 
-更多 B 组赛车陆续加入。
+More Group B cars are on the way.
 
-## 目录结构
+## Layout
 
 ```
-index.html              主页（车型目录）
-assets/covers/          主页封面图
-cars/<车型>/            每台车一个独立目录
-  index.html            内嵌模型的离线 3D 查看器
-  models/               导出的 GLB 模型
-  images/               说明配图
-  src/                  生成脚本与查看器源码
+index.html              Homepage (catalogue)
+assets/covers/          Homepage cover and card images
+cars/<slug>/            One self-contained folder per car
+  index.html            Offline 3D viewer with the model embedded
+  models/               Exported GLB models
+  images/               Images used in the car's notes
+  src/                  Generator scripts and viewer source
 ```
 
-所有页面都可以直接用浏览器离线打开，不需要服务器。
+Every page opens straight from disk in a browser; no server is needed.
 
-## 加入新车
+## Adding a car
 
-1. 新建 `cars/<车型>/`，放入该车的查看器和模型（可参照 `cars/lancia-037/`）。
-2. 在主页 `index.html` 的 `CARS` 列表末尾加一条记录：链接、卡片图、名称、年份和三项规格。
-3. 需要换封面时，把照片放进 `assets/covers/` 并改主页顶部的图片路径。
+1. Create `cars/<slug>/` with the car's viewer and models (use `cars/lancia-037/` or `cars/audi-quattro-s1/` as a template).
+2. Append an entry to the `CARS` list in the homepage `index.html`: link, card image, name, year, part count and three specs.
+3. To change the cover, put the photo in `assets/covers/` and update the image path at the top of the homepage.
+
+The site interface is bilingual (Chinese and English); switch languages from the header or with `?lang=en` / `?lang=zh`.

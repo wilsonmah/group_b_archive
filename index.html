@@ -206,9 +206,13 @@ const CARS=[
   {slug:'lancia-037',href:'cars/lancia-037/index.html',img:'assets/covers/lancia-037-card.webp',
    make:'Lancia',name:'Rally 037',year:'1983',parts:250,
    zh:{sub:'蓝旗亚 037 拉力赛车 · Martini Racing 5 号 · 法国拉力赛（Rallye de France）涂装',specs:[['1,995 cm³','机械增压直列四缸'],['中置后驱','纵置发动机'],['5MT','ZF 变速驱动桥']],chip:'可拆解 3D',go:'进入 3D 拆解'},
-   en:{sub:'Martini Racing Nº 5 in Rallye de France livery',specs:[['1,995 cm³','Supercharged inline-four'],['Mid-engine','Rear-wheel drive'],['5MT','ZF transaxle']],chip:'3D teardown',go:'Open the 3D study'}}
+   en:{sub:'Martini Racing Nº 5 in Rallye de France livery',specs:[['1,995 cm³','Supercharged inline-four'],['Mid-engine','Rear-wheel drive'],['5MT','ZF transaxle']],chip:'3D teardown',go:'Open the 3D study'}},
+  {slug:'audi-quattro-s1',href:'cars/audi-quattro-s1/index.html',img:'assets/covers/audi-quattro-s1-card.webp',
+   make:'Audi',name:'Sport quattro S1 E2',year:'1985',parts:117,
+   zh:{sub:'奥迪 Sport quattro S1 E2 · HB Audi Team 2 号 · Röhrl / Geistdörfer',specs:[['2,110 cm³','涡轮增压直列五缸'],['quattro','全时四驱'],['E2','前铲与大尾翼空力套件']],chip:'可拆解 3D',go:'进入 3D 拆解'},
+   en:{sub:'HB Audi Team Nº 2 · Röhrl / Geistdörfer · 1985 E2 evolution',specs:[['2,110 cm³','Turbocharged inline-five'],['quattro','Permanent four-wheel drive'],['E2','Splitter-and-wing aero kit']],chip:'3D teardown',go:'Open the 3D study'}}
 ];
-const SLOTS=2; // empty bays shown after the cars
+const SLOTS=1; // empty bays shown after the cars
 let lang='zh';
 const pad=n=>String(n).padStart(2,'0');
 function card(c,i){
