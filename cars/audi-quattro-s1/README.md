@@ -66,7 +66,7 @@ The engine and bay are detailed from photographs of preserved S1 E2 cars (includ
   - The crank throws are laid out for the 1-2-4-5-3 firing order, 144° apart.
   - On the right are the exhaust manifold, KKK turbocharger and wastegate; on the left the intake plenum, runners and injectors; at the front the intercooler.
   - The block, sump, crankshaft, five rod-and-piston sets, head, both camshafts, each cylinder's intake and exhaust valves, timing belt and more can each be removed on their own.
-- **quattro drivetrain (36 parts):** a twin-plate clutch, then a six-speed gearbox with the front differential built into its nose and the centre differential at its tail, a two-piece propshaft, the rear differential and four driveshafts. Each gear pair, the reverse idler, the four sliding collars and their selector forks are separate parts.
+- **quattro drivetrain (37 parts):** a twin-plate clutch, then a six-speed gearbox with the front differential built into its nose and the centre differential at its tail, a two-piece propshaft, the rear differential and four driveshafts. Each gear pair, the reverse idler, the four sliding collars and their selector forks are separate parts.
 - **Suspension (23 parts):** MacPherson struts and lower wishbones front and rear, with ventilated discs, four-piston calipers, anti-roll bars and rack-and-pinion steering.
 - **E2 rear-mounted cooling:** the water radiator and the oil and gearbox coolers move into the boot to improve the S1's nose-heavy weight distribution. The side intakes feed them air, and electric fans push it out through the tail grilles.
 - Internal structures without public drawings are reconstructed from public sources, for study and visual reference only.

@@ -440,7 +440,7 @@ function poseFor(id){
             if(dir){delta=[0,0,dir*.020];tag='mesh'}break;
         }
         case 'centre':turn(o,[0,def.y,0]);if(engaged)tag='output';break;
-        case 'prop':mat=norm=shaftRotation([0,0,1],o);pivot=[0,def.y,0];if(engaged)tag='output';break;
+        case 'prop':mat=norm=shaftRotation(def.axis,o);pivot=def.pivot;if(engaged)tag='output';break;
         case 'diff':mat=norm=rotation('x',axlePhase(def.zone));pivot=[0,def.y,def.z];if(engaged)tag='output';break;
         case 'axle':mat=norm=shaftRotation(def.axis,def.side*wheelPhaseZ(def.zone,def.side));pivot=def.pivot;if(engaged)tag='output';break;
         case 'wheel':mat=norm=shaftRotation(def.axis,wheelPhaseZ(def.zone,def.side));pivot=def.pivot;break;

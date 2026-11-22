@@ -242,13 +242,24 @@ component('Centre differential','中央差速器','中央与后差速器',(0,-.2
 cyl((0,GY-.04,.50),(0,GY-.04,.58),.072,'Steel',28)
 for k in range(4):
     a=k*pi/2;cyl((.04*cos(a),GY-.04+.04*sin(a),.54),(.055*cos(a),GY-.04+.055*sin(a),.54),.016,'Gunmetal',10)
-component('Two-piece propeller shaft','两段式传动轴','传动轴与半轴',(0,-.28,0));motion(role='prop',y=.30)
-cyl((0,GY-.04,.48),(0,.30,-.25),.026,'Steel',14);cyl((0,.30,-.25),(0,.31,-.95),.026,'Steel',14)
-for z in (.48,-.25,-.95):cyl((0,GY-.04 if z>0 else .30,z-.02),(0,GY-.04 if z>0 else .30,z+.02),.040,'Gunmetal',16)
-component('Rear differential','后差速器','中央与后差速器',(0,-.20,-.20));motion(role='diff',zone='rear',y=.31,z=RZ)
+# Propshaft: one straight axis from the centre differential output to the rear pinion, so it
+# spins true about its own centreline.
+PA=(0,GY-.04,.50);PB=(0,.31,RZ+.10)
+PAX=unit(sub(PB,PA))
+component('Two-piece propeller shaft','两段式传动轴','传动轴与半轴',(0,-.28,0));motion(role='prop',pivot=list(PA),axis=list(PAX))
+PM=mix(PA,PB,.50)
+cyl(PA,PM,.026,'Steel',14);cyl(PM,add(PB,mul(PAX,-.03)),.026,'Steel',14)
+for q in (add(PA,mul(PAX,.02)),PM,add(PB,mul(PAX,-.05))):cyl(add(q,mul(PAX,-.02)),add(q,mul(PAX,.02)),.040,'Gunmetal',16)
+# Drive pinion at the rear of the shaft, meshing with the crownwheel.
+shell(add(PB,mul(PAX,-.03)),PAX,[(0,.020),(.045,.034),(.060,.020)],'Steel',20)
+component('Rear differential case','后差速器壳','中央与后差速器',(0,-.24,-.20));motion(role='shell')
 shell((0,.31,RZ+.10),(0,0,1),[(-.02,.0),(-.02,.07),(.09,.07),(.13,.04),(.13,0)],'Cast alloy',28)
-cyl((-.12,.31,RZ),(.12,.31,RZ),.105,'Cast alloy',32)
+shell((0,.31,RZ),(1,0,0),[(-.12,.03),(-.12,.105),(.12,.105),(.12,.03)],'Cast alloy',32)
+for k in (-1,1):cyl((k*.12,.31,RZ),(k*.135,.31,RZ),.045,'Cast alloy',20)
+component('Rear crownwheel and carrier','后差速器冠齿与差速器壳体','中央与后差速器',(0,-.20,-.38));motion(role='diff',zone='rear',y=.31,z=RZ)
 gear((.05,.31,RZ),(1,0,0),.090,.04,.020,41,'Steel')
+cyl((-.06,.31,RZ),(.06,.31,RZ),.055,'Gunmetal',24)
+for k in (-1,1):cyl((k*.06,.31,RZ),(k*.15,.31,RZ),.026,'Steel',16)
 for s,zc,xc,yc in [(s,zc,xc,yc) for s in (-1,1) for zc,xc,yc in ((FZ,FX,GY),(RZ,RX,.31))]:
     tag=('Front' if zc>0 else 'Rear')+(' left' if s>0 else ' right')
     zh=('前' if zc>0 else '后')+('左' if s>0 else '右')
