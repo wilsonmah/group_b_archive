@@ -10,6 +10,7 @@ An archive of Group B rally cars (1982–1986) as exploded 3D studies. Each car'
 |---|---|---|---|
 | 01 | Lancia Rally 037 · Martini Racing Nº 5 | Full teardown, engine, transaxle, suspension and steering, motion study | [3D viewer](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/) · [Notes](cars/lancia-037/README.md) |
 | 02 | Audi Sport quattro S1 E2 · HB Audi Team Nº 2 | Full teardown, turbocharged inline-five, quattro drivetrain, MacPherson suspension, rear-mounted cooling, motion study | [3D viewer](https://wilsonmah.github.io/group_b_archive/cars/audi-quattro-s1/) · [Notes](cars/audi-quattro-s1/README.md) |
+| 03 | Lancia Delta S4 · Martini Racing Nº 1 | Full teardown, twin-charged inline-four, spaceframe, 4WD drivetrain, double-wishbone suspension, motion study | [3D viewer](https://wilsonmah.github.io/group_b_archive/cars/lancia-delta-s4/) · [Notes](cars/lancia-delta-s4/README.md) |
 
 More Group B cars are on the way.
 
@@ -29,7 +30,7 @@ Every page opens straight from disk in a browser; no server is needed.
 
 ## Adding a car
 
-1. Create `cars/<slug>/` with the car's viewer and models (use `cars/lancia-037/` or `cars/audi-quattro-s1/` as a template).
+1. Create `cars/<slug>/` with the car's viewer and models (use any existing car folder as a template).
 2. Append an entry to the `CARS` list in the homepage `index.html`: link, card image, name, year, part count and three specs.
 3. To change the cover, put the photo in `assets/covers/` and update the image path at the top of the homepage.
 
