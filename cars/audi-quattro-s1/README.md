@@ -23,20 +23,40 @@ The 1985 E2 evolution, HB Audi Team car Nº 2 (Walter Röhrl / Christian Geistd�
   - MICHELIN, Castrol, Audi Sport, quattro, SKF, BOGE and BOSCH fuel injection
   - HB international
   - the crew names and the number 2
-- **Nose:** black grille with rectangular headlamps, and below it a yellow valance with the indicators. The lamp pod in front carries two Bosch long-range lamps above four Hella fog lamps.
-- **Tail:** two black radiator outlet grilles, smoked tail lamps, a perforated exhaust-air strip and the IN-NL 24 registration plate.
+- **Nose:** calibrated against the head-on photographs and the front view of the four-view drawing.
+  - The black grille panel spans ±0.76 m, with rectangular headlamps centred 0.60 m from the centreline and white body corners outboard.
+  - Below it is a yellow valance, with the amber indicators under the headlamps.
+  - The lamp pod carries two Bosch long-range lamps at ±0.32 m, level with the headlamps, over four Hella fog lamps in two pairs at ±0.20 m and ±0.43 m, level with the valance.
+- **Tail:** calibrated against the rear photographs.
+  - A raised white box under the wing carries the IN-NL 24 plate and the HB logo.
+  - Below it are a yellow Audi / quattro band and two separate rounded radiator outlets in a white surround, crossed by a pinstripe pair.
+  - At the outer ends are dark smoked tail lamps, with black vents on the backs of the flares.
+  - Lower down are a perforated exhaust-air strip and a yellow lip.
 
 ## Mechanicals
 
-- **Engine (30 parts):** a 2,110 cm³ (79.3 × 85.4 mm) twenty-valve all-alloy inline-five, mounted longitudinally ahead of the front axle.
+- **Engine (40 parts):** a 2,110 cm³ (79.3 × 85.4 mm) twenty-valve all-alloy inline-five, mounted longitudinally ahead of the front axle.
   - The crank throws are laid out for the 1-2-4-5-3 firing order, 144° apart.
   - On the right are the exhaust manifold, KKK turbocharger and wastegate; on the left the intake plenum, runners and injectors; at the front the intercooler.
-  - The block, sump, crankshaft, five rod-and-piston sets, head, camshafts, valves, timing belt and more can each be removed on their own.
-- **quattro drivetrain (13 parts):** a twin-plate clutch, then a six-speed gearbox with the front differential built into its nose and the centre differential at its tail, a two-piece propshaft, the rear differential and four driveshafts.
+  - The block, sump, crankshaft, five rod-and-piston sets, head, both camshafts, each cylinder's intake and exhaust valves, timing belt and more can each be removed on their own.
+- **quattro drivetrain (36 parts):** a twin-plate clutch, then a six-speed gearbox with the front differential built into its nose and the centre differential at its tail, a two-piece propshaft, the rear differential and four driveshafts. Each gear pair, the reverse idler, the four sliding collars and their selector forks are separate parts.
 - **Suspension (23 parts):** MacPherson struts and lower wishbones front and rear, with ventilated discs, four-piston calipers, anti-roll bars and rack-and-pinion steering.
 - **E2 rear-mounted cooling:** the water radiator and the oil and gearbox coolers move into the boot to improve the S1's nose-heavy weight distribution. The side intakes feed them air, and electric fans push it out through the tail grilles.
 - Internal structures without public drawings are reconstructed from public sources, for study and visual reference only.
-- The Run mode (five-cylinder firing and quattro power flow) is not built for this car yet.
+
+## Motion study
+
+![Run mode: see-through car with the quattro drivetrain](images/Audi_S1_E2_Run.png)
+
+The "运转 / Run" tab opens a see-through view of the car. You can switch to close-ups of the powertrain, the engine or the gearbox, and set the visibility of the body and of the engine and gearbox casings separately.
+
+- **Crank train:** the crankshaft, five connecting rods and pistons are driven by one slider-crank model, with the crank throws 72° apart. The two camshafts turn at half crank speed and open each cylinder's valves. The panel shows each cylinder's stroke in the firing order 1 → 2 → 4 → 5 → 3, one firing every 144°. When paused you can drag the crank angle through 0–720° or step it 15° at a time.
+- **Gearbox:** in gears 1–6 the input path is shown in gold, the engaged gear pair and its sliding collar in green, and the output path in blue. Reverse runs through an idler. Ratios come from the modelled tooth counts (2.58 in first to 0.87 in sixth), with a 37:9 final drive.
+- **quattro drive:** the output shaft turns the centre differential, which drives the front differential and, through the two-piece propshaft, the rear differential. Each of the four driveshafts and wheels turns at its own speed.
+- **Steering:** drag the on-screen steering wheel, or use the slider or the left / centre / right buttons. The front wheels follow Ackermann geometry at 15° of steering wheel per degree of road wheel, so the inner front wheel turns further than the outer one (27.6° against 21.2° with 360° of lock). With ideal open differentials, every wheel rolls at the speed of its own turning radius; the panel shows the two rear wheel speeds.
+- **Not modelled:** wheel travel, which the Lancia 037 has, is not modelled for the S1.
+
+![Engine close-up in the Run mode](images/Audi_S1_E2_Engine_Run.png)
 
 ## Model files
 

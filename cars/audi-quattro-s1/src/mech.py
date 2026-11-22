@@ -7,6 +7,7 @@ mat('Spring enamel','C3262B',.25,.30)
 mat('Damper','2B3034',.55,.36)
 mat('Cast alloy','B7B9B4',.55,.42)
 
+def motion(**k):component_meta[cur]['run']=k
 BORE,STROKE,ROD=.0793,.0854,.144
 CY=.395                                   # crank axis height
 CZ=[1.330+.090*i for i in range(5)]       # cylinder stations, cylinder 1 at the rear
@@ -19,17 +20,17 @@ def pin_height(i):
 # ── Engine ───────────────────────────────────────────────────────────────────────────────
 group('engine','Inline-five turbo engine','涡轮增压直列五缸发动机',(0,.62,.55),'2.1 升 20 气门全铝直列五缸，纵置于前轴之前；右侧 KKK 涡轮与排气歧管，左侧进气稳压腔与喷油器。可进入内部拆解。')
 DECK=CY+.252
-component('Alloy cylinder block','铝合金缸体','缸体与润滑',(0,0,0))
+component('Alloy cylinder block','铝合金缸体','缸体与润滑',(0,0,0));motion(role='shell')
 box((0,(CY+DECK)/2+.02,(CZ[0]+CZ[4])/2),(.20,DECK-CY-.04,.50),'Cast alloy')
 for s in (-1,1):
     box((s*.105,CY-.01,(CZ[0]+CZ[4])/2),(.03,.10,.50),'Cast alloy')
     for i in range(6):box((s*.108,CY+.12,CZ[0]-.045+.09*i),(.012,.20,.012),'Cast alloy')
 for z in CZ:tor((0,DECK+.001,z),(0,1,0),BORE/2+.004,.003,'Steel',28,6)
-component('Oil sump','油底壳','缸体与润滑',(0,-.22,0))
+component('Oil sump','油底壳','缸体与润滑',(0,-.22,0));motion(role='shell')
 shell((0,CY-.045,(CZ[0]+CZ[4])/2),(0,0,1),[(-.26,.0),(-.26,.115),(.26,.115),(.26,.0)],'Cast alloy',4)
 box((0,CY-.105,(CZ[0]+CZ[4])/2),(.21,.12,.52),'Cast alloy')
 for k in range(9):box((0,CY-.168,CZ[0]-.02+.06*k),(.20,.008,.010),'Cast alloy')
-component('Crankshaft','曲轴','曲柄连杆机构',(.32,-.10,0))
+component('Crankshaft','曲轴','曲柄连杆机构',(.32,-.10,0));motion(role='crank')
 for k in range(6):cyl((0,CY,CZ[0]-.045+.09*k-.012),(0,CY,CZ[0]-.045+.09*k+.012),.030,'Steel',20)
 for i in range(5):
     p=crankpin(i)
@@ -44,34 +45,39 @@ cyl((0,CY,CZ[0]-.07),(0,CY,CZ[0]-.045),.030,'Steel',20)
 cyl((0,CY,CZ[4]+.045),(0,CY,CZ[4]+.11),.022,'Steel',16)
 for no in range(5):
     p=crankpin(no);top=(0,pin_height(no),CZ[no])
-    component('Connecting rod '+str(no+1),str(no+1)+' 号连杆','曲柄连杆机构',(.20+.03*no,.06,0))
+    component('Connecting rod '+str(no+1),str(no+1)+' 号连杆','曲柄连杆机构',(.20+.03*no,.06,0));motion(role='rod',i=no)
     cyl(p,top,.010,'Steel',10);sleeve(p,(0,0,1),.031,.024,.020,'Steel',20);sleeve(top,(0,0,1),.016,.011,.018,'Steel',16)
-    component('Piston '+str(no+1),str(no+1)+' 号活塞','曲柄连杆机构',(.0,.26,0))
+    component('Piston '+str(no+1),str(no+1)+' 号活塞','曲柄连杆机构',(.0,.26,0));motion(role='piston',i=no)
     shell((0,top[1]-.030,CZ[no]),(0,1,0),[(0,BORE/2-.001),(.060,BORE/2-.001),(.064,BORE/2-.004),(.064,0)],'Alloy',28)
     for k in range(3):tor((0,top[1]+.018+k*.0075,CZ[no]),(0,1,0),BORE/2-.0005,.0012,'Steel',28,4)
-component('Head gasket','气缸垫','缸盖与配气',(0,.16,0))
+component('Head gasket','气缸垫','缸盖与配气',(0,.16,0));motion(role='shell')
 box((0,DECK+.0015,(CZ[0]+CZ[4])/2),(.205,.003,.50),'Copper')
 HEAD=DECK+.003
-component('20-valve cylinder head','二十气门铝合金缸盖','缸盖与配气',(0,.34,0))
+component('20-valve cylinder head','二十气门铝合金缸盖','缸盖与配气',(0,.34,0));motion(role='shell')
 box((0,HEAD+.055,(CZ[0]+CZ[4])/2),(.22,.11,.50),'Cast alloy')
 for s in (-1,1):
     for z in CZ:box((s*.115,HEAD+.040,z),(.02,.05,.050),'Cast alloy')
-component('Camshafts','进排气凸轮轴','缸盖与配气',(0,.50,0))
-for s in (-1,1):
-    cyl((s*.045,HEAD+.130,CZ[0]-.07),(s*.045,HEAD+.130,CZ[4]+.08),.013,'Steel',14)
+FIRE=[0,144,576,288,432]      # firing angle of cylinders 1-5 in degrees (order 1-2-4-5-3)
+for s_,side_en,side_zh in ((-1,'Exhaust','排气'),(1,'Intake','进气')):
+    component(side_en+' camshaft',side_zh+'凸轮轴','缸盖与配气',(s_*.10,.50,0));motion(role='cam',side=s_,intake=side_en=='Intake',x=s_*.045,y=HEAD+.130)
+    cyl((s_*.045,HEAD+.130,CZ[0]-.07),(s_*.045,HEAD+.130,CZ[4]+.08),.013,'Steel',14)
     for i,z in enumerate(CZ):
         for dz in (-.018,.018):
-            a=THROW[i]*pi/180*.5+(0 if s>0 else 1.2)
-            c=(s*.045,HEAD+.130,z+dz)
-            plate([add(c,(cos(a+t)*.019,sin(a+t)*.019,-.006)) for t in seq(0,2*pi,10)[:-1]],'Steel',(0,0,.012))
-component('Valves and springs','气门与气门弹簧','缸盖与配气',(0,.42,0))
-for s in (-1,1):
-    for z in CZ:
+            # Each lobe points straight down (valve fully open) at its peak-lift crank angle.
+            peak=FIRE[i]*pi/180+(pi*2.5 if side_en=='Intake' else pi*1.5)
+            a=-pi/2-peak/2
+            c=(s_*.045,HEAD+.130,z+dz)
+            plate([add(c,((.016+.006*max(0,cos(t)))*cos(a+t),(.016+.006*max(0,cos(t)))*sin(a+t),-.006)) for t in seq(0,2*pi,14)[:-1]],'Steel',(0,0,.012))
+    pul=(s_*.045,HEAD+.130,CZ[4]+.090)
+    cyl(add(pul,(0,0,-.012)),add(pul,(0,0,.012)),.058,'Gunmetal',36);cyl(add(pul,(0,0,.012)),add(pul,(0,0,.016)),.020,'Steel',16)
+for s_,side_en,side_zh in ((-1,'Exhaust','排气'),(1,'Intake','进气')):
+    for i,z in enumerate(CZ):
+        component('%s valves %d'%(side_en,i+1),'%d 号缸%s气门'%(i+1,side_zh),'缸盖与配气',(s_*.06,.40+.02*i,0));motion(role='valve',i=i,side=s_,intake=side_en=='Intake')
         for dz in (-.017,.017):
-            b=(s*.026,HEAD+.008,z+dz);t=(s*.045,HEAD+.110,z+dz)
+            b=(s_*.026,HEAD+.008,z+dz);t=(s_*.045,HEAD+.110,z+dz)
             cyl(b,t,.0032,'Steel',6);cyl(b,add(b,(0,.003,0)),.014,'Steel',14)
             spring(add(t,(0,-.040,0)),add(t,(0,-.008,0)),.010,.0016,'Steel')
-component('Cam cover','凸轮轴罩盖','缸盖与配气',(0,.62,0))
+component('Cam cover','凸轮轴罩盖','缸盖与配气',(0,.62,0));motion(role='shell')
 shell((0,HEAD+.165,(CZ[0]+CZ[4])/2),(0,0,1),[(-.265,0),(-.265,.085),(.265,.085),(.265,0)],'Crinkle',6)
 box((0,HEAD+.150,(CZ[0]+CZ[4])/2),(.23,.06,.53),'Crinkle')
 for k in range(6):box((0,HEAD+.183,CZ[0]-.03+.095*k),(.17,.006,.012),'Crinkle')
@@ -81,12 +87,13 @@ for z in CZ:
     cyl((0,HEAD+.04,z),(0,HEAD+.20,z),.008,'Silver',8);box((0,HEAD+.205,z),(.03,.03,.05),'Black')
 component('Toothed timing belt drive','正时皮带与皮带轮','点火与正时',(0,.10,.32))
 FZB=CZ[4]+.090
-pul=[((0,CY,FZB),.072),((.045,HEAD+.130,FZB),.058),((-.045,HEAD+.130,FZB),.058),((.07,CY+.18,FZB),.030)]
+motion(role='shell')
+pul=[((0,CY,FZB),.072),((.07,CY+.18,FZB),.030)]
 for (c,r) in pul:cyl(add(c,(0,0,-.012)),add(c,(0,0,.012)),r,'Gunmetal',36);cyl(add(c,(0,0,.012)),add(c,(0,0,.016)),r*.35,'Steel',16)
 belt=[(0,CY-.075,FZB),(.075,CY,FZB),(.10,CY+.18,FZB),(.10,HEAD+.13,FZB),(.045,HEAD+.19,FZB),(-.045,HEAD+.19,FZB),(-.104,HEAD+.13,FZB),(-.075,CY,FZB),(0,CY-.075,FZB)]
 path(belt,.006,'Black',6)
 box((0,HEAD-.02,FZB+.028),(.24,.38,.006),'Black')
-component('Vibration damper and crank pulley','曲轴减振皮带轮','点火与正时',(0,-.05,.40))
+component('Vibration damper and crank pulley','曲轴减振皮带轮','点火与正时',(0,-.05,.40));motion(role='crank')
 cyl((0,CY,FZB+.035),(0,CY,FZB+.060),.085,'Black',36);cyl((0,CY,FZB+.060),(0,CY,FZB+.064),.030,'Steel',16)
 component('Intake plenum and runners','进气稳压腔与进气歧管','进气与燃油',(.36,.20,0))
 IX=.30
@@ -123,38 +130,57 @@ pipe([add(TC,(0,-.09,-.03)),(-.30,.26,1.34),(-.31,.20,1.12)],.032,'Exhaust',14)
 # ── Quattro drivetrain ───────────────────────────────────────────────────────────────────
 group('gearbox','quattro drivetrain','quattro 四驱传动系统',(-.90,.10,.10),'双片离合器、带前差速器的六速变速箱、中央差速器、两段式传动轴、后差速器与四根半轴。可进入内部拆解。')
 GY=.33
-component('Flywheel and twin-plate clutch','飞轮与双片离合器','离合器',(0,0,.30))
+component('Flywheel and twin-plate clutch','飞轮与双片离合器','离合器',(0,0,.30));motion(role='input',y=CY)
 cyl((0,CY,CZ[0]-.115),(0,CY,CZ[0]-.090),.130,'Steel',40)
 for k in range(2):cyl((0,CY,CZ[0]-.140-k*.022),(0,CY,CZ[0]-.124-k*.022),.112,'Black',36)
 cyl((0,CY,CZ[0]-.190),(0,CY,CZ[0]-.165),.120,'Gunmetal',36)
-component('Bell housing and front differential case','离合器壳与前差速器壳','前差速器',(0,-.05,.18))
+component('Bell housing and front differential case','离合器壳与前差速器壳','前差速器',(0,-.05,.18));motion(role='shell')
 shell((0,CY-.02,CZ[0]-.22),(0,0,1),[(-.10,.11),(0,.16),(.16,.16),(.16,0)],'Cast alloy',36)
 box((0,GY,FZ),(.30,.20,.22),'Cast alloy')
-component('Front differential','前差速器','前差速器',(.0,-.30,0))
+component('Front differential','前差速器','前差速器',(.0,-.30,0));motion(role='diff',zone='front',y=GY,z=FZ)
 cyl((-.07,GY,FZ),(.07,GY,FZ),.080,'Steel',32)
 gear((-.08,GY,FZ),(1,0,0),.105,.05,.022,37,'Steel')
 for s in (-1,1):cyl((s*.07,GY,FZ),(s*.15,GY,FZ),.030,'Steel',16)
-component('Six-speed gearbox case','六速变速箱壳体','变速箱',(0,-.20,0))
+component('Six-speed gearbox case','六速变速箱壳体','变速箱',(0,-.20,0));motion(role='shell')
 box((0,GY+.02,.80),(.26,.22,.42),'Cast alloy')
 for k in range(7):box((0,GY+.135,.62+.06*k),(.20,.008,.012),'Cast alloy')
-component('Input and output shafts with gears','输入轴、输出轴与六组齿轮','变速箱',(.30,-.08,0))
-cyl((0,GY+.07,.58),(0,GY+.07,1.02),.016,'Steel',14);cyl((0,GY-.04,.60),(0,GY-.04,1.04),.018,'Steel',14)
-for k,(ra,rb) in enumerate([(.030,.075),(.040,.066),(.048,.058),(.054,.052),(.060,.046),(.064,.042)]):
-    z=.62+.065*k
-    gear((0,GY+.07,z),(0,0,1),ra,.016,.016,max(14,int(ra*620)),'Steel',helix=.3)
-    gear((0,GY-.04,z),(0,0,1),rb,.018,.016,max(14,int(rb*620)),'Gunmetal',helix=-.3)
-component('Selector forks and rods','换挡拨叉与拨叉轴','变速箱',(-.24,.18,0))
-for k in range(3):
-    x=-.05+.05*k;cyl((x,GY+.12,.60),(x,GY+.12,1.00),.006,'Steel',8)
-    box((x,GY+.10,.66+.12*k),(.012,.05,.03),'Gunmetal')
-component('Centre differential','中央差速器','中央与后差速器',(0,-.20,-.25))
+IY,OY=GY+.07,GY-.04          # input and output shaft axes
+GZ=[.62+.065*k for k in range(6)]
+DRIVE=[12,15,17,19,21,23];DRIVEN=[43-n for n in DRIVE]   # tooth counts on a fixed centre distance
+M=.220/43                                              # module so the pitch circles meet at the 0.11 m spacing
+component('Input shaft','输入轴','变速箱',(.26,.06,0));motion(role='input',y=IY)
+cyl((0,IY,.56),(0,IY,1.06),.016,'Steel',14)
+component('Output shaft','输出轴','变速箱',(.26,-.10,0));motion(role='output',y=OY)
+cyl((0,OY,.50),(0,OY,1.06),.018,'Steel',14)
+for k in range(6):
+    z=GZ[k];rd=DRIVE[k]*M/2;rn=DRIVEN[k]*M/2
+    component('Gear %d driver'%(k+1),'%d 挡主动齿轮'%(k+1),'变速箱',(.30,.12,0));motion(role='driver',gear=k+1,y=IY)
+    gear((0,IY,z),(0,0,1),rd,.016,.016,DRIVE[k],'Steel',helix=.3)
+    component('Gear %d driven'%(k+1),'%d 挡从动齿轮'%(k+1),'变速箱',(.30,-.16,0));motion(role='driven',gear=k+1,y=OY)
+    gear((0,OY,z),(0,0,1),rn,.018,.016,DRIVEN[k],'Gunmetal',helix=-.3)
+ZR=1.020
+component('Reverse driver','倒挡主动齿轮','变速箱',(.30,.12,.06));motion(role='reverseIn',y=IY)
+gear((0,IY,ZR),(0,0,1),.034,.016,.016,13,'Steel')
+component('Reverse driven','倒挡从动齿轮','变速箱',(.30,-.16,.06));motion(role='reverseOut',y=OY)
+gear((0,OY,ZR),(0,0,1),.064,.018,.016,25,'Gunmetal')
+component('Reverse idler','倒挡惰轮','变速箱',(.38,0,.06));motion(role='idler',x=.078,y=(IY+OY)/2)
+gear((.078,(IY+OY)/2,ZR),(0,0,1),.030,.010,.016,12,'Steel');cyl((.078,(IY+OY)/2,ZR-.03),(.078,(IY+OY)/2,ZR+.03),.008,'Steel',10)
+SLOTS=[(1,2),(3,4),(5,6),(-1,0)]
+for j,(lo,hi) in enumerate(SLOTS):
+    zc=(GZ[lo-1]+GZ[hi-1])/2 if hi else (GZ[5]+ZR)/2+.006
+    component('Sliding collar %d'%(j+1),'%d 号接合套'%(j+1),'变速箱',(.22,-.10,0));motion(role='collar',slot=j+1,low=lo,high=hi,y=OY)
+    sleeve((0,OY,zc),(0,0,1),.040,.020,.012,'Silver',28)
+    component('Selector fork %d'%(j+1),'%d 号拨叉'%(j+1),'变速箱',(-.24,.18,0));motion(role='fork',slot=j+1,low=lo,high=hi)
+    box((0,OY+.055,zc),(.012,.050,.010),'Gunmetal');cyl((-.05+.035*j,GY+.12,.58),(-.05+.035*j,GY+.12,1.04),.005,'Steel',8)
+    path([(0,OY+.080,zc),(-.05+.035*j,GY+.12,zc)],.005,'Gunmetal',6)
+component('Centre differential','中央差速器','中央与后差速器',(0,-.20,-.25));motion(role='centre',y=GY-.04)
 cyl((0,GY-.04,.50),(0,GY-.04,.58),.072,'Steel',28)
 for k in range(4):
     a=k*pi/2;cyl((.04*cos(a),GY-.04+.04*sin(a),.54),(.055*cos(a),GY-.04+.055*sin(a),.54),.016,'Gunmetal',10)
-component('Two-piece propeller shaft','两段式传动轴','传动轴与半轴',(0,-.28,0))
+component('Two-piece propeller shaft','两段式传动轴','传动轴与半轴',(0,-.28,0));motion(role='prop',y=.30)
 cyl((0,GY-.04,.48),(0,.30,-.25),.026,'Steel',14);cyl((0,.30,-.25),(0,.31,-.95),.026,'Steel',14)
 for z in (.48,-.25,-.95):cyl((0,GY-.04 if z>0 else .30,z-.02),(0,GY-.04 if z>0 else .30,z+.02),.040,'Gunmetal',16)
-component('Rear differential','后差速器','中央与后差速器',(0,-.20,-.20))
+component('Rear differential','后差速器','中央与后差速器',(0,-.20,-.20));motion(role='diff',zone='rear',y=.31,z=RZ)
 shell((0,.31,RZ+.10),(0,0,1),[(-.02,.0),(-.02,.07),(.09,.07),(.13,.04),(.13,0)],'Cast alloy',28)
 cyl((-.12,.31,RZ),(.12,.31,RZ),.105,'Cast alloy',32)
 gear((.05,.31,RZ),(1,0,0),.090,.04,.020,41,'Steel')
@@ -163,6 +189,7 @@ for s,zc,xc,yc in [(s,zc,xc,yc) for s in (-1,1) for zc,xc,yc in ((FZ,FX,GY),(RZ,
     zh=('前' if zc>0 else '后')+('左' if s>0 else '右')
     component(tag+' driveshaft',zh+'半轴','传动轴与半轴',(s*.30,-.05,0))
     a=(s*.15,yc,zc);b=(s*(xc-.09),TR,zc)
+    motion(role='axle',zone='front' if zc>0 else 'rear',side=s,pivot=list(a),axis=list(unit(sub(b,a))))
     cyl(a,b,.016,'Steel',12)
     for p in (a,b):shell(p,unit(sub(b,a)),[(-.04,.020),(-.02,.042),(.02,.042),(.04,.020)],'Black',18)
 
@@ -173,27 +200,31 @@ for zc,xc,front in ((FZ,FX,True),(RZ,RX,False)):
         where=('前' if front else '后')+('左' if s>0 else '右');en=('Front' if front else 'Rear')+(' left' if s>0 else ' right')
         hub=(s*(xc-.085),TR,zc)
         component(en+' MacPherson strut',where+'麦弗逊滑柱','滑柱与弹簧',(s*.20,.35,0))
+        if front:motion(role='upright',side=s)
         bot=(s*(xc-.11),TR+.10,zc-.01);top=(s*(xc-.17),.86,zc-.04)
         cyl(bot,mix(bot,top,.62),.030,'Damper',18);cyl(mix(bot,top,.55),top,.012,'Silver',10)
         spring(mix(bot,top,.42),mix(bot,top,.94),.058,.008,'Spring enamel')
         cyl(mix(bot,top,.40),mix(bot,top,.42),.072,'Gunmetal',24);cyl(add(top,(0,-.01,0)),add(top,(0,.02,0)),.065,'Black',24)
         component(en+' hub carrier','%s转向节与轮毂'%where,'转向节与轮毂',(s*.30,0,0))
+        if front:motion(role='upright',side=s)
         box(add(hub,(-s*.03,0,0)),(.05,.20,.10),'Cast alloy');cyl(hub,add(hub,(s*.05,0,0)),.055,'Steel',20)
         component(en+' lower wishbone',where+'下摆臂','摆臂与连杆',(s*.12,-.18,0))
         ball=(s*(xc-.10),.20,zc)
         for dz in (.16,-.13):
             inner=(s*.33,.23,zc+dz);cyl(inner,ball,.014,'Steel',10);sleeve(inner,(0,0,1),.022,.010,.04,'Black',14)
         component(en+' ventilated brake disc',where+'通风刹车盘','制动',(s*.40,0,0))
+        motion(role='frontWheel' if front else 'wheel',side=s,zone='front' if front else 'rear',pivot=[s*xc,TR,zc],axis=[1,0,0])
         dx=s*(xc-.040)
         for k in (-1,1):cyl((dx+k*.008,TR,zc),(dx+k*.014,TR,zc),.150,'Steel',48)
         cyl((dx-.006,TR,zc),(dx+.006,TR,zc),.148,'Gunmetal',48);cyl((dx,TR,zc),(dx+s*.03,TR,zc),.07,'Steel',24)
         component(en+' four-piston caliper',where+'四活塞卡钳','制动',(s*.45,.10,0))
+        if front:motion(role='caliper',side=s)
         ca=(-.9 if front else .9)
         box((dx,TR+.13*cos(ca),zc+.13*sin(ca)),(.07,.06,.12),'Red')
     component(('Front' if front else 'Rear')+' anti-roll bar',('前' if front else '后')+'防倾杆','摆臂与连杆',(0,-.12,(.15 if front else -.15)))
     zb=zc+(-.20 if front else .20)
     path([(-.62,.26,zc),(-.45,.26,zb),(.45,.26,zb),(.62,.26,zc)],.011,'Black',10)
-component('Rack-and-pinion steering','齿轮齿条转向机','转向',(0,-.10,-.25))
+component('Rack-and-pinion steering','齿轮齿条转向机','转向',(0,-.10,-.25));motion(role='rack')
 cyl((-.34,.30,FZ-.12),(.34,.30,FZ-.12),.022,'Cast alloy',16)
 for s in (-1,1):cyl((s*.34,.30,FZ-.12),(s*(FX-.13),.27,FZ-.12),.010,'Steel',10)
 pipe([(.10,.30,FZ-.12),(.20,.45,.85),(.30,.62,.50),(.37,.70,.30)],.012,'Steel',10)

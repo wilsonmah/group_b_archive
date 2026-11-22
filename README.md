@@ -9,7 +9,7 @@ An archive of Group B rally cars (1982–1986) as exploded 3D studies. Each car'
 | # | Car | Contents | View |
 |---|---|---|---|
 | 01 | Lancia Rally 037 · Martini Racing Nº 5 | Full teardown, engine, transaxle, suspension and steering, motion study | [3D viewer](https://wilsonmah.github.io/group_b_archive/cars/lancia-037/) · [Notes](cars/lancia-037/README.md) |
-| 02 | Audi Sport quattro S1 E2 · HB Audi Team Nº 2 | Full teardown, turbocharged inline-five, quattro drivetrain, MacPherson suspension, rear-mounted cooling | [3D viewer](https://wilsonmah.github.io/group_b_archive/cars/audi-quattro-s1/) · [Notes](cars/audi-quattro-s1/README.md) |
+| 02 | Audi Sport quattro S1 E2 · HB Audi Team Nº 2 | Full teardown, turbocharged inline-five, quattro drivetrain, MacPherson suspension, rear-mounted cooling, motion study | [3D viewer](https://wilsonmah.github.io/group_b_archive/cars/audi-quattro-s1/) · [Notes](cars/audi-quattro-s1/README.md) |
 
 More Group B cars are on the way.
 

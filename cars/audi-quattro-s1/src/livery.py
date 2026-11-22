@@ -38,7 +38,7 @@ for s in (-1,1):
     side_decal(s,inner_x,1.525,1.755,.622,.708,CASTROL,ref=ledge,nu=8)
     side_decal(s,flare_x,1.505,1.744,.218,.458,HB,nu=6,nv=6)
 # MICHELIN across the sloping bumper face; HB logos and the rings on the bonnet nose.
-conform(lambda u,v:add(bumper(u,v),(0,.002,.003)),(-.40,.40,.70,.30),MICH,14,3)
+conform(lambda u,v:add(bumper(u,v),(0,.002,.003)),(-.36,.36,.82,.46),MICH,14,3)
 for s in (-1,1):
     x0,x1=s*.30,s*.48
     conform(lambda u,v:(u,top_y(u,v)+.003,v),(min(x0,x1),max(x0,x1),1.79,1.60),HB,6,6)
@@ -63,10 +63,10 @@ for s in (-1,1):
     conform(lambda u,v:(s*(WX+.003),v,u),(a,b,.970,1.120),HB,4,4)
 # Tail: Audi and quattro in the yellow band, registration plate and HB logo above (rear photos).
 def tail(u,v):return (u,v,ZT-.004)
-conform(tail,(.56,.37,.756,.822),AUDIWORD,4,2)
-conform(tail,(-.24,-.66,.765,.808),QUATTRO,8,2)
-conform(tail,(.40,.06,.858,.928),PLATE,6,2)
-conform(tail,(-.42,-.50,.848,.935),HB,3,3)
+conform(tail,(.56,.37,.766,.834),AUDIWORD,4,2)
+conform(tail,(-.24,-.66,.776,.820),QUATTRO,8,2)
+conform(tail,(.40,-.08,.930,1.030),PLATE,6,2)
+conform(tail,(-.40,-.52,.905,1.037),HB,3,3)
 
 current='nose';part('Bonnet stripes')
 # Three diagonal bands each side (red, taupe, black from the outside in), running from the

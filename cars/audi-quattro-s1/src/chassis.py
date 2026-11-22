@@ -99,3 +99,6 @@ def build_wheel(key,zc,xc,w,s):
     cyl((face_x,TR,zc),(face_x+s*.012,TR,zc),.026,'Gunmetal',16)
 for key,zc,xc,w,s in [('frontL',FZ,FX,.235,1),('frontR',FZ,FX,.235,-1),('rearL',RZ,RX,.245,1),('rearR',RZ,RX,.245,-1)]:
     build_wheel(key,zc,xc,w,s)
+    for n in ('Tyre','Five-spoke wheel'):
+        drive_extras[(key,n)]=dict(run=dict(role='frontWheel' if zc>0 else 'wheel',side=s,zone='front' if zc>0 else 'rear',pivot=[s*xc,TR,zc],axis=[1,0,0]))
+drive_extras[('cockpit','Steering wheel')]=dict(run=dict(role='handwheel',pivot=list(hub),axis=list(axis)))

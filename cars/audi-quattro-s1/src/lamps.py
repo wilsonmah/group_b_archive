@@ -12,14 +12,14 @@ def rally_lamp(x,y,z,r,depth):
     cyl(add(front,(0,0,.004)),add(front,(0,0,.006)),r*.10,'Silver',16)
 group('lamps','Auxiliary lamp pod','夜赛辅助灯组',(0,.10,.65),'车头前方的六灯组：上排两盏 Bosch 远射灯，下排四盏 Hella 雾灯，装在管式支架上。')
 part('Lamp frame')
-for y in (.455,.665):path([(-.50,y,1.935),(.50,y,1.935)],.011,'Black',10)
+for y in (.480,.665):path([(-.52,y,1.935),(.52,y,1.935)],.011,'Black',10)
 for s in (-1,1):
-    path([(s*.30,.455,1.935),(s*.30,.665,1.935)],.011,'Black',10)
-    path([(s*.30,.455,1.935),(s*.28,.420,1.885)],.011,'Black',10)
+    path([(s*.315,.480,1.935),(s*.315,.665,1.935)],.011,'Black',10)
+    path([(s*.315,.480,1.935),(s*.30,.440,1.885)],.011,'Black',10)
 part('Two Bosch long-range lamps')
-for s in (-1,1):rally_lamp(s*.268,.665,2.000,.104,.085)
+for s in (-1,1):rally_lamp(s*.320,.665,2.000,.112,.090)
 part('Four Hella fog lamps')
-for x in (-.40,-.14,.14,.40):rally_lamp(x,.455,2.010,.088,.075)
+for x in (-.43,-.20,.20,.43):rally_lamp(x,.480,2.020,.100,.080)
 
 current='tail';part('Rear mud flaps')
 for s in (-1,1):

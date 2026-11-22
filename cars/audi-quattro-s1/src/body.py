@@ -108,25 +108,27 @@ grid(lambda x,t:(x,top_y(x,ZN)-.028*t,ZN+.002-.004*t),bx,[0,1],'Ivory')
 part('Grille, headlamps and bumper')
 # Black grille panel across the nose.
 gh=lambda x:top_y(x,ZN)-.030
-grid(lambda x,t:(x,.500+(gh(x)-.500)*t,ZN),seq(-.80,.80,24),[0,1],'Black')
+grid(lambda x,t:(x,.500+(gh(x)-.500)*t,ZN),seq(-.76,.76,24),[0,1],'Black')
+# White nose corners outboard of the black panel.
+for s in (-1,1):grid(lambda x,t:(s*x,.500+(gh(x)-.500)*t,ZN-.002),seq(.76,.84,3),[0,1],'Ivory',s<0)
 for k in range(14):
     y=.535+k*.016
     box((0,y,ZN+.006),(.80,.006,.010),'Charcoal')
 for s in (-1,1):
     # Rectangular headlamp, set into the black panel at each outer end.
-    hx=s*.672
-    box((hx,.664,ZN+.004),(.222,.140,.016),'Gunmetal')
-    box((hx,.664,ZN+.013),(.204,.122,.006),'Reflector')
-    box((hx,.664,ZN+.018),(.200,.118,.004),'Optical glass')
-    for k in range(7):box((hx-.085+k*.0283,.664,ZN+.021),(.003,.112,.002),'Lens')
+    hx=s*.600
+    box((hx,.664,ZN+.004),(.236,.146,.016),'Gunmetal')
+    box((hx,.664,ZN+.013),(.216,.126,.006),'Reflector')
+    box((hx,.664,ZN+.018),(.212,.122,.004),'Optical glass')
+    for k in range(7):box((hx-.090+k*.030,.664,ZN+.021),(.003,.116,.002),'Lens')
 # Four-ring badge.
 for k in range(4):
     tor((-.111+k*.074,.668,ZN+.012),(0,0,1),.040,.0045,'Silver',40,6)
 # Yellow valance band with the indicators and a black lower intake.
 grid(lambda x,t:(x,.440+.060*t,ZN+.004*t),seq(-.82,.82,24),[0,1],'Yellow')
 for s in (-1,1):
-    box((s*.705,.452,ZN+.010),(.150,.058,.020),'Amber')
-    box((s*.705,.452,ZN+.021),(.142,.050,.004),'Lens')
+    box((s*.700,.462,ZN+.010),(.120,.056,.020),'Amber')
+    box((s*.700,.462,ZN+.021),(.112,.048,.004),'Lens')
 box((0,.395,ZN-.004),(.84,.090,.012),'Black')
 for k in range(5):box((0,.360+k*.017,ZN+.004),(.82,.004,.008),'Mesh')
 # Sloping white bumper face down to the yellow splitter lip.
@@ -193,23 +195,43 @@ for s in (-1,1):
         z=-1.82+k*.028
         box((s*(XF+.002),.887,z),(.004,.014,.016),'Black')
 part('Boot lid and tail panel')
-# Flat boot lid between the rear wings.
-grid(lambda x,z:(x,.940+.006*(1-(x/XG)**2),z),seq(-XG,XG,16),seq(ZT+.004,-1.62,6),'Ivory',True)
-# Tail face, top to bottom: white plate panel, yellow Audi/quattro band, black cooling outlets,
-# white lower panel with the perforated exhaust-air strip, yellow lip.
-tail_bands=[(.212,.262,'Yellow'),(.262,.470,'Ivory'),(.470,.735,'Black'),(.735,.742,'Orange'),(.742,.832,'Yellow'),(.832,.840,'Orange'),(.840,.940,'Ivory')]
-for y0,y1,m in tail_bands:
-    grid(lambda x,t:(x,y0+(y1-y0)*t,ZT),seq(-.88,.88,22),[0,1],m)
+BOX=1.085   # top of the raised rear box under the wing
+def box_top(x,z):return BOX+.006*(1-(x/XG)**2)
+# Short boot ramp from the rear-window foot up to the box, then the flat box top.
+grid(lambda x,t:(x,.968+(box_top(x,-1.60)-.968)*t,-1.50-.10*t),seq(-XG,XG,16),seq(0,1,3),'Ivory',True)
+grid(lambda x,z:(x,box_top(x,z),z),seq(-XG,XG,16),seq(ZT+.004,-1.60,6),'Ivory',True)
 for s in (-1,1):
-    # Black mesh outlet for the boot-mounted radiators.
-    x0,x1=s*.045,s*.585
-    box(((x0+x1)/2,.602,ZT-.006),(abs(x1-x0),.214,.012),'Mesh')
-    for k in range(13):box(((x0+x1)/2,.505+k*.016,ZT-.013),(abs(x1-x0),.004,.004),'Black')
-    for k in range(18):box((x0+s*(k+.5)*.03,.602,ZT-.014),(.003,.206,.004),'Black')
-    # Smoked tail lamp at each outer end.
-    box((s*.735,.640,ZT-.008),(.250,.165,.016),'Smoke')
-    box((s*.735,.640,ZT-.017),(.236,.150,.003),'Tail')
-    box((s*.660,.600,ZT-.018),(.080,.060,.002),'Amber')
+    # Box sides between the rear-wing shelves and the box top.
+    side=[(s*XG,.905,-1.50),(s*XG,.905,ZT),(s*XG,BOX,ZT),(s*XG,BOX,-1.60),(s*XG,.968,-1.50)]
+    face(side if s<0 else side[::-1],'Ivory')
+# Tail face, bottom to top: yellow lip, white lower panel with the perforated strip, white
+# surround with the two outlets and a pinstripe pair, yellow Audi/quattro band, white box face.
+tail_bands=[(.212,.262,'Yellow'),(.262,.596,'Ivory'),(.596,.603,'Orange'),(.603,.609,'Ivory'),(.609,.616,'Yellow'),
+            (.616,.742,'Ivory'),(.742,.750,'Orange'),(.750,.852,'Yellow'),(.852,.860,'Orange'),(.860,BOX,'Ivory')]
+for y0,y1,m in tail_bands:
+    w=.88 if y0<.905 else XG
+    grid(lambda x,t:(x,y0+(y1-y0)*t,ZT),seq(-w,w,22),[0,1],m)
+def rounded_rect(cx,cy,w,h,r,n=6):
+    pts=[]
+    for qx,qy,a0 in [(1,1,0),(-1,1,pi/2),(-1,-1,pi),(1,-1,3*pi/2)]:
+        c=(cx+qx*(w/2-r),cy+qy*(h/2-r))
+        pts+=[(c[0]+r*cos(a0+pi/2*k/n),c[1]+r*sin(a0+pi/2*k/n)) for k in range(n+1)]
+    return pts
+for s in (-1,1):
+    # Rounded black outlet for the boot-mounted radiators, with a fine grille.
+    cx=s*.305
+    o=rounded_rect(cx,.620,.505,.228,.038)
+    face([(x,y,ZT-.003) for x,y in o][::-s] if s>0 else [(x,y,ZT-.003) for x,y in o],'Mesh')
+    path([(x,y,ZT-.004) for x,y in o+[o[0]]],.006,'Black',6)
+    for k in range(12):box((cx,.522+k*.0178,ZT-.008),(.48,.004,.004),'Black')
+    for k in range(16):box((cx-.225+k*.030,.620,ZT-.009),(.003,.212,.004),'Black')
+    # Dark smoked tail lamp at each outer end, at outlet height.
+    box((s*.715,.640,ZT-.008),(.230,.170,.016),'Smoke')
+    box((s*.715,.640,ZT-.017),(.214,.154,.003),'Smoke')
+    box((s*.715,.690,ZT-.018),(.200,.040,.002),'Tail')
+    box((s*.655,.590,ZT-.018),(.070,.040,.002),'Amber')
+    # Black vertical vent on the back of each rear flare.
+    box((s*.865,.560,ZT+.004),(.060,.300,.012),'Mesh')
 box((0,.344,ZT-.006),(1.24,.072,.010),'Steel')
 for k in range(40):
     for j in range(3):cyl((-.60+k*.0307,.322+j*.022,ZT-.012),(-.60+k*.0307,.322+j*.022,ZT-.0115),.006,'Black',8)
@@ -251,7 +273,7 @@ for s in (-1,1):path([roof(s,z) for z in seq(-.84,.13,8)],.010,'Ivory')
 part('Rear window and sail panels')
 def rearwin(u,t):
     # Long quattro fastback: the glass runs from the roof almost to the short boot lid.
-    a=(u*.585,1.278,-.840);b=(u*.700,.950,-1.620)
+    a=(u*.585,1.278,-.840);b=(u*.700,.968,-1.500)
     return add(mix(a,b,t),(0,.014*sin(pi*t),0))
 grid(rearwin,seq(-1,1,20),seq(0,1,8),'Glass')
 path([rearwin(u,0) for u in seq(-1,1,20)],.010,'Black');path([rearwin(u,1) for u in seq(-1,1,20)],.010,'Black')
@@ -298,7 +320,7 @@ for s in (-1,1):
     # with diagonal red, taupe and black bands parallel to the glass edge (side photo).
     def front_edge(t):return mix(QTR,QBR,t)
     def rear_edge(t):
-        top=(s*.600,1.282,-.842);bot=(s*XG,.907,-1.620)
+        top=(s*.600,1.282,-.842);bot=(s*XG,.968,-1.500)
         return add(mix(top,bot,t),(s*.010*sin(pi*t),0,0))
     for a_,b_ in zip(seq(0,1,10),seq(0,1,10)[1:]):
         Fa,Fb,Ra,Rb=front_edge(a_),front_edge(b_),rear_edge(a_),rear_edge(b_)
@@ -311,4 +333,4 @@ for s in (-1,1):
             quad=[mix(Fa,Ra,ka0),mix(Fb,Rb,kb0),mix(Fb,Rb,kb1),mix(Fa,Ra,ka1)]
             face(quad[::-1] if s>0 else quad,m)
     # Cabin base strip under the quarter glass and the sail.
-    face([QBR,(s*.800,.910,-1.060),(s*XG,.905,-1.06),(s*XG,.905,-1.62),rear_edge(1)][::s],'Ivory')
+    face([QBR,(s*.800,.910,-1.060),(s*XG,.905,-1.06),(s*XG,.905,-1.50),rear_edge(1)][::s],'Ivory')
