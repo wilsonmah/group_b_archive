@@ -35,11 +35,17 @@ The 1986 Lancia Delta S4 in Martini Racing livery, car Nº 1. Download the repos
 ## Mechanicals
 
 - **Spaceframe:** chrome-molybdenum steel tubes, with a central cell and integrated roll cage, front and rear subframes, a split cabin bulkhead and fuel cells under the seats.
-- **Engine (37 parts):** a 1,759 cm³ (88.5 × 71.5 mm) 16-valve Lancia 233 ATR 18S inline-four, longitudinal and mid-mounted behind the cabin, with the firing order 1-3-4-2.
-  - **Head:** the cast cam cover carries red ABARTH lettering and red plug caps; there is a tubular four-into-one exhaust manifold.
-  - **Twin-charging:** an Abarth Volumex supercharger driven from the crank, and a KKK turbocharger with a polished wastegate dome.
-  - **Charge air:** an intercooler on top of the engine and polished charge-air pipes with blue silicone couplers.
-  - **Exhaust:** an exhaust with a silencer running out under the tail.
+- **Engine (39 parts):** a 1,759 cm³ (88.5 × 71.5 mm) 16-valve Lancia 233 ATR 18S inline-four, longitudinal and mid-mounted behind the cabin, with the firing order 1-3-4-2. Details follow photos of preserved engines and an S4 engine bay:
+  - **Block and head:** a silver block and a plain ribbed cast-alloy cam cover carrying four red plug caps. The HT leads run back to a blue-capped distributor and coil at the timing end.
+  - **Intake:** a long polished intake log with red ABARTH lettering, five short runners, and a brass fuel rail with red-topped injectors.
+  - **Exhaust:** a long four-into-one tubular header sweeps down and back to a collector. A KKK turbocharger follows, with a tall polished wastegate, then a downpipe with a flex joint and the silencer.
+  - **Twin-charging, in series:** a copper pipe takes the turbo's compressed air to the first of two finned intercoolers, which stand side by side beyond the timing end under the engine cover. Polished pipes with blue silicone couplers carry it to the second intercooler, then to the belt-driven Abarth Volumex supercharger, and on into the intake log.
+  - **Teardown:**
+    - **Down:** the sump and crankshaft.
+    - **Up:** the pistons, head, valves, camshafts, cam cover and plug leads.
+    - **Out to the intake side:** the intake log, fuel rail and supercharger.
+    - **Out to the exhaust side:** the header, turbo, wastegate and downpipe.
+    - **Up and out:** the two intercoolers and their pipes.
 - **Gearbox and 4WD (37 parts):** a Hewland five-speed gearbox sits ahead of the engine, with the centre differential at its front.
   - A front propshaft runs forward to the front differential.
   - A transfer drop and rear propshaft run back beneath the engine to the rear differential.
@@ -62,6 +68,8 @@ The "运转 / Run" tab opens a see-through view of the car, with close-ups of th
 - **Not modelled:** wheel travel is not modelled for this car.
 
 ![Engine close-up in the Run mode](images/Lancia_Delta_S4_Engine_Run.png)
+
+![Engine with its twin intercoolers](images/Lancia_Delta_S4_Engine.png)
 
 ## Model files
 
