@@ -1,6 +1,6 @@
 // Keep model identifiers and select values independent of the display language.
 const englishText = {
-  '整车':'Car', '播放音乐':'Play music', '暂停音乐':'Pause music', '下一首':'Next track', '背景音乐':'Background music', '发动机':'Engine', '变速箱':'Gearbox', '悬挂':'Suspension', '运转':'Run',
+  '整车':'Car', '发动机':'Engine', '变速箱':'Gearbox', '悬挂':'Suspension', '运转':'Run',
   '模型视图':'Model views', '进气与燃油':'Intake and fuel', '涡轮增压与排气':'Turbocharging and exhaust', '附件':'Ancillaries', '前差速器':'Front differential', '中央与后差速器':'Centre and rear differentials', '传动轴与半轴':'Propshaft and driveshafts', '滑柱与弹簧':'Struts and springs', '转向节与轮毂':'Hub carriers', '摆臂与连杆':'Arms and links', '制动':'Brakes', '转向':'Steering', '奥迪 Sport quattro S1 E2 拉力赛车':'Audi Sport quattro S1 E2', '奥迪 Sport quattro S1 E2 三维模型，可拖动旋转和滚轮缩放':'3D Audi Sport quattro S1 E2. Drag to orbit and scroll to zoom.', '奥迪 Sport quattro S1 E2 · HB Audi Team · 2 号':'Audi Sport quattro S1 E2 · HB Audi Team · No. 2', '麦弗逊悬挂、转向与制动':'MacPherson suspension, steering and brakes', '2.1 升涡轮增压直列五缸':'2.1-litre turbocharged inline-five', '六速变速箱与全时四驱':'Six-speed gearbox and permanent four-wheel drive', '蓝旗亚 037 拉力赛车':'Lancia Rally 037',
   '蓝旗亚037三维模型，可拖动旋转和滚轮缩放':'3D Lancia 037. Drag to orbit and scroll to zoom.',
   '辅助灯 · 开':'Aux lamps · on', '辅助灯 · 关':'Aux lamps · off', '初始视角':'Home view', '侧视':'Side', '俯视':'Top',
