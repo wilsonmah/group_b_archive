@@ -4,7 +4,7 @@
 # Every graphic keeps the aspect ratio of its artwork in decals.png.
 NUM=(60,6,180,241);MART=(259,0,701,235);PIRELLI_D=(1116,944,1546,1052);SIEM=(1574,949,2014,1031)
 MAGNETI=(13,945,323,1078);STACK=(18,1500,320,1885);OLIVETTI=(676,943,1032,1033);ROUNDEL=(1180,1155,1558,1486)
-LM_WHITE=(10,524,1293,643);MR_DARK=(13,659,1444,776);LM_DARK=(330,1520,1598,1626);WEBER=(19,1390,151,1467)
+LM_WHITE=(10,524,1293,643);MR_DARK=(13,659,1444,776);LM_DARK=(330,1520,1598,1626);WEBER=(1612,1352,1978,1426);OLIO=(729,1193,1121,1327)
 
 def stripe_cur(z,s):
     """Each ribbon quad belongs to the panel it is painted on, so it follows that panel when exploded."""
@@ -37,41 +37,48 @@ def diagonal(s,P0,P1,bands,n=26):
                 face(q if s>0 else q[::-1],m)
         o+=w
 for s in (-1,1):
-    diagonal(s,(-.50,.24),(-1.04,1.30),RIBBON_REAR)
-    diagonal(s,(.78,.92),(.42,.24),RIBBON_FRONT)
+    diagonal(s,(-.66,.24),(-1.42,1.30),RIBBON_REAR)
+    diagonal(s,(.80,.92),(.50,.24),RIBBON_FRONT)
     # Along the bonnet edges, red outermost, narrowing slightly towards the screen.
     stripe_cur(1.5,s)
-    edges=[(.735,.800,'Red'),(.703,.725,'Navy'),(.671,.693,'Blue'),(.639,.661,'Navy'),(.607,.629,'Blue')]
+    edges=[(.835,1.000,'Red'),(.775,.820,'Navy'),(.715,.760,'Blue'),(.655,.700,'Navy'),(.595,.640,'Blue')]
+    def bon(u,z):
+        k=clamp((ZN-z)/(ZN-DZ1),0,1);x=(.80-.14*k)*u
+        return add(bonnet(s*x,z),(0,.0025,0))
     for a,b,m in edges:
-        grid(lambda u,z:add(bonnet(s*u,z),(0,.0025,0)),[a,b],seq(.74,ZN-.01,30),m,s<0)
+        grid(bon,[a,b],seq(DZ1+.02,ZN-.01,30),m,s<0)
 
 def side_decal(s,z0,z1,y0,y1,rect,nu=6,nv=4):
     a,b=(z0,z1) if s<0 else (z1,z0)
     conform(lambda u,v:(s*skin_x(u,v)+s*.002,v,u),(a,b,y0,y1),rect,nu,nv)
 for s in (-1,1):
     current='door'+str(s);part('Door decals')
-    side_decal(s,-.46,.02,.480,.735,MART,8,4)
-    side_decal(s,.260,.350,.460,.680,NUM,3,5)
-    side_decal(s,.060,.230,.450,.670,STACK,3,5)
+    side_decal(s,-.36,.10,.470,.715,MART,8,4)
+    side_decal(s,.135,.225,.470,.690,NUM,3,5)
+    side_decal(s,.255,.415,.455,.659,STACK,3,5)
     current='nose';part('Front decals')
     side_decal(s,1.32,1.58,.600,.712,MAGNETI,5,3)
     current='tail';part('Rear decals')
     side_decal(s,-1.86,-1.44,.555,.635,PIRELLI_D,6,2)
 current='nose';part('Front decals')
 def front(u,v):return (u,v,ZN+.012)
-conform(front,(-.11,.11,.215,.332),MART,6,3)
+conform(front,(-.10,.10,.245,.352),MART,6,3)
+conform(lambda u,z:add(bonnet(u,z),(0,.004,0)),(-.150,.150,1.985,1.905),MART,6,3)
 for s in (-1,1):
-    conform(front,(min(s*.40,s*.74),max(s*.40,s*.74),.205,.285),PIRELLI_D,6,2)
-    conform(front,(min(s*.43,s*.69),max(s*.43,s*.69),.455,.503),SIEM,5,2)
-conform(lambda u,z:add(bonnet(u,z),(0,.004,0)),(-.165,.165,1.92,1.63),ROUNDEL,10,8)
+    conform(front,(min(s*.42,s*.70),max(s*.42,s*.70),.245,.342),OLIO,6,3)
+    conform(front,(min(s*.22,s*.40),max(s*.22,s*.40),.452,.488),WEBER,4,2)
+    conform(front,(min(s*.60,s*.84),max(s*.60,s*.84),.420,.500),MAGNETI,5,3)
+    conform(front,(min(s*.62,s*.86),max(s*.62,s*.86),.180,.240),PIRELLI_D,6,2)
+conform(lambda u,z:add(bonnet(u,z),(0,.004,0)),(-.200,.200,1.82,1.47),ROUNDEL,10,8)
 current='canopy';part('Windscreen banner and wing lettering')
 grid(lambda u,t:add(wind(u,t),(0,.002,.003)),seq(-1,1,10),[.84,.995],'Navy')
 conform(lambda u,t:add(wind(u,t),(0,.004,.006)),(-.90,.90,.855,.982),LM_WHITE,16,2)
 conform(lambda u,t:add(wing(u,t),(0,-.020,.004)),(.92,-.92,.22,.82),LM_WHITE,16,3)
 current='tail';part('Tail decals')
 def tail(u,v):return (u,v,ZT-.006)
-conform(tail,(.44,-.44,.808,.862),MR_DARK,12,2)
-for s in (-1,1):conform(tail,(max(s*.62,s*.20),min(s*.62,s*.20),.448,.500),PIRELLI_D,6,2)
+grid(lambda x,y:(x,y,ZT-.005),seq(-.62,.62,8),[.800,.870],'Black')
+conform(tail,(.46,-.46,.806,.862),(13,659,1444,776),12,2)
+for s in (-1,1):conform(tail,(max(s*.64,s*.20),min(s*.64,s*.20),.438,.510),PIRELLI_D,6,2)
 box((0,.474,ZT-.008),(.300,.060,.006),'Ivory');path([(-.15,.444,ZT-.012),(.15,.444,ZT-.012),(.15,.504,ZT-.012),(-.15,.504,ZT-.012),(-.15,.444,ZT-.012)],.003,'Black',4)
 # MARTINI roundels on the rear mud flaps.
 for s in (-1,1):conform(lambda u,v:(u,v,-1.672),(max(s*.68,s*.86),min(s*.68,s*.86),.14,.24),MART,4,3)

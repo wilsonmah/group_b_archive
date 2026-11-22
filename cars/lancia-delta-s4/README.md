@@ -11,16 +11,24 @@ The 1986 Lancia Delta S4 in Martini Racing livery, car Nº 1. Download the repos
 ## Body and livery
 
 - **Proportions:** scaled from the side view of a 1986 rally-car four-view drawing, using the 2.440 m wheelbase. Overall length is about 4.02 m, width 1.88 m (published figures: 3.990 m long, 1.880 m wide, 1.344 m high).
+- **Side calibration:** the model's side silhouette was overlaid on the drawing; the wheels line up exactly and the bonnet, roof and engine-cover line are within about 2–3 cm. From that overlay:
+  - The arch tops are at about 0.68 m.
+  - The door shut lines are 0.66 m ahead of and 0.38 m behind the wheelbase centre.
+  - The windscreen header is at 1.27 m, 0.27 m ahead of the centre.
+- **Front and rear calibration:** compared side by side with head-on, rear and 3/4 photographs.
+  - The headlamp pairs are centred 0.55 m and 0.745 m from the centreline.
+  - The grille is two narrow slots either side of the shield, with the intake and number plate below.
+  - The roof wing stands nearly upright.
 - **Shape:**
   - Square box flares over both axles and a waistline crease along the doors.
   - Front: four round headlamps, a split grille with the Lancia shield, a long intake slot and a deep spoiler.
-  - A bonnet outlet for the front radiator.
-  - Rear: a solid painted rear quarter with no side window, a black louvred engine cover sloping to the tail, and a black wing standing at the back of the roof.
-- **Tail:** a full-width black mesh panel with square tail lamps, MARTINI RACING above it and PIRELLI either side of the plate below it. Below that the tail is open over the exhaust. White mud flaps carry MARTINI roundels.
+  - Two louvred radiator outlets in the bonnet just ahead of the windscreen.
+  - Rear: a fixed side window behind the B-pillar in a solid rear quarter, a black louvred engine cover sloping to the tail, and a black wing standing upright at the back of the roof.
+- **Tail:** a full-width black mesh panel with square tail lamps, a black MARTINI RACING band above it and PIRELLI either side of the plate below it. Below that the tail is open over the exhaust. White mud flaps carry MARTINI roundels.
 - **Livery:** from the studio and event photos.
-  - **Front ribbons:** Martini ribbons run along both bonnet edges, red outermost, then turn down across the front of each door.
-  - **Rear ribbons:** a second set rises diagonally across the rear quarters to the roof, with the wide red band rearmost.
-  - **Decals:** the MARTINI roundel, number 1 and the sponsor stack sit on the doors between the two ribbon sets. Front decals include MAGNETI MARELLI, SIEM, PIRELLI and MARTINI. The Lancia roundel is on the bonnet, a LANCIA MARTINI banner on the windscreen and LANCIA MARTINI on the roof wing.
+  - **Front ribbons:** wide Martini ribbons run along both bonnet edges, red outermost, drawing in towards the windscreen, then turn down across the front of each door.
+  - **Rear ribbons:** a second set rises from the sill just ahead of each rear wheel, behind the side window, to the roof, with the wide red band rearmost.
+  - **Decals:** the MARTINI roundel, number 1 and the sponsor stack sit on the doors between the two ribbon sets. The front carries MARTINI on the bonnet nose and lower panel, WEBER, MAGNETI MARELLI, OLIO VSFIAT and PIRELLI, laid out as on the head-on photo. The Lancia roundel is on the bonnet, a LANCIA MARTINI banner on the windscreen and LANCIA MARTINI on the roof wing.
   - **Aspect ratios:** every graphic keeps its artwork's aspect ratio.
 - **Lamp pod:** the four-lamp night pod can be switched on from the vehicle page; it is off by default, as in the studio photo.
 

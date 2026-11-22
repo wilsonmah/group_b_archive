@@ -36,7 +36,7 @@ word 'LANCIA' 461 352 505 70 $dark
 word 'ABARTH' 681 240 318 53 $white
 pirelli 707 33 302 61 '#d1d2c8'
 word 'LANCIA MARTINI' 16 530 1268 106 $white 'Arial' 3
-word 'MARTINI RACING' 16 665 1420 105 $dark 'Arial' 3
+word 'MARTINI RACING' 16 665 1420 105 $white 'Arial' 3
 word 'LANCIA MARTINI' 330 1520 1268 106 $dark 'Arial' 3
 word '1' 1510 525 92 264 '#101112'
 rect 14 795 768 122 $red
@@ -78,5 +78,6 @@ rect 1214 1260 271 82 $dark
 word 'LANCIA' 1227 1274 245 52 $white 'Times New Roman' 3
 rect 1592 1169 367 143 '#fffefa';word '1' 1735 1179 56 116 $dark
 word 'VX' 23 1394 125 69 '#f9f9f9'
+word 'WEBER' 1616 1356 360 66 '#d1202a' 'Arial Black' 0
 $b.Save($OutputFile,[Drawing.Imaging.ImageFormat]::Png)
 $g.Dispose();$b.Dispose()

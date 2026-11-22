@@ -5,9 +5,9 @@
 FZ,RZ=1.22,-1.22            # axle stations
 TR=.300                     # rolling radius
 FX,RX=.750,.760             # wheel-centre half tracks
-RA=.335                     # wheel-arch radius
+RA=.375                     # wheel-arch radius (arch tops at 0.68 m on the drawing)
 ZN,ZT=2.030,-1.985          # nose face, tail face
-DZ0,DZ1=-.44,.70            # door shut lines (rear door outline at -0.44, front at 0.70)
+DZ0,DZ1=-.38,.66            # door shut lines (drawing: front 0.66 m, rear 0.29-0.41 m behind centre)
 CREASE=.735                 # waistline crease
 XF,XD,XC,XR=.940,.866,.835,.505   # flares, door skin, window sill, roof rail
 
@@ -16,17 +16,17 @@ def arch_y(z,zc):
 def bonnet_y(z):return .900-(.900-.665)*clamp((z-.74)/(1.92-.74),0,1)-.040*clamp((z-1.92)/.11,0,1)**2
 def W(z):
     """Half-width below the crease: box flares over both axles, door skin between them."""
-    f=clamp((z-.66)/.08,0,1);r=clamp((-.40-z)/.08,0,1)
+    f=clamp((z-.62)/.08,0,1);r=clamp((-.38-z)/.08,0,1)
     w=XD+(XF-XD)*max(f*f*(3-2*f),r*r*(3-2*r))
     w-=.060*clamp((z-1.93)/.10,0,1)**2+.040*clamp((-1.90-z)/.085,0,1)**2
     return w
 def upper(z):
     """Height and half-width of the top of the side: bonnet edge ahead of the screen, window
     sill along the cabin, rear deck behind."""
-    if z>.70:return bonnet_y(z),.800
-    if z>-.44:return .835+.010*(.70-z)/1.14,XC
+    if z>DZ1:return bonnet_y(z),.800
+    if z>DZ0:return .835+.010*(DZ1-z)/(DZ1-DZ0),XC
     return .860,.800
-def sill(z):return .255 if -1.0<z<1.0 else (.235 if z>0 else .245)
+def sill(z):return .255 if -.85<z<.85 else (.235 if z>0 else .245)
 def bottom(z):return max(sill(z),arch_y(z,FZ),arch_y(z,RZ))
 def side_x(z,y):
     if y<=CREASE:
@@ -44,7 +44,7 @@ def zstations(z0,z1,n,extra=()):
         if z0<z<z1:zs.add(round(z,5))
     return sorted(zs)
 def side_skin(z0,z1,s,n=40):
-    zs=zstations(z0,z1,n,(.66,.70,.74,-.40,-.44,-.48,1.93,-1.90))
+    zs=zstations(z0,z1,n,(.62,.66,.70,-.38,-.42,-.46,1.93,-1.90))
     for a,b in zip(zs,zs[1:]):
         ya,yb=bottom(a),bottom(b)
         ua,ub=upper(a)[0],upper(b)[0]
@@ -57,15 +57,16 @@ def side_skin(z0,z1,s,n=40):
 # ── Front clamshell ────────────────────────────────────────────────────────────────────────
 group('nose','Front body','前车身',(0,.40,.80),'可整体掀开的碳纤维前车头：引擎盖与散热出风口、带方形轮眉的前翼子板、四圆灯、格栅与前唇。')
 part('Front wings and bonnet')
-for s in (-1,1):side_skin(.70,ZN,s)
+for s in (-1,1):side_skin(DZ1,ZN,s)
 def bonnet(x,z):
     c=.014*(1-(x/.80)**2);return (x,bonnet_y(z)+c,z)
-grid(bonnet,seq(-.80,.80,20),zstations(.70,ZN,30,(1.92,)),'Ivory',True)
+grid(bonnet,seq(-.80,.80,20),zstations(DZ1,ZN,30,(1.92,)),'Ivory',True)
 # Radiator outlet in the bonnet, with louvres.
-for k in range(8):
-    z=1.36+k*.030
-    box((0,bonnet(0,z)[1]+.002,z),(.62,.004,.012),'Black')
-box((0,bonnet(0,1.465)[1]-.006,1.465),(.64,.010,.26),'Mesh')
+for sx in (-1,1):
+    xc=sx*.25
+    box((xc,bonnet(xc,.885)[1]-.004,.885),(.30,.010,.17),'Mesh')
+    for k in range(6):
+        z=.815+k*.028;box((xc,bonnet(xc,z)[1]+.002,z),(.29,.004,.012),'Black')
 for s in (-1,1):
     for z in (.95,1.80):
         q=bonnet(s*.70,z);cyl(q,add(q,(0,.007,0)),.016,'Steel',14)
@@ -74,24 +75,28 @@ part('Nose, headlamps and grille')
 def face_x(y):return W(ZN)-.010
 grid(lambda x,t:(x,.170+(bonnet(clamp(x,-.80,.80),ZN)[1]-.170)*t,ZN-.020*t*t),seq(-.87,.87,24),seq(0,1,10),'Ivory')
 for s in (-1,1):
-    for x in (.608,.777):
+    for x in (.548,.745):
         cx=s*x
-        cyl((cx,.560,ZN-.010),(cx,.560,ZN+.004),.084,'Black',36)
-        cyl((cx,.560,ZN+.004),(cx,.560,ZN+.010),.076,'Reflector',36)
-        cyl((cx,.560,ZN+.010),(cx,.560,ZN+.016),.077,'Optical glass',36)
-        tor((cx,.560,ZN+.012),(0,0,1),.078,.005,'Gunmetal',36,6)
+        cyl((cx,.565,ZN-.010),(cx,.565,ZN+.004),.098,'Black',36)
+        cyl((cx,.565,ZN+.004),(cx,.565,ZN+.010),.088,'Reflector',36)
+        cyl((cx,.565,ZN+.010),(cx,.565,ZN+.016),.089,'Optical glass',36)
+        tor((cx,.565,ZN+.012),(0,0,1),.091,.006,'Gunmetal',36,6)
     # Grille openings either side of the shield.
-    box((s*.240,.555,ZN+.002),(.300,.110,.010),'Black')
-    for k in range(6):box((s*.240,.510+k*.018,ZN+.009),(.29,.005,.006),'Mesh')
-    for k in range(10):box((s*(.105+k*.030),.555,ZN+.010),(.004,.10,.006),'Mesh')
-    # Indicators and fog lamps in the lower panel.
-    box((s*.560,.300,ZN+.004),(.090,.040,.012),'Amber');box((s*.680,.300,ZN+.004),(.090,.040,.012),'Lens')
+    gq=[(s*.075,.585),(s*.355,.600),(s*.345,.512),(s*.075,.500)]
+    plate([(x,y,ZN+.006) for x,y in gq][::s],'Black',(0,0,-.010))
+    for k in range(5):box((s*.215,.513+k*.017,ZN+.009),(.26,.005,.006),'Mesh')
+    for k in range(9):box((s*(.095+k*.030),.548,ZN+.010),(.004,.085,.006),'Mesh')
+    # Square driving lamps and indicators in the lower panel.
+    for x in (.40,.47):box((s*x,.355,ZN+.004),(.058,.050,.012),'Black');box((s*x,.355,ZN+.011),(.048,.040,.004),'Lens')
+    box((s*.62,.355,ZN+.004),(.060,.040,.012),'Amber')
 # Lancia shield in the centre of the grille.
 shield=[(0,.630),(.060,.610),(.055,.520),(0,.480),(-.055,.520),(-.060,.610)]
 plate([(x,y,ZN+.010) for x,y in shield],'Silver',(0,0,-.006))
 plate([(x*.82,.555+(y-.555)*.82,ZN+.013) for x,y in shield],'Navy',(0,0,-.002))
-box((0,.395,ZN+.002),(1.060,.050,.010),'Black')
-for k in range(3):box((0,.380+k*.015,ZN+.008),(1.04,.004,.006),'Mesh')
+box((0,.415,ZN+.002),(.660,.050,.010),'Black')
+for k in range(3):box((0,.400+k*.015,ZN+.008),(.64,.004,.006),'Mesh')
+# Registration plate above the intake.
+box((0,.470,ZN+.006),(.400,.050,.006),'Ivory')
 # Spoiler lip and splitter.
 grid(lambda x,t:(x*(1-.03*t),.170-.030*t,ZN+.060*t),seq(-.88,.88,20),[0,1],'Ivory',True)
 grid(lambda x,z:(x,.138,z),seq(-.86,.86,10),seq(1.60,ZN+.055,5),'Black')
@@ -102,7 +107,7 @@ for s in (-1,1):
 # ── Rear body ───────────────────────────────────────────────────────────────────────────────
 group('tail','Rear body','后车身',(0,.55,-.85),'可整体掀开的后车身：方形后轮眉、发动机舱百叶盖、车尾网格面板、尾灯与挡泥板。')
 part('Rear wings and quarter panels')
-for s in (-1,1):side_skin(ZT,-.44,s)
+for s in (-1,1):side_skin(ZT,DZ0,s)
 part('Louvred engine cover')
 # The hatch is a black louvred engine cover sloping from the roof to the tail (rear photos).
 def hatch(u,t):
@@ -135,7 +140,7 @@ group('canopy','Roof and glazing','车顶与玻璃',(0,1.20,-.05),'车顶、前�
 part('Windscreen')
 def wind(u,t):
     zb=.740+.030*(1-u*u);xb=.660*u;yb=.900
-    zt_=.210+.020*(1-u*u);xt=.490*u;yt=1.255
+    zt_=.255+.015*(1-u*u);xt=.490*u;yt=1.272
     p=mix((xb,yb,zb),(xt,yt,zt_),t)
     return add(p,(0,.010*sin(pi*t),.004*sin(pi*t)))
 grid(wind,seq(-1,1,20),seq(0,1,10),'Glass')
@@ -151,21 +156,24 @@ grid(lambda u,t:mix(roof(u,-1.00),add(hatch(u,0),(0,.004,0)),t),seq(-1,1,16),[0,
 part('A-pillars and rear quarter panels')
 for s in (-1,1):
     # A-pillar / cant-rail band between the screen edge, the roof edge and the door glass.
-    A=[wind(s,t) for t in seq(0,1,10)]+[roof(s,z) for z in seq(.20,-.44,6)][1:]
-    C=[mix((s*.835,.850,.700),(s*.520,1.240,.215),t) for t in seq(0,1,10)]+[mix((s*.520,1.240,.215),(s*.520,1.255,-.44),k/6) for k in range(1,7)]
+    A=[wind(s,t) for t in seq(0,1,10)]+[roof(s,z) for z in seq(.20,DZ0,6)][1:]
+    C=[mix((s*.835,.850,.660),(s*.520,1.255,.262),t) for t in seq(0,1,10)]+[mix((s*.520,1.255,.262),(s*.520,1.262,DZ0),k/6) for k in range(1,7)]
     for i in range(len(A)-1):face([A[i],A[i+1],C[i+1],C[i]][::s],'Ivory')
     # Solid rear quarter panel (painted over the Delta's rear side window), B-pillar to hatch.
-    Q=[(s*.835,.858,-.44),(s*.520,1.258,-.44),(s*.507,1.290,-1.00),(s*.800,.882,-1.955),(s*.800,.860,-1.10)]
+    Q=[(s*.835,.858,DZ0),(s*.520,1.262,DZ0),(s*.507,1.290,-1.00),(s*.800,.882,-1.955),(s*.800,.860,-1.10)]
     face(Q if s<0 else Q[::-1],'Ivory')
-    face([(s*.835,.858,-.44),(s*.800,.860,-1.10),(s*.800,.860,-.47)][::(-s)],'Ivory')
+    def qx(y):return .835-(.835-.507)*(y-.858)/(1.29-.858)+.004
+    RG=[(s*qx(.880),.880,DZ0-.050),(s*qx(1.250),1.250,DZ0-.050),(s*qx(1.262),1.262,-.920),(s*qx(.888),.888,-1.095)]
+    face(RG if s<0 else RG[::-1],'Glass');path(RG+[RG[0]],.010,'Black')
+    face([(s*.835,.858,DZ0),(s*.800,.860,-1.10),(s*.800,.860,DZ0-.03)][::(-s)],'Ivory')
 part('Roof wing')
 # Black roof wing standing at the back of the roof, LANCIA MARTINI on its rear-facing board.
 WW=.620
-def wing(u,t):return (u*WW,1.320+.135*t,-1.000-.360*t)
+def wing(u,t):return (u*WW,1.315+.165*t,-1.030-.230*t)
 grid(wing,seq(-1,1,12),seq(0,1,6),'Black',True)
 grid(lambda u,t:add(wing(u,t),(0,-.012,0)),seq(-1,1,12),seq(0,1,6),'Black')
 for s in (-1,1):
-    ep=[(-.96,1.290),(-1.37,1.250),(-1.38,1.475),(-1.26,1.470),(-.98,1.335)]
+    ep=[(-.99,1.290),(-1.30,1.260),(-1.30,1.495),(-1.22,1.495),(-1.00,1.335)]
     plate([(s*WW,y,z) for z,y in ep],'Black',(-s*.008,0,0))
 
 
@@ -183,7 +191,7 @@ for s in (-1,1):
     for z in (DZ0,DZ1):path([(s*(side_x(z,y)+.003),y,z) for y in seq(.265,upper(z)[0],6)],.004,'Black',6)
     box((s*(XD+.004),.770,-.300),(.012,.024,.10),'Black')
     part('Side window and mirror')
-    G=[(s*.840,.852,.690),(s*.524,1.236,.220),(s*.524,1.250,-.425),(s*.840,.856,-.425)]
+    G=[(s*.840,.852,.650),(s*.524,1.250,.262),(s*.524,1.258,DZ0+.015),(s*.840,.856,DZ0+.015)]
     face(G if s<0 else G[::-1],'Glass');path(G+[G[0]],.011,'Black')
     sw=[mix(mix(G[0],G[3],.30),mix(G[1],G[2],.30),v) for v in (.15,.62)]
     path([sw[0],add(sw[0],(0,0,-.17)),add(sw[1],(0,0,-.17)),sw[1],sw[0]],.004,'Steel',6)
