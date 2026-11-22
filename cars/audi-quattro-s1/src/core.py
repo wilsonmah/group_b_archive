@@ -25,7 +25,7 @@ for a in [('Ivory','F3F2EC',.12,.27),('Yellow','E9A21C',.12,.30),('Orange','DE5F
           ('Silver','CBCECA',.75,.28),('Alloy','DCDAD0',.5,.31),('Wheel','EEEDE6',.22,.30),('Glass','2F4350',.43,.15),
           ('Lens','DCE3E0',.48,.16),('Amber','E8902A',.18,.22),('Tail','A82222',.15,.2),('Smoke','2A1416',.3,.18),
           ('Gold','B39663',.67,.35),('Exhaust','A39C90',.72,.46),('Heat','7B5A3E',.6,.5),('Seat','2E3439',0,.9),
-          ('Belt','2F5FA8',0,.78),('Engine','8C8F8E',.55,.40),('Crinkle','2B2D30',.35,.7),('Silicone','1D5DA6',0,.52),
+          ('Belt','2F5FA8',0,.78),('Engine','8C8F8E',.55,.40),('Crinkle','2B2D30',.35,.7),('Silicone','D2452C',0,.52),
           ('Braid','23272B',.42,.62),('Copper','B8743F',.7,.35),('Mesh','15181B',.3,.6),('Decal','FFFFFF',0,.44)]:mat(*a)
 glassmat=materials[mids['Glass']];glassmat['alphaMode']='BLEND';glassmat['pbrMetallicRoughness']['baseColorFactor'][3]=.62
 materials[mids['Decal']]['pbrMetallicRoughness']['baseColorTexture']={'index':0}

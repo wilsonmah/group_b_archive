@@ -35,7 +35,34 @@ The 1985 E2 evolution, HB Audi Team car Nº 2 (Walter Röhrl / Christian Geistd�
 
 ## Mechanicals
 
-- **Engine (40 parts):** a 2,110 cm³ (79.3 × 85.4 mm) twenty-valve all-alloy inline-five, mounted longitudinally ahead of the front axle.
+### Engine bay
+
+The engine and bay are detailed from photographs of preserved S1 E2 cars (including the Bonhams auction car):
+
+- **Cam cover:** grey cast alloy with longitudinal ribs, perimeter bolts and raised cast AUDI lettering at the front. The five spark-plug boots sit in a row down the middle, with their leads running into a black loom channel on the intake side and on to the distributor at the back of the head.
+- **Charge air:** from the KKK compressor on the right, a polished alloy crossover pipe climbs along the exhaust side and crosses behind the cam cover. On the intake side a gold heat-wrapped pipe with red silicone couplers runs forward to the front intercooler. A polished feed pipe takes the air back into the long polished plenum and its five runners.
+- **Turbo side:** a polished wastegate dome with a blue anodised cap sits ahead of the turbo, beside the exhaust manifold and downpipe; there is also a blow-off valve.
+- **Front of the engine:** a yellow Kevlar timing-belt cover over the toothed belt and pulleys.
+- **Ancillaries:** a bronze dry-sump oil tank with blue and red anodised fittings and braided lines at the front left, and a polished coolant header tank at the bulkhead.
+- **Bay:** painted white, with white strut towers joined by a polished strut brace and diagonal braces to the bulkhead, three brake and clutch fluid reservoirs with red caps, and a mesh cabin-air intake.
+
+![Engine as installed](images/Audi_S1_E2_Engine_Bay.png)
+
+**Teardown order:** the engine explodes in stacked order.
+
+- **Down:** the sump and crankshaft.
+- **Out to the intake side:** the connecting rods, plenum, heat-wrapped pipe and oil tank.
+- **Up:** the pistons, then the head gasket, head, valves, camshafts, cam cover and plug loom.
+- **Out to the right:** the exhaust manifold, turbo, wastegate and downpipe.
+- **Forward:** the timing belt, the Kevlar cover and the intercooler.
+- **Up and back:** the charge-air crossover.
+
+![Exploded engine](images/Audi_S1_E2_Engine_Exploded.png)
+
+### Assemblies
+
+
+- **Engine (48 parts):** a 2,110 cm³ (79.3 × 85.4 mm) twenty-valve all-alloy inline-five, mounted longitudinally ahead of the front axle.
   - The crank throws are laid out for the 1-2-4-5-3 firing order, 144° apart.
   - On the right are the exhaust manifold, KKK turbocharger and wastegate; on the left the intake plenum, runners and injectors; at the front the intercooler.
   - The block, sump, crankshaft, five rod-and-piston sets, head, both camshafts, each cylinder's intake and exhaust valves, timing belt and more can each be removed on their own.

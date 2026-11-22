@@ -9,14 +9,28 @@ for s in (-1,1):
     box((s*.79,.33,-.03),(.01,.07,1.10),'Gunmetal')
 box((0,.30,.05),(.30,.19,1.40),'Charcoal')                 # transmission tunnel
 part('Firewall and scuttle')
-box((0,.52,.70),(1.56,.62,.012),'Charcoal')
-box((0,.86,.66),(1.40,.05,.10),'Charcoal')
+box((0,.52,.70),(1.56,.62,.012),'Ivory')
+box((0,.86,.66),(1.40,.05,.10),'Ivory')
 part('Front and rear inner wheel arches')
 for s in (-1,1):
     for zc in (FZ,RZ):
         pts=[(TR+.345*sin(pi*k/16),zc-.345*cos(pi*k/16)) for k in range(17)]
         for (y0,z0),(y1,z1) in zip(pts,pts[1:]):
-            face([(s*.60,y0,z0),(s*.60,y1,z1),(s*.90,y1,z1),(s*.90,y0,z0)],'Charcoal')
+            face([(s*.60,y0,z0),(s*.60,y1,z1),(s*.90,y1,z1),(s*.90,y0,z0)],'Ivory' if zc>0 else 'Charcoal')
+part('Front strut towers and brace')
+for s in (-1,1):
+    st=(s*.5625,.86,1.072)
+    cyl(add(st,(0,-.10,0)),add(st,(0,.004,0)),.085,'Ivory',28);cyl(add(st,(0,.004,0)),add(st,(0,.012,0)),.040,'Gunmetal',16)
+    for a in range(3):bolt(add(st,(.060*cos(a*2.1),.012,.060*sin(a*2.1))),(0,1,0),.007,'Steel')
+    path([add(st,(0,.026,0)),(s*.25,.875,.735)],.016,'Polished',14)
+    plate([(s*.25-.04,.86,.725),(s*.25+.04,.86,.725),(s*.25+.04,.89,.725),(s*.25-.04,.89,.725)],'Gunmetal',(0,0,-.010))
+path([(-.5625,.886,1.072),(.5625,.886,1.072)],.016,'Polished',14)
+part('Brake and clutch fluid reservoirs')
+for x in (-.08,0,.08):
+    cyl((x,.770,.775),(x,.835,.775),.026,'Lens',20);cyl((x,.835,.775),(x,.850,.775),.020,'Red',16)
+box((0,.765,.775),(.22,.012,.06),'Gunmetal')
+part('Cabin air intake grille')
+box((-.46,.80,.770),(.20,.11,.10),'Mesh');path([(-.56,.855,.72),(-.36,.855,.72),(-.36,.855,.82),(-.56,.855,.82),(-.56,.855,.72)],.005,'Silver',6)
 part('Front subframe rails')
 for s in (-1,1):
     box((s*.42,.30,1.35),(.07,.09,1.20),'Charcoal')
