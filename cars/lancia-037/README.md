@@ -74,6 +74,14 @@ In the Run tab's vehicle, front steering and rear suspension views, the "悬挂�
 
 ![Springs, wishbones and halfshafts with the rear axle in roll](images/Lancia_037_Travel.png)
 
+## Cockpit
+
+From a photo of a Martini 037 at Rétromobile 2012 (Wikimedia Commons, Lebubu93, CC BY-SA 3.0):
+- **Floor and tunnel:** a bare silver-painted floor with pressed ribs, and a silver tunnel.
+- **Dashboard:** black, with orange-faced Abarth gauges and the co-driver's trip meters.
+- **Steering wheel:** a black Abarth three-spoke wheel with slotted spokes.
+- **Controls:** a chrome gear lever with a black ball knob on a gated base, and drilled alloy pedals.
+
 ## Teardown and models
 
 The car is split into 15 assemblies. The engine has 84 selectable parts or sub-assemblies, the transaxle 45, and the suspension, steering and brakes 52. Click the model or the list to select a part, then use the slider to remove it on its own, put it back or explode everything.

@@ -468,24 +468,41 @@ for s in [-1,1]:
         a=j*pi/3;face([(s*.234+r*cos(a+t),.406+r*sin(a+t),1.64) for r,t in [(.026,0),(.125,.18),(.133,.55),(.032,.3)]],'Gunmetal')
 group('cockpit','Cockpit and roll cage','驾驶舱与防滚架',(-.18,.73,.05),'双桶椅、四点式安全带、方向盘、仪表台与钢管防滚架。')
 part('Cockpit floor and dashboard')
-box((0,.256,.01),(1.32,.046,1.03),'Black');box((0,.363,.04),(.203,.182,.97),'Charcoal')
-box((0,.649,.560),(1.32,.119,.332),'Charcoal')
+# Bare silver-painted floor and tunnel, black dashboard with orange-faced Abarth gauges
+# (cockpit photo of a Martini 037, Rétromobile 2012).
+mat('Dial','E0661F',.1,.35);mat('Floor paint','A9ADAE',.35,.5)
+box((0,.256,.01),(1.32,.046,1.03),'Floor paint');box((0,.363,.04),(.203,.182,.97),'Floor paint')
+for k in range(9):box((0,.281,-.40+k*.10),(1.30,.006,.020),'Floor paint')        # pressed floor ribs
+box((0,.649,.560),(1.32,.119,.332),'Black')
+box((.40,.690,.392),(.42,.110,.020),'Black')                                     # instrument binnacle
 for i in range(5):
     x=.54-i*.095;r=.039 if i in [1,2] else .028
     cyl((x,.656,.385),(x,.656,.378),r,'Silver',20)
-    cyl((x,.656,.378),(x,.656,.375),r*.86,'Black',20)
+    cyl((x,.656,.378),(x,.656,.375),r*.86,'Dial',20)
     path([(x-.004,.65,.372),(x+.013,.663,.372)],.0023,'Ivory',5)
+for k,(x,m) in enumerate([(.08,'Red'),(.12,'Glass'),(.16,'Red')]):cyl((x,.640,.392),(x,.640,.386),.010,m,12)
+box((-.30,.720,.392),(.34,.060,.010),'Charcoal')                                  # co-driver trip meters
+for k in range(4):box((-.42+k*.08,.720,.386),(.05,.030,.004),'Glass')
 part('Steering wheel')
-tor((.376,.687,.183),(0,.32,-1),.135,.013,'Rubber',48)
+tor((.376,.687,.183),(0,.32,-1),.135,.015,'Rubber',48,10)
+# Black Abarth three-spoke wheel with slotted spokes and a dished hub.
 for a in [0,pi,1.5*pi]:
-    cyl((.376,.687,.183),(.376+.122*cos(a),.687+.119*sin(a),.183+.038*sin(a)),.009,'Gunmetal',8)
+    tip=(.376+.122*cos(a),.687+.119*sin(a),.183+.038*sin(a))
+    cyl((.376,.687,.183),tip,.010,'Black',8)
+    for f in (.35,.62):cyl(mix((.376,.687,.183),tip,f),mix((.376,.687,.183),tip,f+.12),.0045,'Gunmetal',6)
+cyl((.376,.687,.183),(.376,.697,.152),.030,'Black',20);cyl((.376,.697,.152),(.376,.699,.146),.020,'Gunmetal',20)
 # Index stripe at the top of the wheel gives the driver's handwheel a visible zero.
 wheel_index=(.376,.687+.135/sqrt(1+.32**2),.183+.135*.32/sqrt(1+.32**2))
 cyl(add(wheel_index,(-.008,0,0)),add(wheel_index,(.008,0,0)),.0138,'Gold',20)
 part('Gear selector and pedals')
-cyl((0,.44,.086),(0,.599,.055),.008,'Steel')
-cyl((0,.581,.055),(0,.616,.055),.021,'Black',16)
-for i in range(3):box((.452-i*.076,.296,.427),(.045,.019,.072),'Silver')
+# Chrome gear lever with a black ball knob on a gated base; drilled alloy pedals.
+box((0,.452,.090),(.090,.020,.120),'Silver')
+cyl((0,.462,.086),(0,.606,.040),.008,'Silver',10)
+for k in range(6):
+    y0=.022*cos(pi*k/6);y1=.022*cos(pi*(k+1)/6);cyl((0,.618+y0,.036),(0,.618+y1,.036),.022*sin(pi*(k+.5)/6)+.002,'Black',14)
+for i in range(3):
+    x=.452-i*.076;box((x,.296,.427),(.045,.019,.072),'Silver')
+    for k in range(3):cyl((x,.305,.405+k*.022),(x,.307,.405+k*.022),.008,'Black',8)
 for s in [-1,1]:
     part('Bucket seat and harness '+str(s));x=s*.346
     def seat(u,t):
