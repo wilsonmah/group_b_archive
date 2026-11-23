@@ -108,9 +108,10 @@ footer{background:var(--bg);border-top:1px solid var(--line);color:var(--faint);
 #aboutDialog hr{border-top-color:var(--line)}
 #aboutClose{color:var(--text)}
 @media(max-width:600px){.panel{border-top:1px solid var(--line)}.operating .runpanel{border-left:0}}
+#focusMark{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border:2px solid var(--accent,#e2553b);border-radius:50%;opacity:0;pointer-events:none}#focusMark:after{content:'';position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:50%;background:var(--accent,#e2553b)}#focusMark.show{animation:focusPing .9s ease-out}@keyframes focusPing{0%{opacity:1;transform:scale(1.8)}60%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
 </style></head><body><header><a class="brand" href="../../index.html" title="返回车型目录 / Back to the catalogue"><i class="mark"><b></b><b></b><b></b></i>Wilson's Group B Archive</a><nav aria-label="模型视图"><button class="modetab active">整车</button><button class="modetab">发动机</button><button class="modetab">变速箱</button><button class="modetab">悬挂</button><button class="modetab" id="runTab" aria-pressed="false">运转</button></nav><div class="hright"><button type="button" id="language" lang="en">English</button></div></header>
-<main class="layout"><section class="stage"><div class="view"><canvas aria-label="蓝旗亚 Delta S4 三维模型，可拖动旋转和滚轮缩放"></canvas><div class="caption"><div class="eyebrow" id="kicker">LANCIA &nbsp;/&nbsp; GROUP B</div><h1>DELTA S4</h1><p id="subtitle">蓝旗亚 Delta S4 拉力赛车</p></div><div class="driveLabels" id="driveLabels" aria-hidden="true"></div><div class="viewid" id="mode"></div><div class="orient"><button id="lampToggle" aria-pressed="true">辅助灯 · 开</button><button id="home">初始视角</button><button id="side">侧视</button><button id="up">俯视</button></div></div><div class="ctrl"><button class="play" id="play">▶  拆解</button><div class="rangewrap"><div class="labels"><span id="assembled">整车</span><span id="scope">拆解进度</span><span>完全展开</span></div><input id="range" aria-label="拆解进度" type="range" min="0" max="100" value="0"></div><div class="pct"><span id="pct">00</span><small>%</small></div></div><div class="opctrl"><button id="runPlay" class="play">Ⅱ 暂停</button><div class="rangewrap"><label for="cycleInput">曲轴转角 · 四冲程循环</label><input id="cycleInput" type="range" min="0" max="720" value="0" step="1"></div><output id="angleVal">0°</output><button id="stepOp" class="tool">步进 15°</button></div></section>
-<aside class="panel"><div class="ph"><div class="mono" id="count">ASSEMBLY INDEX &nbsp;/&nbsp; 14</div><h2 id="listtitle">部件目录</h2><select id="family" aria-label="筛选零件类别" hidden></select></div><div class="list" id="list"></div><div class="info"><div class="mono" id="eng">MODEL OVERVIEW</div><h3 id="name">整车总览</h3><p id="desc">选择部件可定位总成，拖动下方进度条可查看拆解过程。</p><div id="perpart" hidden><div class="local-label"><label for="local">单件拆出</label><span id="localpct"></span></div><input id="local" type="range" min="0" max="100"></div><button class="tool" id="entry" hidden>进入内部拆解</button><button class="tool" id="resetParts" hidden>清除单件调整</button><button class="tool" id="isolate" hidden>单独查看</button><div class="help" id="help">点选零件 &nbsp; · &nbsp; 拖动旋转 &nbsp; · &nbsp; 滚轮缩放</div></div></aside><aside class="runpanel"><div class="mono">POWERTRAIN MONITOR</div><h2>运转观察</h2><fieldset><legend>观察范围</legend><div class="switches"><button data-focus="vehicle">整车</button><button data-focus="both">动力总成</button><button data-focus="engine">发动机</button><button data-focus="gearbox">变速箱</button></div></fieldset>
+<main class="layout"><section class="stage"><div class="view"><canvas aria-label="蓝旗亚 Delta S4 三维模型，可拖动旋转和滚轮缩放"></canvas><div class="caption"><div class="eyebrow" id="kicker">LANCIA &nbsp;/&nbsp; GROUP B</div><h1>DELTA S4</h1><p id="subtitle">蓝旗亚 Delta S4 拉力赛车</p></div><div class="driveLabels" id="driveLabels" aria-hidden="true"></div><div class="viewid" id="mode"></div><div id="focusMark" aria-hidden="true"></div><div class="orient"><button id="lampToggle" aria-pressed="false">辅助灯 · 关</button><button id="home">初始视角</button><button id="side">侧视</button><button id="up">俯视</button></div></div><div class="ctrl"><button class="play" id="play">▶  拆解</button><div class="rangewrap"><div class="labels"><span id="assembled">整车</span><span id="scope">拆解进度</span><span>完全展开</span></div><input id="range" aria-label="拆解进度" type="range" min="0" max="100" value="0"></div><div class="pct"><span id="pct">00</span><small>%</small></div></div><div class="opctrl"><button id="runPlay" class="play">Ⅱ 暂停</button><div class="rangewrap"><label for="cycleInput">曲轴转角 · 四冲程循环</label><input id="cycleInput" type="range" min="0" max="720" value="0" step="1"></div><output id="angleVal">0°</output><button id="stepOp" class="tool">步进 15°</button></div></section>
+<aside class="panel"><div class="ph"><div class="mono" id="count">ASSEMBLY INDEX &nbsp;/&nbsp; 14</div><h2 id="listtitle">部件目录</h2><select id="family" aria-label="筛选零件类别" hidden></select></div><div class="list" id="list"></div><div class="info"><div class="mono" id="eng">MODEL OVERVIEW</div><h3 id="name">整车总览</h3><p id="desc">选择部件可定位总成，拖动下方进度条可查看拆解过程。</p><div id="perpart" hidden><div class="local-label"><label for="local">单件拆出</label><span id="localpct"></span></div><input id="local" type="range" min="0" max="100"></div><button class="tool" id="entry" hidden>进入内部拆解</button><button class="tool" id="resetParts" hidden>清除单件调整</button><button class="tool" id="isolate" hidden>单独查看</button><div class="help" id="help">点选零件 &nbsp; · &nbsp; 拖动旋转 &nbsp; · &nbsp; 滚轮缩放 &nbsp; · &nbsp; 双击设为观察中心 &nbsp; · &nbsp; 右键拖动平移</div></div></aside><aside class="runpanel"><div class="mono">POWERTRAIN MONITOR</div><h2>运转观察</h2><fieldset><legend>观察范围</legend><div class="switches"><button data-focus="vehicle">整车</button><button data-focus="both">动力总成</button><button data-focus="engine">发动机</button><button data-focus="gearbox">变速箱</button></div></fieldset>
 <fieldset id="axleInfo" hidden><legend id="axleTitle"></legend><p id="axleDescription"></p><button class="tool" id="axleExplode">逐件拆解悬挂</button></fieldset>
 <fieldset id="turnControls"><legend>转弯演示</legend><div class="steerbox">
 <div class="dialwheel" id="wheelDrag" title="拖动轮缘转动方向盘" aria-hidden="true"><div class="wheelrim" id="handGraphic"><i></i><i></i><i></i></div></div>
@@ -160,7 +161,7 @@ gl.bindTexture(gl.TEXTURE_2D,sm);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,res,res,0
 gl.bindRenderbuffer(gl.RENDERBUFFER,dep);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,res,res);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,sm,0);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,dep);gl.bindFramebuffer(gl.FRAMEBUFFER,null);
 const floor=buf(new Float32Array([-80,0,-80,80,0,-80,-80,0,80,-80,0,80,80,0,-80,80,0,80]));
 const dot=(a,b)=>a.reduce((v,x,i)=>v+x*b[i],0),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],unit=a=>a.map(x=>x/Math.hypot(...a)),sub=(a,b)=>a.map((x,i)=>x-b[i]);
-function matrix(eye,target,w,h){const depth=Math.max(.35,w*3.1);let z=unit(sub(eye,target)),x=unit(cross([0,1,0],z)),y=cross(z,x),a=[...x.map(v=>v/w),-dot(x,target)/w],b=[...y.map(v=>v/h),-dot(y,target)/h],c=[...z.map(v=>-v/depth),dot(z,target)/depth];return new Float32Array([a[0],b[0],c[0],0,a[1],b[1],c[1],0,a[2],b[2],c[2],0,a[3],b[3],c[3],1])}
+function matrix(eye,target,w,h){const depth=Math.max(4.5,w*3.1);let z=unit(sub(eye,target)),x=unit(cross([0,1,0],z)),y=cross(z,x),a=[...x.map(v=>v/w),-dot(x,target)/w],b=[...y.map(v=>v/h),-dot(y,target)/h],c=[...z.map(v=>-v/depth),dot(z,target)/depth];return new Float32Array([a[0],b[0],c[0],0,a[1],b[1],c[1],0,a[2],b[2],c[2],0,a[3],b[3],c[3],1])}
 function photoMatrix(eye,target,w,h,dist){
     const m=matrix(eye,target,w,h),z=unit(sub(eye,target)),near=dist*.24,far=dist*9;
     const A=(far+near)/(far-near),B=2*far*near/(far-near);
@@ -199,7 +200,7 @@ function dimmed(d){
     if(internal())return selectedNode>=0&&d.node!==selectedNode;
     return sel>=0&&d.k!==sel;
 }
-let lastCamera=null;
+let lastCamera=null,pan=[0,0,0],panAnim=0;
 function render(){
  const dpr=Math.min(devicePixelRatio||1,2),w=Math.round(can.clientWidth*dpr),h=Math.round(can.clientHeight*dpr);
  if(can.width!==w||can.height!==h){can.width=w;can.height=h;dirty=true}if(!dirty||!w||!h)return;dirty=false;
@@ -207,7 +208,7 @@ function render(){
  if(op.on){const gear=op.focus==="gearbox",eng=op.focus==="engine";origin=[0,eng?.82:gear?.52:.62,eng?-1.05:gear?-.48:-.75];halfW=(eng?.46:gear?.40:.86)*zoom;low=.160;if(op.focus==='vehicle'){origin=[0,.60,0];halfW=2.40*zoom;low=-.008}if(isAxleFocus(op.focus)){const front=op.focus==='frontAxle';origin=[0,.39,front?.99:-1.22];halfW=.99*zoom;low=.15}if(op.focus==='diff'){origin=[0,.315,-1.291];halfW=.118*zoom;low=.184}motionFrame=new Map([...new Set(active.map(d=>d.node))].map(id=>[id,poseFor(id)]))}
  else if(solo||internal()){let lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];for(const d of active){const off=shift(d);for(let i=0;i<3;i++){lo[i]=Math.min(lo[i],d.min[i]+off[i]);hi[i]=Math.max(hi[i],d.max[i]+off[i])}}origin=lo.map((v,i)=>(v+hi[i])/2);halfW=Math.max(...sub(hi,lo))*(internal()?.72:.71)*zoom;low=lo[1]-.017}
  const aspect=w/h,halfh=Math.max(halfW/aspect,halfW*.55);halfW=halfh*aspect;
- origin[1]+=halfh*(internal()?.10:.07);
+ origin[1]+=halfh*(internal()?.10:.07);origin=origin.map((v,i)=>v+pan[i]);
  const dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],photo=!op.on&&!internal()&&!solo&&t<1,dist=photo?8.5/Math.max(.09,1-t):12,eye=origin.map((v,i)=>v+dir[i]*dist),vp=photo?photoMatrix(eye,origin,halfW,halfh,dist):matrix(eye,origin,halfW,halfh);
  const radius=op.on||solo||internal()?Math.max(.15,halfW*1.7):4.8;lastCamera={origin,dir,halfW,halfh,photo,dist};const light=matrix(origin.map((a,i)=>a+[-2.8,6,3.6][i]),origin,radius,radius);
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.viewport(0,0,res,res);gl.clearColor(1,1,1,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(shad);gl.uniformMatrix4fv(S.vp,false,light);
@@ -266,7 +267,7 @@ function updateRows(){
     });
 }
 function switchMode(next){
-    leaveRun();
+    leaveRun();pan=[0,0,0];panAnim++;
     if(domain!==next){stateCache.set(domain,viewState());domain=next;
         const v=stateCache.get(next)||{t:0,yaw:next===-1?.63:1.07,pitch:next===-1?.105:.36,zoom:1,sel:-1,solo:false,selectedNode:-1,unitSolo:false,filter:'',moves:new Map()};
         ({t,yaw,pitch,zoom,sel,solo,selectedNode,unitSolo,filter,moves}=v);
@@ -299,11 +300,11 @@ $('local').oninput=e=>{if(selectedNode<0)return;anim=null;moves.set(selectedNode
 $('resetParts').onclick=()=>{moves.clear();sync()};
 $('range').oninput=e=>{anim=null;if(internal())moves.clear();t=+e.target.value/100;sync()};
 $('play').onclick=()=>{if(anim)anim=null;else{if(internal())moves.clear();const end=t>=.995?0:1;anim={from:t,to:end,start:performance.now(),duration:Math.max(300,2350*Math.abs(t-end))}}sync()};
-function setView(y,p){yaw=y;pitch=p;zoom=1;dirty=true}
+function setView(y,p){yaw=y;pitch=p;zoom=1;pan=[0,0,0];panAnim++;dirty=true}
 $('home').onclick=()=>op.on?setRunFocus(op.focus):setView(internal()?1.07:.63,internal()?.36:.105);$('side').onclick=()=>setView(Math.PI/2,.025);$('up').onclick=()=>setView(Math.PI/2,1.565);
 
-function pickPart(clientX,clientY){
-    if(!lastCamera||op.on)return;
+function castRay(clientX,clientY){
+    if(!lastCamera)return null;
     const {origin,dir,halfW,halfh}=lastCamera,rect=can.getBoundingClientRect();
     const right=unit(cross([0,1,0],dir)),up=cross(dir,right);
     const px=((clientX-rect.left)/rect.width*2-1)*halfW,py=(1-2*(clientY-rect.top)/rect.height)*halfh;
@@ -331,7 +332,10 @@ function pickPart(clientX,clientY){
             const dist=dot(ac,q)/det;if(dist>0&&dist<nearest){nearest=dist;hit=d}
         }
     }
-    if(!hit)return;
+    return hit?{hit,point:eye.map((x,i)=>x+ray[i]*nearest)}:null;
+}
+function pickPart(clientX,clientY){
+    if(op.on)return;const r=castRay(clientX,clientY);if(!r)return;const hit=r.hit;
     if(internal()){
         selectedNode=hit.node;
         if(filter&&filter!==g.nodes[hit.node].extras.family){filter='';$('family').value=''}
@@ -340,9 +344,37 @@ function pickPart(clientX,clientY){
     const chosen=$('list').querySelector('.on');if(chosen)chosen.scrollIntoView({block:'nearest'});
 }
 let clickStart=null;
-const pointers=new Map();let pinch=0;can.onpointerdown=e=>{clickStart=pointers.size?null:[e.clientX,e.clientY];can.setPointerCapture(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);pinch=pointers.size===2?Math.hypot(...sub(...pointers.values())):0};
-can.onpointermove=e=>{if(!pointers.has(e.pointerId))return;let old=pointers.get(e.pointerId),p=[e.clientX,e.clientY];if(clickStart&&Math.hypot(...sub(p,clickStart))>4)clickStart=null;pointers.set(e.pointerId,p);if(pointers.size===2){let dist=Math.hypot(...sub(...pointers.values()));if(pinch&&dist)zoom=Math.max(.35,Math.min(3,zoom*pinch/dist));pinch=dist}else{yaw-=(p[0]-old[0])*.009;pitch=Math.max(-1.53,Math.min(1.565,pitch+(p[1]-old[1])*.006))}dirty=true};
-can.onpointerup=e=>{pointers.delete(e.pointerId);if(clickStart)pickPart(e.clientX,e.clientY);clickStart=null;pinch=0};can.onpointercancel=e=>{clickStart=null;pointers.delete(e.pointerId);pinch=0};can.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.35,Math.min(3,zoom*Math.exp(e.deltaY*.001)));dirty=true},{passive:false});
+function cameraBasis(){const {dir,halfW,halfh}=lastCamera,right=unit(cross([0,1,0],dir));return {right,up:cross(dir,right),halfW,halfh}}
+function screenToPlane(clientX,clientY){
+    const {right,up,halfW,halfh}=cameraBasis(),rect=can.getBoundingClientRect();
+    const px=((clientX-rect.left)/rect.width*2-1)*halfW,py=(1-2*(clientY-rect.top)/rect.height)*halfh;
+    return lastCamera.origin.map((x,i)=>x+px*right[i]+py*up[i]);
+}
+function panBy(dx,dy){
+    if(!lastCamera)return;const {right,up,halfW,halfh}=cameraBasis(),rect=can.getBoundingClientRect();
+    const kx=dx/rect.width*2*halfW,ky=dy/rect.height*2*halfh;
+    pan=pan.map((v,i)=>v-right[i]*kx+up[i]*ky);dirty=true;
+}
+function zoomAt(clientX,clientY,next){
+    next=Math.max(.05,Math.min(3,next));
+    if(lastCamera){const q=screenToPlane(clientX,clientY),k=1-next/zoom;pan=pan.map((v,i)=>v+(q[i]-lastCamera.origin[i])*k)}
+    zoom=next;dirty=true;
+}
+function focusTo(point,nextZoom){
+    // Glide the orbit centre to the picked point while zooming in.
+    if(!lastCamera)return;
+    const from=[...pan],to=pan.map((v,i)=>v+point[i]-lastCamera.origin[i]),z0=zoom,z1=Math.max(.05,Math.min(3,nextZoom)),id=++panAnim,start=performance.now();
+    const step=ms=>{if(id!==panAnim)return;const u=Math.min(1,(ms-start)/450),e=u*u*(3-2*u);
+        pan=from.map((v,i)=>v+(to[i]-v)*e);zoom=z0*Math.pow(z1/z0,e);dirty=true;if(u<1)requestAnimationFrame(step)};
+    requestAnimationFrame(step);
+    const mark=$('focusMark');if(mark){mark.classList.remove('show');void mark.offsetWidth;mark.classList.add('show')}
+}
+can.addEventListener('dblclick',e=>{e.preventDefault();const r=castRay(e.clientX,e.clientY);if(r)focusTo(r.point,zoom*.45);else{panAnim++;pan=[0,0,0];zoom=1;dirty=true}});
+can.addEventListener('contextmenu',e=>e.preventDefault());
+let panning=false,mid=null;
+const pointers=new Map();let pinch=0;can.onpointerdown=e=>{panning=e.button===2||e.shiftKey;clickStart=pointers.size||panning?null:[e.clientX,e.clientY];can.setPointerCapture(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);pinch=pointers.size===2?Math.hypot(...sub(...pointers.values())):0;mid=pointers.size===2?[...pointers.values()].reduce((a,b)=>[a[0]+b[0]/2,a[1]+b[1]/2],[0,0]):null};
+can.onpointermove=e=>{if(!pointers.has(e.pointerId))return;let old=pointers.get(e.pointerId),p=[e.clientX,e.clientY];if(clickStart&&Math.hypot(...sub(p,clickStart))>4)clickStart=null;pointers.set(e.pointerId,p);if(pointers.size===2){let dist=Math.hypot(...sub(...pointers.values())),m=[...pointers.values()].reduce((a,b)=>[a[0]+b[0]/2,a[1]+b[1]/2],[0,0]);panAnim++;if(mid)panBy(m[0]-mid[0],m[1]-mid[1]);if(pinch&&dist)zoomAt(m[0],m[1],zoom*pinch/dist);pinch=dist;mid=m}else if(panning){panAnim++;panBy(p[0]-old[0],p[1]-old[1])}else{yaw-=(p[0]-old[0])*.009;pitch=Math.max(-1.53,Math.min(1.565,pitch+(p[1]-old[1])*.006))}dirty=true};
+can.onpointerup=e=>{pointers.delete(e.pointerId);if(clickStart)pickPart(e.clientX,e.clientY);clickStart=null;pinch=0;mid=null;if(!pointers.size)panning=false};can.onpointercancel=e=>{clickStart=null;pointers.delete(e.pointerId);pinch=0};can.addEventListener('wheel',e=>{e.preventDefault();panAnim++;zoomAt(e.clientX,e.clientY,zoom*Math.exp(e.deltaY*.001))},{passive:false});
 const TAU=2*Math.PI, cycle=2*TAU, firing=[0,540,180,360].map(d=>d*Math.PI/180); // cylinders 1-4, order 1-3-4-2
 const driveTeeth=[12,15,18,21,23], drivenTeeth=driveTeeth.map(n=>43-n);
 const identity=[1,0,0,0,1,0,0,0,1],zero=[0,0,0];
@@ -604,7 +636,7 @@ function motionUniforms(pr,d){
     if(d)gl.uniform3fv(pr.off,pose?pose.off:shift(d));
 }
 function setRunFocus(f){
-    op.focus=f;zoom=1;yaw=f==='vehicle'?(op.steer?.62:2.32):f==='gearbox'?1.95:2.05;pitch=f==='vehicle'?(op.steer?.95:.55):f==='gearbox'?.40:.34;
+    op.focus=f;zoom=1;pan=[0,0,0];panAnim++;yaw=f==='vehicle'?(op.steer?.62:2.32):f==='gearbox'?1.95:2.05;pitch=f==='vehicle'?(op.steer?.95:.55):f==='gearbox'?.40:.34;
     if(isAxleFocus(f)){yaw=f==='frontAxle'?.40:2.62;pitch=f==='frontAxle'?.67:.32}
     selectStage(null);refreshFocus(f);
 }

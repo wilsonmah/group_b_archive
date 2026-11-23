@@ -14,6 +14,14 @@ An archive of Group B rally cars (1982–1986) as exploded 3D studies. Each car'
 
 More Group B cars are on the way.
 
+## Viewer controls
+
+- **Drag:** orbit.
+- **Scroll or pinch:** zoom towards the point under the cursor or between your fingers. You can zoom in far enough to inspect individual parts.
+- **Double-click any point on the model:** that point glides to the centre and becomes the orbit centre, zooming in. Double-click empty space to reset.
+- **Right-drag, Shift-drag or two-finger drag:** pan.
+- **Click a part:** select it. The home, side and top buttons reset the view.
+
 ## Layout
 
 ```

@@ -9,7 +9,7 @@ const englishText = {
   '部件目录':'Parts', '筛选零件类别':'Filter by part family', '整车总览':'Vehicle overview',
   '选择部件可定位总成，拖动下方进度条可查看拆解过程。':'Select an assembly, then move the slider to take it apart.',
   '单件拆出':'Remove part', '进入内部拆解':'Open assembly', '清除单件调整':'Reset individual parts',
-  '单独查看':'Isolate', '返回总成视图':'Show assembly', '点选零件 · 拖动旋转 · 滚轮缩放':'Select a part · Drag to orbit · Scroll to zoom',
+  '单独查看':'Isolate', '返回总成视图':'Show assembly', '点选零件 · 拖动旋转 · 滚轮缩放':'Select a part · Drag to orbit · Scroll to zoom', '点选零件 · 拖动旋转 · 滚轮缩放 · 双击设为观察中心 · 右键拖动平移':'Select a part · Drag to orbit · Scroll to zoom at the cursor · Double-click to set the orbit centre · Right-drag to pan',
   '运转观察':'Motion study', '观察范围':'View', '动力总成':'Powertrain', '差速器':'Differential',
   '前桥转向':'Front steering', '后桥悬挂':'Rear suspension', '逐件拆解悬挂':'Explore suspension parts',
   '转弯演示':'Steering', '方向盘':'Steering wheel', '左转':'Turn left', '回正':'Centre', '右转':'Turn right',
