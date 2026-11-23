@@ -4,7 +4,7 @@
 # top. The five-speed gearbox sits ahead of it with the centre differential at its front; shafts run
 # forward to the front differential and back under the engine to the rear differential. Internal
 # dimensions are reconstructions from public descriptions, the cutaway drawing and photos.
-mat('Spring enamel','D8C02A',.25,.30)
+mat('Spring enamel','16181B',.35,.40)
 mat('Damper','E8C21E',.35,.32)
 mat('Cast alloy','B7B9B4',.55,.42)
 mat('Polished','D8DCDD',.92,.16)
@@ -263,12 +263,13 @@ for zc,xc,front in ((FZ,FX,True),(RZ,RX,False)):
             component('%s %s wishbone'%(en,lvl),'%s%s叉臂'%(where,'上' if lvl=='upper' else '下'),'摆臂与连杆',(s*.12,.15 if lvl=='upper' else -.18,0))
             ball=(s*(xc-.11),yb,zc)
             for dz in (.15,-.13):
-                inner=(s*.36,yi,zc+dz);cyl(inner,ball,.013,'Steel',10);sleeve(inner,(0,0,1),.020,.009,.04,'Black',14)
+                inner=(s*.36,yi,zc+dz);cyl(inner,ball,.014,'Frame',10);sleeve(inner,(0,0,1),.020,.009,.04,'Black',14)
+            cyl(add(ball,(0,-.012,0)),add(ball,(0,.012,0)),.020,'Steel',14)
         dampers=[0] if front else [-.09,.09]
         for k,dz in enumerate(dampers):
             component(en+' coil-over damper'+('' if front else ' %d'%(k+1)),where+'弹簧减振器'+('' if front else str(k+1)),'弹簧与减振器',(s*.22,.36,dz))
             bot=(s*(xc-.14),TR-.08,zc+dz);top=(s*.56,.86 if front else .84,zc+dz-(.05 if front else .02))
-            cyl(bot,mix(bot,top,.62),.026,'Damper',16);cyl(mix(bot,top,.55),top,.011,'Silver',10)
+            cyl(bot,mix(bot,top,.74),.027,'Damper',16);cyl(mix(bot,top,.70),top,.011,'Silver',10);cyl(add(top,(0,-.03,0)),add(top,(0,.01,0)),.040,'Black',16)
             spring(mix(bot,top,.40),mix(bot,top,.92),.050,.007,'Spring enamel')
         component(en+' ventilated brake disc',where+'通风刹车盘','制动',(s*.40,0,0))
         motion(role='frontWheel' if front else 'wheel',side=s,zone='front' if front else 'rear',pivot=[s*xc,TR,zc],axis=[1,0,0])

@@ -43,20 +43,36 @@ for s in (-1,1):box((s*.45,.30,-.18),(.42,.16,.50),'Black')
 # ── Cockpit ───────────────────────────────────────────────────────────────────────────────
 group('cockpit','Cockpit','驾驶舱',(0,1.0,-.25),'左舵驾驶舱：仪表台、赛车座椅、安全带、方向盘、踏板与换挡杆。')
 part('Dashboard and instruments')
-box((0,.700,.560),(1.40,.130,.230),'Black')
-box((.37,.735,.440),(.36,.140,.040),'Black')
-for k,x in enumerate([.27,.37,.47]):
-    cyl((x,.745,.418),(x,.745,.414),.045 if k==1 else .036,'Charcoal',28)
-    cyl((x,.745,.413),(x,.745,.412),.040 if k==1 else .031,'Lens',28)
-box((-.20,.66,.45),(.40,.10,.04),'Charcoal')
+mat('Brushed','B8BCBE',.75,.38);mat('Felt','1E2C58',0,.95);mat('Kevlar floor','5A5A3C',.2,.7);mat('Foil','C9CDD0',.9,.25)
+# Brushed-aluminium panel under a navy felt top pad, as in the preserved car.
+box((0,.660,.555),(1.40,.200,.020),'Brushed')
+grid(lambda x,t:(x,.765+.030*t,.560+.180*t),seq(-.70,.70,14),[0,1],'Felt')
+box((0,.775,.640),(1.42,.020,.200),'Felt')
+box((-.47,.530,.585),(.40,.140,.060),'Brushed')                    # co-driver electronics box
+for k,(x,y) in enumerate([(.37,.700),(.28,.690),(.46,.690),(.58,.640),(.58,.590)]):
+    r=.050 if k==0 else .030
+    cyl((x,y,.546),(x,y,.540),r+.006,'Charcoal',28);cyl((x,y,.540),(x,y,.538),r,'Lens',28)
+for k,(x,y,m) in enumerate([(.64,.700,'Red'),(.66,.700,'Red'),(.64,.680,'Red'),(.66,.680,'Red'),(.70,.700,'Black'),(.72,.700,'Black'),(.22,.640,'Amber'),(.50,.640,'Red')]):
+    box((x,y,.543),(.016,.016,.006),m)
+for k in range(12):box((-.20+(k%4)*.035,.700-(k//4)*.030,.543),(.020,.018,.006),'Black')
+box((-.47,.700,.543),(.22,.050,.006),'Black');box((-.47,.700,.540),(.20,.035,.002),'Amber')
+box((-.47,.620,.543),(.18,.040,.006),'Charcoal')
+cyl((-.04,.700,.543),(-.04,.700,.520),.010,'Red',10)                # battery cut-off
+part('Kevlar floor and foil-wrapped tunnel')
+box((0,.212,.20),(1.30,.006,.90),'Kevlar floor')
+box((0,.330,.10),(.26,.160,.80),'Foil')
 part('Steering wheel')
 hub=(.37,.700,.300);axis=unit((0,.32,-1))
 tor(hub,axis,.170,.016,'Black',40,10)
+top_=unit(sub((0,1,0),mul(axis,dot((0,1,0),axis))));box(add(hub,mul(top_,.170)),(.022,.022,.022),'Yellow')
 for a in (0,2.1,4.2):cyl(hub,add(hub,mul(add(mul(basis(axis)[0],cos(a)),mul(basis(axis)[1],sin(a))),.165)),.010,'Gunmetal',8)
 cyl(hub,add(hub,mul(axis,-.36)),.020,'Gunmetal',10);cyl(hub,add(hub,mul(axis,.02)),.035,'Black',20)
 part('Pedals and gear lever')
-for x in (.27,.35,.44):path([(x,.48,.70),(x,.34,.60)],.008,'Steel');box((x,.33,.59),(.06,.08,.012),'Steel')
-path([(.13,.40,.12),(.13,.62,.06)],.008,'Steel');cyl((.13,.62,.06),(.13,.66,.06),.022,'Black',12)
+for x in (.27,.35,.44):
+    path([(x,.48,.70),(x,.34,.60)],.008,'Steel');box((x,.33,.59),(.06,.08,.012),'Brushed')
+    for k in range(3):cyl((x,.31+k*.022,.585),(x,.31+k*.022,.583),.008,'Black',8)
+path([(.13,.40,.12),(.13,.66,.04)],.008,'Steel');shell((.13,.41,.11),unit((0,.97,-.23)),[(0,.040),(.10,.012),(.11,0)],'Foil',14)
+shell((.13,.66,.04),(0,1,0),[(-.025,0),(-.025,.012),(0,.024),(.025,.012),(.03,0)],'Black',16)
 for s in (-1,1):
     part('Bucket seat '+('L' if s>0 else 'R'))
     x=s*.36

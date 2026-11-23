@@ -20,7 +20,8 @@ The 1986 Lancia Delta S4 in Martini Racing livery, car Nº 1. Download the repos
   - The grille is two narrow slots either side of the shield, with the intake and number plate below.
   - The roof wing stands nearly upright.
 - **Shape:**
-  - Square box flares over both axles and a waistline crease along the doors.
+  - Square box flares over both axles with rounded-square wheel openings, and a waistline crease along the doors.
+  - The nose face wraps round into the front flares at each corner, with the outer headlamps following the curve, and a small black air scoop sits at the front of the roof.
   - Front: four round headlamps, a split grille with the Lancia shield, a long intake slot and a deep spoiler.
   - Two louvred radiator outlets in the bonnet just ahead of the windscreen.
   - Rear: a fixed side window behind the B-pillar in a solid rear quarter, a black louvred engine cover sloping to the tail, and a black wing standing upright at the back of the roof.
@@ -51,7 +52,16 @@ The 1986 Lancia Delta S4 in Martini Racing livery, car Nº 1. Download the repos
   - A transfer drop and rear propshaft run back beneath the engine to the rear differential.
   - Each differential has a fixed case and a separate crownwheel and carrier.
   - The gear pairs, reverse idler, sliding collars and selector forks are separate parts.
-- **Suspension (27 parts):** double wishbones all round, with a single yellow coil-over damper per front wheel and twin coil-over dampers per rear wheel. There are ventilated discs with four-piston calipers and rack-and-pinion steering.
+- **Suspension (27 parts):** double wishbones all round in black tube with ball joints, and yellow damper bodies with black springs and top mounts (open-tail photo). There is a single coil-over per front wheel and twin coil-overs per rear wheel. There are ventilated discs with four-piston calipers and rack-and-pinion steering.
+- **Cockpit:** from a photo of a preserved car.
+  - A brushed-aluminium dashboard under a navy felt top pad, with a large central rev counter, smaller gauges, red and amber switches, a battery cut-off and the co-driver's electronics box.
+  - A black three-spoke wheel with a yellow centre marker.
+  - Navy bucket seats with harnesses, drilled alloy pedals, a Kevlar floor, and a tall gear lever on a foil-wrapped tunnel.
+
+![Cockpit](images/Lancia_Delta_S4_Cockpit.png)
+
+![Suspension](images/Lancia_Delta_S4_Suspension.png)
+
 - **Cooling:** a front-mounted water radiator and fan breathing out through the bonnet outlet, with coolant lines running back to the engine.
 - Internal structures without public drawings are reconstructed from public descriptions, period cutaway drawings and photos, for study and visual reference only.
 

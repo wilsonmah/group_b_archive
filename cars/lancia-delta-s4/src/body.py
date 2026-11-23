@@ -12,25 +12,31 @@ CREASE=.735                 # waistline crease
 XF,XD,XC,XR=.940,.866,.835,.505   # flares, door skin, window sill, roof rail
 
 def arch_y(z,zc):
-    d=abs(z-zc);return TR+sqrt(RA*RA-d*d) if d<RA else -1
+    # Rounded-square openings, as on the S4's box flares.
+    d=abs(z-zc);return TR+RA*(1-(d/RA)**3)**(1/3) if d<RA else -1
 def bonnet_y(z):return .900-(.900-.665)*clamp((z-.74)/(1.92-.74),0,1)-.040*clamp((z-1.92)/.11,0,1)**2
 def W(z):
     """Half-width below the crease: box flares over both axles, door skin between them."""
     f=clamp((z-.62)/.08,0,1);r=clamp((-.38-z)/.08,0,1)
     w=XD+(XF-XD)*max(f*f*(3-2*f),r*r*(3-2*r))
-    w-=.060*clamp((z-1.93)/.10,0,1)**2+.040*clamp((-1.90-z)/.085,0,1)**2
+    w-=.040*clamp((-1.90-z)/.085,0,1)**2
+    if z>ZN-NR:w=min(w,.70+.24*sqrt(max(0,ZN-z)/NR))
     return w
+NR=.12
+def face_z(x):
+    u=clamp((abs(x)-.70)/.24,0,1);return ZN-NR*u*u
+def bonnet_w(z):return min(.80,W(z)-.005)
 def upper(z):
     """Height and half-width of the top of the side: bonnet edge ahead of the screen, window
     sill along the cabin, rear deck behind."""
-    if z>DZ1:return bonnet_y(z),.800
+    if z>DZ1:return bonnet_y(z),min(.800,W(z))
     if z>DZ0:return .835+.010*(DZ1-z)/(DZ1-DZ0),XC
     return .860,.800
 def sill(z):return .255 if -.85<z<.85 else (.235 if z>0 else .245)
 def bottom(z):return max(sill(z),arch_y(z,FZ),arch_y(z,RZ))
 def side_x(z,y):
     if y<=CREASE:
-        tuck=.016*clamp((bottom(z)+.035-y)/.035,0,1)
+        tuck=.016*clamp((sill(z)+.035-y)/.035,0,1)
         return W(z)-tuck
     yu,xu=upper(z);w=W(z)
     return w-(w-xu)*clamp((y-CREASE)/(yu-CREASE),0,1)
@@ -46,13 +52,17 @@ def zstations(z0,z1,n,extra=()):
 def side_skin(z0,z1,s,n=40):
     zs=zstations(z0,z1,n,(.62,.66,.70,-.38,-.42,-.46,1.93,-1.90))
     for a,b in zip(zs,zs[1:]):
+        # Two bands split exactly at the waist crease, so no face straddles the crease while the
+        # wheel-opening edge changes height quickly along the arch.
         ya,yb=bottom(a),bottom(b)
         ua,ub=upper(a)[0],upper(b)[0]
-        for t0,t1 in zip(seq(0,1,6),seq(0,1,6)[1:]):
-            pts=[]
-            for z,y0,y1,t in [(a,ya,ua,t0),(b,yb,ub,t0),(b,yb,ub,t1),(a,ya,ua,t1)]:
-                y=y0+(y1-y0)*t;pts.append((s*side_x(z,y),y,z))
-            face(pts if s<0 else pts[::-1],'Ivory')
+        ca,cb=max(ya,min(CREASE,ua)),max(yb,min(CREASE,ub))
+        for (la,lb,ha,hb,n) in ((ya,yb,ca,cb,4),(ca,cb,ua,ub,3)):
+            for t0,t1 in zip(seq(0,1,n),seq(0,1,n)[1:]):
+                pts=[]
+                for z,y0,y1,t in [(a,la,ha,t0),(b,lb,hb,t0),(b,lb,hb,t1),(a,la,ha,t1)]:
+                    y=y0+(y1-y0)*t;pts.append((s*side_x(z,y),y,z))
+                face(pts if s<0 else pts[::-1],'Ivory')
 
 # ── Front clamshell ────────────────────────────────────────────────────────────────────────
 group('nose','Front body','前车身',(0,.40,.80),'可整体掀开的碳纤维前车头：引擎盖与散热出风口、带方形轮眉的前翼子板、四圆灯、格栅与前唇。')
@@ -60,7 +70,7 @@ part('Front wings and bonnet')
 for s in (-1,1):side_skin(DZ1,ZN,s)
 def bonnet(x,z):
     c=.014*(1-(x/.80)**2);return (x,bonnet_y(z)+c,z)
-grid(bonnet,seq(-.80,.80,20),zstations(DZ1,ZN,30,(1.92,)),'Ivory',True)
+grid(lambda u,z:bonnet(u*bonnet_w(z),z),seq(-1,1,20),zstations(DZ1,ZN,30,(1.92,ZN-.06,ZN-.03)),'Ivory',True)
 # Radiator outlet in the bonnet, with louvres.
 for sx in (-1,1):
     xc=sx*.25
@@ -73,14 +83,15 @@ for s in (-1,1):
 part('Nose, headlamps and grille')
 # Front face: upper panel with four round lamps, grille, intake slot, indicators, spoiler.
 def face_x(y):return W(ZN)-.010
-grid(lambda x,t:(x,.170+(bonnet(clamp(x,-.80,.80),ZN)[1]-.170)*t,ZN-.020*t*t),seq(-.87,.87,24),seq(0,1,10),'Ivory')
+grid(lambda x,t:(x,.170+(bonnet(clamp(x,-bonnet_w(face_z(x)),bonnet_w(face_z(x))),face_z(x))[1]-.170)*t,face_z(x)-.020*t*t),seq(-.94,.94,32),seq(0,1,10),'Ivory')
 for s in (-1,1):
     for x in (.548,.745):
         cx=s*x
-        cyl((cx,.565,ZN-.010),(cx,.565,ZN+.004),.098,'Black',36)
-        cyl((cx,.565,ZN+.004),(cx,.565,ZN+.010),.088,'Reflector',36)
-        cyl((cx,.565,ZN+.010),(cx,.565,ZN+.016),.089,'Optical glass',36)
-        tor((cx,.565,ZN+.012),(0,0,1),.091,.006,'Gunmetal',36,6)
+        fz=face_z(cx)
+        cyl((cx,.565,fz-.010),(cx,.565,fz+.004),.098,'Black',36)
+        cyl((cx,.565,fz+.004),(cx,.565,fz+.010),.088,'Reflector',36)
+        cyl((cx,.565,fz+.010),(cx,.565,fz+.016),.089,'Optical glass',36)
+        tor((cx,.565,fz+.012),(0,0,1),.091,.006,'Gunmetal',36,6)
     # Grille openings either side of the shield.
     gq=[(s*.075,.585),(s*.355,.600),(s*.345,.512),(s*.075,.500)]
     plate([(x,y,ZN+.006) for x,y in gq][::s],'Black',(0,0,-.010))
@@ -98,11 +109,12 @@ for k in range(3):box((0,.400+k*.015,ZN+.008),(.64,.004,.006),'Mesh')
 # Registration plate above the intake.
 box((0,.470,ZN+.006),(.400,.050,.006),'Ivory')
 # Spoiler lip and splitter.
-grid(lambda x,t:(x*(1-.03*t),.170-.030*t,ZN+.060*t),seq(-.88,.88,20),[0,1],'Ivory',True)
+grid(lambda x,t:(x*(1-.02*t),.170-.030*t,face_z(x)+.060*t),seq(-.94,.94,26),[0,1],'Ivory',True)
 grid(lambda x,z:(x,.138,z),seq(-.86,.86,10),seq(1.60,ZN+.055,5),'Black')
 for s in (-1,1):
     # Nose corners: close the face to the flares.
-    grid(lambda t,y:(s*(.87+(W(ZN-.05)-.87)*t),y,ZN-.05*t),[0,1],seq(.17,.64,6),'Ivory',s<0)
+    # Angled spoiler cheeks running back along the flares (PIRELLI panels on the photos).
+    grid(lambda t,y:(s*(W(ZN-NR)-.004),y,ZN-NR-.30*t),[0,1],[.150,.172],'Black',s<0)
 
 # ── Rear body ───────────────────────────────────────────────────────────────────────────────
 group('tail','Rear body','后车身',(0,.55,-.85),'可整体掀开的后车身：方形后轮眉、发动机舱百叶盖、车尾网格面板、尾灯与挡泥板。')
@@ -153,6 +165,12 @@ def roof(u,z):
 grid(roof,seq(-1,1,20),seq(-1.00,.20,14),'Ivory',True)
 grid(lambda u,t:mix(roof(u,.20),add(wind(u,1),(0,.004,0)),t),seq(-1,1,20),[0,1],'Ivory')
 grid(lambda u,t:mix(roof(u,-1.00),add(hatch(u,0),(0,.004,0)),t),seq(-1,1,16),[0,1],'Ivory')
+part('Roof air scoop')
+sc=[roof(u,z) for u,z in [(-.30,.12),(.30,.12),(.30,-.10),(-.30,-.10)]]
+face([add(p,(0,.004,0)) for p in sc],'Black')
+grid(lambda u,t:add(roof(u*.30,.12),(0,.040*t,0)),seq(-1,1,8),[0,1],'Black')
+grid(lambda u,z:add(roof(u*.30,z),(0,.040*clamp((z+.10)/.22,0,1),0)),seq(-1,1,8),seq(-.10,.12,4),'Black',True)
+for s in (-1,1):grid(lambda z,t:add(roof(s*.30,z),(0,.040*clamp((z+.10)/.22,0,1)*t,0)),seq(-.10,.12,4),[0,1],'Black')
 part('A-pillars and rear quarter panels')
 for s in (-1,1):
     # A-pillar / cant-rail band between the screen edge, the roof edge and the door glass.

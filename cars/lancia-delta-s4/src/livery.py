@@ -43,7 +43,7 @@ for s in (-1,1):
     stripe_cur(1.5,s)
     edges=[(.835,1.000,'Red'),(.775,.820,'Navy'),(.715,.760,'Blue'),(.655,.700,'Navy'),(.595,.640,'Blue')]
     def bon(u,z):
-        k=clamp((ZN-z)/(ZN-DZ1),0,1);x=(.80-.14*k)*u
+        k=clamp((ZN-z)/(ZN-DZ1),0,1);x=(.80-.14*k)*u*bonnet_w(z)/.80
         return add(bonnet(s*x,z),(0,.0025,0))
     for a,b,m in edges:
         grid(bon,[a,b],seq(DZ1+.02,ZN-.01,30),m,s<0)
@@ -61,7 +61,7 @@ for s in (-1,1):
     current='tail';part('Rear decals')
     side_decal(s,-1.86,-1.44,.555,.635,PIRELLI_D,6,2)
 current='nose';part('Front decals')
-def front(u,v):return (u,v,ZN+.012)
+def front(u,v):return (u,v,face_z(u)+.012)
 conform(front,(-.10,.10,.245,.352),MART,6,3)
 conform(lambda u,z:add(bonnet(u,z),(0,.004,0)),(-.150,.150,1.985,1.905),MART,6,3)
 for s in (-1,1):
