@@ -80,6 +80,9 @@ for s in (-1,1):
         pa=(s*(XF-.010),ledge(a),a);pb=(s*(XF-.010),ledge(b),b)
         qa=(s*XI,ledge(a)+.022,a);qb=(s*XI,ledge(b)+.022,b)
         face([pa,pb,qb,qa] if s>0 else [qa,qb,pb,pa],'Ivory')
+    # Riveted polished-aluminium strip along the ledge edge (front photos).
+    path([(s*(XF-.006),ledge(z)+.006,z) for z in zl],.007,'Silver',6)
+    for z in zl[::3]:cyl((s*(XF-.006),ledge(z)+.012,z),(s*(XF-.006),ledge(z)+.016,z),.004,'Steel',6)
     # Inner wing side above the ledge: yellow band with the Audi Sport / Castrol lettering.
     def inner_pt(z,y,s=s):
         return (s*(XI-.012*clamp((y-ledge(z))/(shoulder(z)-ledge(z)+1e-6),0,1)),y,z)
@@ -151,11 +154,22 @@ for s in (-1,1):
         face([p,q,(s*.90,flare_bottom(q[2]),q[2]),(s*.90,flare_bottom(p[2]),p[2])][::s],'Yellow')
 
 part('Bonnet louvres and fasteners')
-# Front air outlet in the bonnet nose and quick-release pins at the corners.
-for k in range(9):
-    z=1.640+k*.012
-    box((0,top_y(0,z)+.003,z),(.34,.004,.007),'Black')
-box((0,top_y(0,1.69)+.001,1.69),(.36,.002,.13),'Mesh')
+# Nº 2's bonnet (front photos): a louvred outlet near the screen on each side and a small
+# black mesh vent towards the front of the right-hand side.
+def on_bonnet(x,z,lift=.002):return (x,top_y(x,z)+lift,z)
+for s in (-1,1):
+    x0=s*.40;xa,xb=x0-.12,x0+.12;za,zb=.86,1.08
+    q=[on_bonnet(xa,za),on_bonnet(xb,za),on_bonnet(xb,zb),on_bonnet(xa,zb)]
+    face(q if s<0 else q[::-1],'Black');face(q[::-1] if s<0 else q,'Black')
+    for k in range(8):
+        z=za+.012+k*.026
+        p0=on_bonnet(xa+.008,z,.003);p1=on_bonnet(xb-.008,z,.003)
+        slat=[p0,p1,add(p1,(0,.011,-.016)),add(p0,(0,.011,-.016))]
+        face(slat,'Charcoal');face(slat[::-1],'Charcoal')
+    path([on_bonnet(x,z,.003) for x,z in [(xa,za),(xb,za),(xb,zb),(xa,zb),(xa,za)]],.004,'Black',4)
+mx,mz=-.46,1.66
+q=[on_bonnet(mx-.10,mz-.04,.003),on_bonnet(mx+.10,mz-.04,.003),on_bonnet(mx+.10,mz+.04,.003),on_bonnet(mx-.10,mz+.04,.003)]
+face(q[::-1],'Mesh');path(q+[q[0]],.003,'Black',4)
 for s in (-1,1):
     for z in (.82,1.74):
         q=(s*.63,top_y(.63,z),z);cyl(q,add(q,(0,.007,0)),.016,'Steel',14)

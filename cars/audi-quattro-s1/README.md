@@ -23,6 +23,12 @@ The 1985 E2 evolution, HB Audi Team car Nº 2 (Walter Röhrl / Christian Geistd�
   - MICHELIN, Castrol, Audi Sport, quattro, SKF, BOGE and BOSCH fuel injection
   - HB international
   - the crew names and the number 2
+- **Bonnet and ledges (close-up photos of car Nº 2):**
+  - A louvred outlet near the windscreen on each side of the bonnet, a small mesh vent towards the front, and the IN-NL 24 plate just ahead of the screen.
+  - A riveted polished-aluminium strip runs along the edge of each front-wing ledge.
+
+![Bonnet](images/Audi_S1_E2_Bonnet.png)
+
 - **Nose:** calibrated against the head-on photographs and the front view of the four-view drawing.
   - The black grille panel spans ±0.76 m, with rectangular headlamps centred 0.60 m from the centreline and white body corners outboard.
   - Below it is a yellow valance, with the amber indicators under the headlamps.
@@ -68,6 +74,7 @@ The engine and bay are detailed from photographs of preserved S1 E2 cars (includ
   - The block, sump, crankshaft, five rod-and-piston sets, head, both camshafts, each cylinder's intake and exhaust valves, timing belt and more can each be removed on their own.
 - **quattro drivetrain (37 parts):** a twin-plate clutch, then a six-speed gearbox with the front differential built into its nose and the centre differential at its tail, a two-piece propshaft, the rear differential and four driveshafts. Each gear pair, the reverse idler, the four sliding collars and their selector forks are separate parts.
 - **Suspension (23 parts):** MacPherson struts and lower wishbones front and rear, with ventilated discs, four-piston calipers, anti-roll bars and rack-and-pinion steering.
+- **Roll cage:** finished in light grey, as seen through the windscreen in the photos. No public photos of the S1 E2 cockpit or suspension were available, so those remain reconstructions.
 - **E2 rear-mounted cooling:** the water radiator and the oil and gearbox coolers move into the boot to improve the S1's nose-heavy weight distribution. The side intakes feed them air, and electric fans push it out through the tail grilles.
 - Internal structures without public drawings are reconstructed from public sources, for study and visual reference only.
 

@@ -42,6 +42,8 @@ conform(lambda u,v:add(bumper(u,v),(0,.002,.003)),(-.36,.36,.82,.46),MICH,14,3)
 for s in (-1,1):
     x0,x1=s*.30,s*.48
     conform(lambda u,v:(u,top_y(u,v)+.003,v),(min(x0,x1),max(x0,x1),1.79,1.60),HB,6,6)
+# Registration plate on the bonnet just ahead of the screen, reading from the front.
+conform(lambda u,z:(u,top_y(u,z)+.004,z),(-.20,.20,1.02,.94),PLATE,6,2)
 current='canopy';part('Windscreen banner')
 conform(lambda u,t:add(wind(u,t),(0,.004,.006)),(-.86,.86,.878,.982),BANNER,16,2)
 

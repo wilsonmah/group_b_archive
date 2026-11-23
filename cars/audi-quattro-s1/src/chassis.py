@@ -71,7 +71,7 @@ for s in (-1,1):
     for k in (-1,1):path([(x+k*.08,.96,-.28),(x+k*.07,.56,-.02)],.018,'Belt',6)
     path([(x-.18,.38,.08),(x+.18,.38,.08)],.018,'Belt',6)
 part('Welded roll cage')
-cage=dict(r=.019,m='Gunmetal')
+cage=dict(r=.019,m='Pearl')
 def tube(a,b):cyl(a,b,cage['r'],cage['m'],10)
 for s in (-1,1):
     hoop=[(s*.72,.23,-.48),(s*.68,1.10,-.50),(s*.52,1.25,-.52)]
