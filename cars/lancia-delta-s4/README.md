@@ -71,6 +71,8 @@ The 1986 Lancia Delta S4 in Martini Racing livery, car Nº 1. Download the repos
 
 The "运转 / Run" tab opens a see-through view of the car, with close-ups of the powertrain, the engine and the gearbox.
 
+- **Suspension travel:** in the front- and rear-axle views, a slider (or the road-undulation button) moves the wheels in heave, roll or single-wheel mode. Each corner is a four-bar linkage solved from the double-wishbone pivots; the coil-over swings with the lower arm and extends along its axis, and the half-shaft and track rod follow. The panel reports wheel travel, camber change, spring length and wheel-centre shift. Bump steer and anti-roll bar twist are not modelled.
+
 - **Engine:** the crankshaft, four connecting rods and pistons are driven by one slider-crank model. The two camshafts turn at half crank speed and open each cylinder's valves. The panel shows each cylinder's stroke in the firing order 1 → 3 → 4 → 2, one firing every 180°.
 - **Gearbox:** in gears 1–5 the input path is shown in gold, the engaged pair and its collar in green, and the output path in blue. Reverse runs through an idler.
 - **Four-wheel drive:** the centre differential drives the front and rear propshafts, then the front and rear differentials and four driveshafts. Each wheel rolls at the speed of its own turning radius.

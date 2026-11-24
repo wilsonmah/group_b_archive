@@ -31,10 +31,11 @@ const englishText = {
   '可查看整车爆炸图，或进入发动机、变速箱或悬挂逐件拆解。':'Explode the whole car, or open the engine, gearbox or suspension to inspect individual parts.',
   '前桥 · 转向传动':'Front axle · steering linkage', '后桥 · 弹簧与减振':'Rear axle · springs and dampers',
   '转动方向盘，观察两处万向节、输入小齿轮、滑动齿条和两根横拉杆。转向节绕上下球铰连线摆动。':'Turn the steering wheel to follow the two universal joints, pinion, rack and tie rods. Each upright pivots about its upper and lower ball joints.',
-  '每个后轮配一根中央螺旋弹簧，前后各有一支减振器。下方的反置叉臂和纵向定位杆共同约束轮毂立柱。':'Each rear wheel has a central coil spring with a damper ahead of it and another behind. A reversed lower wishbone and a radius rod locate the upright.',
+  '每个后轮为麦弗逊滑柱与下摆臂。拖动行程滑块，观察螺旋弹簧压缩、车轮外倾变化与半轴摆动。':'Each rear wheel is a MacPherson strut on a lower wishbone. Drag the travel slider to watch the coil spring compress, the camber change and the half-shaft swing.',
   '整车透视 · 后轮驱动':'Vehicle cutaway · rear-wheel drive', '差速器 · 半轴齿轮与行星齿轮':'Differential · side gears and spider gears',
   '动力总成运转':'Powertrain in motion', '齿轮齿条转向 · 上叉臂与下横臂':'Rack-and-pinion steering · upper wishbone and lower link',
-  '反置下叉臂 · 单弹簧与双减振器':'Reversed lower wishbone · single spring and twin dampers',
+  '齿轮齿条转向 · 麦弗逊滑柱与下摆臂':'Rack-and-pinion steering · MacPherson struts and lower wishbones',
+  '麦弗逊滑柱 · 下摆臂与半轴':'MacPherson strut · lower wishbone and half-shaft',
   '左半轴':'Left half-shaft', '右半轴':'Right half-shaft', '做功':'Power', '排气':'Exhaust', '进气':'Intake', '压缩':'Compression',
   '前桥定位与承载':'Front suspension links', '前桥弹簧与减振':'Front springs and dampers', '前桥轮端':'Front wheel ends',
   '后桥定位与承载':'Rear suspension links', '后桥弹簧与减振':'Rear springs and dampers', '后桥轮端':'Rear wheel ends',
@@ -55,7 +56,7 @@ const englishText = {
   '悬挂行程':'Suspension travel', '同向跳动':'Bounce', '车身侧倾':'Body roll', '左轮单跳':'Left wheel only', '车轮行程':'Wheel travel',
   '完全回弹':'Full droop', '静态车高':'Ride height', '完全压缩':'Full bump', '▶ 路面起伏':'▶ Rough road', 'Ⅱ 停止起伏':'Ⅱ Stop road',
   '前桥':'Front axle', '后桥':'Rear axle', '左':'Left', '右':'Right', '外倾角变化':'Camber change', '弹簧长度':'Spring length', '轮心横移':'Hub lateral shift',
-  '每个车轮按上下叉臂铰点求解横向平面内的四连杆。弹簧与减振器沿轴线伸缩，纵向定位杆、半轴与横拉杆随之摆动。未计算轮跳转向与稳定杆扭转。':'Each wheel is solved as a four-bar linkage in the transverse plane from the wishbone pivots. Springs and dampers extend and compress along their axes; radius rods, half-shafts and track rods follow. Bump steer and anti-roll bar twist are not modelled.',
+  '每个车轮按下摆臂铰点与滑柱顶座求解横向平面：滑柱随转向节摆动，顶座固定，螺旋弹簧沿轴线伸缩，半轴与横拉杆随之摆动。未计算轮跳转向与防倾杆扭转。':'Each wheel is solved in the transverse plane from the lower-arm pivots and the strut top mount: the strut turns with the upright, the mount stays fixed, the coil spring extends and compresses along its axis, and half-shafts and track rods follow. Bump steer and anti-roll bar twist are not modelled.',
   '此浏览器无法启动 WebGL。请启用硬件加速，或在三维软件中打开配套 GLB 文件。':'WebGL could not start. Enable hardware acceleration or open the GLB model in a 3D viewer.'
 };
 const languageKey='wilson-rally-language';

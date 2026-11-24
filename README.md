@@ -21,6 +21,7 @@ More Group B cars are on the way.
 - **Double-click any point on the model:** that point glides to the centre and becomes the orbit centre, zooming in. Double-click empty space to reset.
 - **Right-drag, Shift-drag or two-finger drag:** pan.
 - **Click a part:** select it. The home, side and top buttons reset the view.
+- **Suspension travel (Audi S1 E2, Delta S4):** in the front- and rear-axle views, a slider or the road-undulation button moves the wheels in heave, roll or single-wheel mode, with live wheel travel, camber change and spring length.
 
 ## Layout
 

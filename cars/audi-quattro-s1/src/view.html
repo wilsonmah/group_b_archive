@@ -119,7 +119,7 @@ footer{background:var(--bg);border-top:1px solid var(--line);color:var(--faint);
 <div class="turnmetrics"><span>左前轮 <b id="flAngle">0°</b></span><span>右前轮 <b id="frAngle">0°</b></span></div>
 <div id="diffTools" hidden><label><input type="checkbox" id="followCarrier"> 随差速器壳观察</label><div class="legend diffLegend"><span>左半轴齿轮</span><span>右半轴齿轮</span><span>行星齿轮</span></div><p id="spiderReading"></p></div>
 <button id="diffZoom" class="tool" hidden>观察差速器内部</button></fieldset>
-<fieldset id="travelControls" hidden><legend>悬挂行程</legend><div class="switches travelmodes"><button data-travel-mode="heave">同向跳动</button><button data-travel-mode="roll">车身侧倾</button><button data-travel-mode="single">左轮单跳</button></div><div class="opline"><label for="travelInput">车轮行程</label><output id="travelValue">0 mm</output></div><input type="range" id="travelInput" min="-70" max="70" step="1" value="0"><div class="steerpresets"><button data-travel="-70">完全回弹</button><button data-travel="0">静态车高</button><button data-travel="70">完全压缩</button></div><button class="tool" id="travelAuto" aria-pressed="false">▶ 路面起伏</button><table class="travelmetrics" id="travelMetrics"></table><p class="note">每个车轮按上下叉臂铰点求解横向平面内的四连杆。弹簧与减振器沿轴线伸缩，纵向定位杆、半轴与横拉杆随之摆动。未计算轮跳转向与稳定杆扭转。</p></fieldset>
+<fieldset id="travelControls" hidden><legend>悬挂行程</legend><div class="switches travelmodes"><button data-travel-mode="heave">同向跳动</button><button data-travel-mode="roll">车身侧倾</button><button data-travel-mode="single">左轮单跳</button></div><div class="opline"><label for="travelInput">车轮行程</label><output id="travelValue">0 mm</output></div><input type="range" id="travelInput" min="-70" max="70" step="1" value="0"><div class="steerpresets"><button data-travel="-70">完全回弹</button><button data-travel="0">静态车高</button><button data-travel="70">完全压缩</button></div><button class="tool" id="travelAuto" aria-pressed="false">▶ 路面起伏</button><table class="travelmetrics" id="travelMetrics"></table><p class="note">每个车轮按下摆臂铰点与滑柱顶座求解横向平面：滑柱随转向节摆动，顶座固定，螺旋弹簧沿轴线伸缩，半轴与横拉杆随之摆动。未计算轮跳转向与防倾杆扭转。</p></fieldset>
 <fieldset><legend>变速箱挡位</legend><div id="gearset" class="gearset"><button data-gear="-1" aria-label="倒挡">R</button><button data-gear="0" aria-label="空挡">N</button><button data-gear="1" aria-label="1 挡">1</button><button data-gear="2" aria-label="2 挡">2</button><button data-gear="3" aria-label="3 挡">3</button><button data-gear="4" aria-label="4 挡">4</button><button data-gear="5" aria-label="5 挡">5</button><button data-gear="6" aria-label="6 挡">6</button></div><div class="specgrid"><span>挡位传动比<b id="ratio"></b></span><span>输出轴 r/min<b id="outRPM"></b></span></div><div class="wheelmeters" aria-label="左右后轮转速"><div><i class="dial"></i><span><span id="rearLlabel">左后轮</span><b id="rearLrpm"></b></span></div><div><i class="dial"></i><span><span id="rearRlabel">右后轮</span><b id="rearRrpm"></b></span></div></div><div id="pathChooser"><div class="pathcaption">点选动力路径</div><div class="pathbuttons"><button data-stage="engine">发动机</button><button data-stage="gear">变速箱</button><button data-stage="diff">差速器</button><button data-stage="axle">传动轴</button><button data-stage="wheel">车轮</button></div></div><p id="route"></p><div class="legend"><span class="gold">输入</span><span class="green">接合</span><span class="blue">输出</span></div></fieldset>
 <fieldset><legend>五缸行程</legend><div id="cylinders"><div>1 缸<b></b></div><div>2 缸<b></b></div><div>3 缸<b></b></div><div>4 缸<b></b></div><div>5 缸<b></b></div></div><p>点火顺序 1 → 2 → 4 → 5 → 3，每 144° 点火一次。蓝色为进气机构，红色为排气机构。</p></fieldset><fieldset><div id="bodyControl"><div class="opline"><label for="bodyAlpha">车身可见度</label><output id="bodyVal">12%</output></div><input type="range" id="bodyAlpha" min="0" max="100" value="12"></div><div class="opline"><label for="shell">外壳可见度</label><output id="shellVal">6%</output></div><input type="range" id="shell" min="0" max="100" value="6"><div class="opline speed"><label for="rpm">演示转速</label><select id="rpm"><option value="6">6 r/min</option><option value="12">12 r/min</option><option value="24">24 r/min</option><option value="48">48 r/min</option><option value="96" selected>96 r/min</option></select></div></fieldset><p class="note">传动比取自模型齿数，主减速比 37∶9。配气采用简化的四冲程正时。转向按阿克曼几何计算，方向盘转 15° 前轮转 1°。中央与前后差速器按理想开放式差速计算，每个车轮按各自的转弯半径滚动。轮速单位为 r/min，负值表示倒转。</p></aside></main><footer><span>AUDI SPORT QUATTRO S1 E2 &nbsp; / &nbsp; 3D STUDY</span><button type="button" id="aboutOpen" aria-haspopup="dialog">关于 / About</button></footer>
 <dialog id="aboutDialog" aria-labelledby="aboutTitle"><div class="aboutHead"><h2 id="aboutTitle">关于 / About</h2><button id="aboutClose" aria-label="关闭 / Close" autofocus>×</button></div>
@@ -484,17 +484,29 @@ function poseFor(id){
         case 'caliper':case 'upright':{const w=sideGeometry(def.side);mat=norm=w.mat;pivot=w.hub;break}
         case 'handwheel':mat=norm=shaftRotation(def.axis,-op.steer*radPerDegree);pivot=def.pivot;break;
         case 'rack':delta=[steering.stroke,0,0];break;
-        case 'body':alpha=def.structural?op.body*op.body:op.body;break;
+        case 'tieRod':{
+            // Pinned at the rack end; its outer ball joint rides on the upright, which steers and travels.
+            const rig=travelRig&&travelRig.front,inner=[def.side*rig.linkInner[0],rig.linkInner[1],rig.linkInner[2]],outer=[def.side*rig.linkOuter[0],rig.linkOuter[1],rig.linkOuter[2]];
+            delta=[steering.stroke,0,0];pivot=inner;
+            const target=movePoint(travel.state['front'+def.side].upright,plus(outer,delta)),link=pinned(plus(inner,delta),plus(outer,delta),target);
+            mat=link.A;norm=link.An;break;
+        }
+        case 'body':alpha=isAxleFocus(op.focus)?1:def.structural?op.body*op.body:op.body;break;
         case 'shell':alpha=op.shell;break;
     }
     const rest=g.nodes[id].translation||zero;
-    const off=plus(plus(pivot,vmul(mat,sub(rest,pivot))),delta);
+    let off=plus(plus(pivot,vmul(mat,sub(rest,pivot))),delta);
+    const carried=travel.state&&travelParts.get(id);
+    if(carried){
+        const m=travel.state[carried.zone+carried.side][carried.kind];
+        if(m){mat=composeRotation(m.A,mat);norm=composeRotation(m.An,norm);off=movePoint(m,off)}
+    }
     return {mat,norm,off,tag,alpha};
 }
 let motionFrame=new Map();
 // Wheel travel. Every wishbone pivots on a fore-aft axis, so each corner is a four-bar linkage
 // in the transverse plane: lower arm -> upright (fixed ball-joint spacing) -> upper arm.
-const travelRig=null; // wheel travel is not modelled for the S1
+const travelRig=(roots[suspension].extras.linkage||{}).travel||null;
 const rot2=(p,c,a)=>{const x=p[0]-c[0],y=p[1]-c[1],C=Math.cos(a),S=Math.sin(a);return [c[0]+x*C-y*S,c[1]+x*S+y*C]};
 const span=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
 function circleMeet(c0,r0,c1,r1,near){
@@ -503,7 +515,20 @@ function circleMeet(c0,r0,c1,r1,near){
     const p=[m[0]-h*ex[1],m[1]+h*ex[0]],q=[m[0]+h*ex[1],m[1]-h*ex[0]];
     return span(p,near)<span(q,near)?p:q;
 }
+function solveStrut(r,h){
+    // MacPherson corner: the lower arm swings about its fore-aft pivot line and the strut, rigid with the
+    // upright, always points at the fixed top mount, so the upright turns with the direction ball joint -> mount.
+    const [L0,LB,T,H]=[r.lowerInner,r.lowerBall,r.top,r.hub].map(v=>v.slice(0,2)),rest=Math.atan2(T[1]-LB[1],T[0]-LB[0]);
+    let lo=-.6,hi=.6,s;
+    for(let j=0;j<44;j++){
+        const a=(lo+hi)/2,lb=rot2(LB,L0,a),phi=Math.atan2(T[1]-lb[1],T[0]-lb[0])-rest,hub=rot2([H[0]-LB[0]+lb[0],H[1]-LB[1]+lb[1]],lb,phi);
+        s={lower:a,lb,ub:lb,phi,hub,upper:0};
+        if(hub[1]-H[1]>h)hi=a;else lo=a;
+    }
+    return s;
+}
 function solveCorner(r,h){
+    if(r.type==='strut')return solveStrut(r,h);
     const [L0,LB,U0,UB,H]=[r.lowerInner,r.lowerBall,r.upperInner,r.upperBall,r.hub].map(v=>v.slice(0,2));
     const kingpin=span(LB,UB),upperArm=span(U0,UB),rest=Math.atan2(UB[1]-LB[1],UB[0]-LB[0]);
     let lo=-.6,hi=.6,s;
@@ -527,22 +552,20 @@ function pinned(fixed,from,to){
 }
 function swing(angle,centre){const R=rotation('z',angle);return {A:R,An:R,from:centre,to:centre}}
 function cornerMotions(zone,side,h){
-    const r=travelRig[zone],s=solveCorner(r,h),z=r.z,W=v=>[side*v[0],v[1],v.length>2?v[2]:z];
-    const lower=swing(side*s.lower,W(r.lowerInner)),upper=swing(side*s.upper,W(r.upperInner));
+    const r=travelRig[zone],s=solveCorner(r,h),z=r.z,W=v=>[side*v[0],v[1],v.length>2?v[2]:z],isStrut=r.type==='strut';
+    const lower=swing(side*s.lower,W(r.lowerInner)),upper=isStrut?null:swing(side*s.upper,W(r.upperInner));
     const R=rotation('z',side*s.phi),upright={A:R,An:R,from:W(r.lowerBall),to:W([...s.lb,r.lowerBall[2]])};
-    const strut=pinned(W(r.top),W(r.foot),movePoint(lower,W(r.foot)));
-    const rod=pinned(W(r.linkAnchor),W(r.locator),movePoint(lower,W(r.locator)));
+    // A coil-over on the lower arm swings about its mount; a MacPherson spring is carried by the upright.
+    const strut=pinned(W(r.top),W(r.foot),movePoint(isStrut?upright:lower,W(r.foot)));
+    const rod=r.linkAnchor?pinned(W(r.linkAnchor),W(r.locator),movePoint(lower,W(r.locator))):null;
     const shaft=r.shaftInner?pinned(W(r.shaftInner),W(r.hub),movePoint(upright,W(r.hub))):null;
     return {h,lower,upper,upright,strut,rod,shaft,camber:-s.phi/radPerDegree,spring:strut.stretch,scrub:s.hub[0]-r.hub[0]};
 }
 const travelParts=new Map();
-roots.forEach((r,k)=>r.children.forEach(id=>{
+roots.forEach(r=>r.children.forEach(id=>{
     const x=g.nodes[id].extras||{},key=r.extras.key;
-    if(/^(front|rear)[LR]$/.test(key)){travelParts.set(id,{zone:key.startsWith('front')?'front':'rear',side:x.side,kind:'upright'});return}
-    if(k!==suspension||!x.side)return;
-    const en=x.en,kind=/upper wishbone/.test(en)?'upper':/lower/.test(en)?'lower':/radius rod/.test(en)?'rod':
-        /damper|road spring/.test(en)?'strut':/upright|rotor|caliper/.test(en)?'upright':/halfshaft/.test(en)?'shaft':null;
-    if(kind)travelParts.set(id,{zone:x.zone,side:x.side,kind});
+    if(/^(front|rear)[LR]$/.test(key))travelParts.set(id,{zone:key.startsWith('front')?'front':'rear',side:key.endsWith('L')?1:-1,kind:'upright'});
+    else if(x.carry&&x.side)travelParts.set(id,{zone:x.zone,side:x.side,kind:x.carry==='strut'?'strut':x.carry});
 }));
 function wheelTravel(zone,side){
     // On the road the rear axle meets each bump a moment after the front.
@@ -574,11 +597,13 @@ $('travelInput').oninput=e=>setTravel(Number(e.target.value));
 for(const b of document.querySelectorAll('[data-travel]'))b.onclick=()=>setTravel(Number(b.dataset.travel));
 for(const b of document.querySelectorAll('[data-travel-mode]'))b.onclick=()=>{travel.mode=b.dataset.travelMode;updateTravel()};
 $('travelAuto').onclick=()=>{travel.auto=!travel.auto;travel.last=null;if(!travel.auto)travel.mm=0;updateTravel()};
+updateTravel();
 function isAxleFocus(f){return f==='frontAxle'||f==='rearAxle'}
 function runVisible(d){
     if(isAxleFocus(op.focus)){
         const zone=op.focus==='frontAxle'?'front':'rear';
-        return (d.k===suspension&&g.nodes[d.node].extras.zone===zone)||
+        const ex=g.nodes[d.node].extras||{};
+        return (d.k===suspension&&ex.zone===zone)||(ex.carry==='shaft'&&ex.zone===zone)||
                (zone==='front'&&motionDefs.get(d.node).role==='handwheel');
     }
     if(op.focus==='diff')return d.k===gears&&differentialRole(motionDefs.get(d.node).role)&&motionDefs.get(d.node).role!=='pinion';
@@ -643,14 +668,14 @@ function setRunFocus(f){
 function refreshFocus(f){
     $('axleInfo').hidden=!isAxleFocus(f);
     $('axleTitle').textContent=tr(f==='frontAxle'?'前桥 · 转向传动':'后桥 · 弹簧与减振');
-    $('axleDescription').textContent=tr(f==='frontAxle'?'转动方向盘，观察两处万向节、输入小齿轮、滑动齿条和两根横拉杆。转向节绕上下球铰连线摆动。':'每个后轮配一根中央螺旋弹簧，前后各有一支减振器。下方的反置叉臂和纵向定位杆共同约束轮毂立柱。');
+    $('axleDescription').textContent=tr(f==='frontAxle'?'转动方向盘，观察两处万向节、输入小齿轮、滑动齿条和两根横拉杆。转向节绕上下球铰连线摆动。':'每个后轮为麦弗逊滑柱与下摆臂。拖动行程滑块，观察螺旋弹簧压缩、车轮外倾变化与半轴摆动。');
     $('pathChooser').hidden=f!=='vehicle';$('bodyControl').hidden=f!=='vehicle';
-    $('travelControls').hidden=true;
+    $('travelControls').hidden=!(travelRig&&(f==='vehicle'||isAxleFocus(f)));travelHud();
     $('subtitle').textContent=tr(f==='vehicle'?'整车透视 · 全时四驱':f==='diff'?'差速器 · 半轴齿轮与行星齿轮':'动力总成运转');
     document.querySelector('h1').textContent=f==='diff'?'DIFFERENTIAL':'POWERTRAIN';
     if(isAxleFocus(f)){
         document.querySelector('h1').textContent=f==='frontAxle'?'FRONT AXLE':'REAR AXLE';
-        $('subtitle').textContent=tr(f==='frontAxle'?'齿轮齿条转向 · 上叉臂与下横臂':'反置下叉臂 · 单弹簧与双减振器');
+        $('subtitle').textContent=tr(f==='frontAxle'?'齿轮齿条转向 · 麦弗逊滑柱与下摆臂':'麦弗逊滑柱 · 下摆臂与半轴');
     }
     $('diffTools').hidden=f!=='diff';$('diffZoom').textContent=tr(f==='diff'?'返回整车观察':'观察差速器内部');
     for(const b of document.querySelectorAll('[data-focus]'))b.setAttribute('aria-pressed',String(b.dataset.focus===f));

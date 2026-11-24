@@ -245,6 +245,7 @@ for s in (-1,1):
     for zone,zc,xc,yc in (('front',FZ,FX,.30),('rear',RZ,RX,.31)):
         tag=('Front' if zone=='front' else 'Rear')+(' left' if s>0 else ' right');zh=('前' if zone=='front' else '后')+('左' if s>0 else '右')
         component(tag+' driveshaft',zh+'半轴','中央差速器与传动轴',(s*.30,-.05,0))
+        component_meta[cur].update(zone=zone,side=s,carry='shaft')
         a=(s*.15,yc,zc);b=(s*(xc-.09),TR,zc)
         motion(role='axle',zone=zone,side=s,pivot=list(a),axis=list(unit(sub(b,a))))
         cyl(a,b,.016,'Steel',12)
@@ -252,36 +253,55 @@ for s in (-1,1):
 
 # ── Suspension, steering and brakes ──────────────────────────────────────────────────────
 group('susp','Suspension, steering and brakes','悬挂、转向与制动',(0,-.30,0),'前后双叉臂：前轮单组同轴弹簧减振器，后轮双减振器；齿轮齿条转向、通风盘与四活塞卡钳。可进入内部拆解。')
+rig={}
+def carry(zone,s,kind):component_meta[cur].update(zone=zone,side=s,**({'carry':kind} if kind else {}))
 for zc,xc,front in ((FZ,FX,True),(RZ,RX,False)):
+    zone='front' if front else 'rear'
     for s in (-1,1):
         where=('前' if front else '后')+('左' if s>0 else '右');en=('Front' if front else 'Rear')+(' left' if s>0 else ' right')
         hub=(s*(xc-.085),TR,zc)
-        component(en+' hub carrier',where+'转向节','转向节与轮毂',(s*.30,0,0))
+        lo_in=(s*.36,.24,zc);lo_ball=(s*(xc-.11),TR-.12,zc);up_in=(s*.36,.52,zc);up_ball=(s*(xc-.11),TR+.13,zc)
+        top=(s*.56,.86 if front else .84,zc-(.05 if front else .02));foot=mix(lo_in,lo_ball,.80)     # damper foot sits on the lower arm
+        outer=(s*(xc-.13),.30,zc+.12) if front else None
+        if s>0:
+            rig[zone]=dict(type='wishbone',z=zc,lowerInner=(.36,.24,zc),lowerBall=(xc-.11,TR-.12,zc),upperInner=(.36,.52,zc),upperBall=(xc-.11,TR+.13,zc),
+                           hub=(xc-.09,TR,zc),foot=(foot[0],foot[1],foot[2]),top=(top[0],top[1],top[2]),shaftInner=(.15,.30 if front else .31,zc),
+                           linkInner=(.34,.34,FZ+.18) if front else None,linkOuter=(xc-.13,.30,FZ+.12) if front else None)
+        component(en+' hub carrier',where+'转向节','转向节与轮毂',(s*.30,0,0));carry(zone,s,'upright')
         if front:motion(role='upright',side=s)
         box(add(hub,(-s*.03,0,0)),(.05,.22,.10),'Cast alloy');cyl(hub,add(hub,(s*.05,0,0)),.055,'Steel',20)
-        for lvl,yb,yi in (('upper',TR+.13,.62),('lower',TR-.12,.24)):
-            component('%s %s wishbone'%(en,lvl),'%s%s叉臂'%(where,'上' if lvl=='upper' else '下'),'摆臂与连杆',(s*.12,.15 if lvl=='upper' else -.18,0))
+        if front:
+            cyl(add(hub,(-s*.045,-.03,.04)),outer,.011,'Cast alloy',10)         # steering arm
+            cyl(add(outer,(0,-.012,0)),add(outer,(0,.012,0)),.016,'Steel',14)
+        for lvl,yb,yi in (('upper',TR+.13,.52),('lower',TR-.12,.24)):
+            component('%s %s wishbone'%(en,lvl),'%s%s叉臂'%(where,'上' if lvl=='upper' else '下'),'摆臂与连杆',(s*.12,.15 if lvl=='upper' else -.18,0));carry(zone,s,lvl)
             ball=(s*(xc-.11),yb,zc)
             for dz in (.15,-.13):
                 inner=(s*.36,yi,zc+dz);cyl(inner,ball,.014,'Frame',10);sleeve(inner,(0,0,1),.020,.009,.04,'Black',14)
             cyl(add(ball,(0,-.012,0)),add(ball,(0,.012,0)),.020,'Steel',14)
         dampers=[0] if front else [-.09,.09]
         for k,dz in enumerate(dampers):
-            component(en+' coil-over damper'+('' if front else ' %d'%(k+1)),where+'弹簧减振器'+('' if front else str(k+1)),'弹簧与减振器',(s*.22,.36,dz))
-            bot=(s*(xc-.14),TR-.08,zc+dz);top=(s*.56,.86 if front else .84,zc+dz-(.05 if front else .02))
-            cyl(bot,mix(bot,top,.74),.027,'Damper',16);cyl(mix(bot,top,.70),top,.011,'Silver',10);cyl(add(top,(0,-.03,0)),add(top,(0,.01,0)),.040,'Black',16)
-            spring(mix(bot,top,.40),mix(bot,top,.92),.050,.007,'Spring enamel')
-        component(en+' ventilated brake disc',where+'通风刹车盘','制动',(s*.40,0,0))
-        motion(role='frontWheel' if front else 'wheel',side=s,zone='front' if front else 'rear',pivot=[s*xc,TR,zc],axis=[1,0,0])
+            component(en+' coil-over damper'+('' if front else ' %d'%(k+1)),where+'弹簧减振器'+('' if front else str(k+1)),'弹簧与减振器',(s*.22,.36,dz));carry(zone,s,'strut')
+            bot=add(foot,(0,0,dz));tp=add(top,(0,0,dz))
+            cyl(bot,mix(bot,tp,.74),.027,'Damper',16);cyl(mix(bot,tp,.70),tp,.011,'Silver',10);cyl(add(tp,(0,-.03,0)),add(tp,(0,.01,0)),.040,'Black',16)
+            spring(mix(bot,tp,.40),mix(bot,tp,.92),.050,.007,'Spring enamel')
+            sleeve(bot,(0,0,1),.020,.008,.04,'Black',14)
+        component(en+' ventilated brake disc',where+'通风刹车盘','制动',(s*.40,0,0));carry(zone,s,'upright')
+        motion(role='frontWheel' if front else 'wheel',side=s,zone=zone,pivot=[s*xc,TR,zc],axis=[1,0,0])
         dx=s*(xc-.040)
         for k in (-1,1):cyl((dx+k*.008,TR,zc),(dx+k*.014,TR,zc),.150,'Steel',48)
         cyl((dx-.006,TR,zc),(dx+.006,TR,zc),.148,'Gunmetal',48)
-        component(en+' four-piston caliper',where+'四活塞卡钳','制动',(s*.45,.10,0))
+        component(en+' four-piston caliper',where+'四活塞卡钳','制动',(s*.45,.10,0));carry(zone,s,'upright')
         if front:motion(role='caliper',side=s)
         ca=(.9 if front else -.9);box((dx,TR+.13*cos(ca),zc+.13*sin(ca)),(.07,.06,.12),'Gold')
+groups['susp']['linkage']=dict(travel=rig)
 component('Rack-and-pinion steering','齿轮齿条转向机','转向',(0,-.10,.25));motion(role='rack')
 cyl((-.34,.34,FZ+.18),(.34,.34,FZ+.18),.022,'Cast alloy',16)
-for s in (-1,1):cyl((s*.34,.34,FZ+.18),(s*(FX-.13),.30,FZ+.12),.010,'Steel',10)
+for s in (-1,1):
+    component(('Left' if s>0 else 'Right')+' track rod',('左' if s>0 else '右')+'转向横拉杆','转向',(s*.10,.08,.13));motion(role='tieRod',side=s);carry('front',s,None)
+    a=(s*.34,.34,FZ+.18);b=(s*(FX-.13),.30,FZ+.12);cyl(a,b,.010,'Steel',10)
+    for p in (a,b):sleeve(p,(0,1,0),.016,.007,.022,'Steel',12)
+component('Power steering line','动力转向油管','转向',(0,-.10,.25))
 pipe([(.10,.34,FZ+.18),(.20,.45,.90),(.30,.62,.55),(.37,.70,.30)],.012,'Steel',10)
 
 # ── Cooling: front water radiator ventilated through the bonnet ──────────────────────────

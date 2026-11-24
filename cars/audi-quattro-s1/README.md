@@ -84,6 +84,8 @@ The engine and bay are detailed from photographs of preserved S1 E2 cars (includ
 
 The "运转 / Run" tab opens a see-through view of the car. You can switch to close-ups of the powertrain, the engine or the gearbox, and set the visibility of the body and of the engine and gearbox casings separately.
 
+- **Suspension travel:** in the front- and rear-axle views, a slider (or the road-undulation button) moves the wheels in heave, roll or single-wheel mode. Each corner is solved in the transverse plane from the lower-wishbone pivots and the strut top mount: the strut turns with the upright, the coil spring compresses along its axis, and the half-shaft and track rod follow. The panel reports wheel travel, camber change, spring length and wheel-centre shift. Bump steer and anti-roll bar twist are not modelled.
+
 - **Crank train:** the crankshaft, five connecting rods and pistons are driven by one slider-crank model, with the crank throws 72° apart. The two camshafts turn at half crank speed and open each cylinder's valves. The panel shows each cylinder's stroke in the firing order 1 → 2 → 4 → 5 → 3, one firing every 144°. When paused you can drag the crank angle through 0–720° or step it 15° at a time.
 - **Gearbox:** in gears 1–6 the input path is shown in gold, the engaged gear pair and its sliding collar in green, and the output path in blue. Reverse runs through an idler. Ratios come from the modelled tooth counts (2.58 in first to 0.87 in sixth), with a 37:9 final drive.
 - **quattro drive:** the output shaft turns the centre differential, which drives the front differential and, through the two-piece propshaft, the rear differential. Each of the four driveshafts and wheels turns at its own speed.
