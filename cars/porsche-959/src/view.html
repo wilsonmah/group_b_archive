@@ -125,8 +125,8 @@ footer{background:var(--bg);border-top:1px solid var(--line);color:var(--faint);
 <dialog id="aboutDialog" aria-labelledby="aboutTitle"><div class="aboutHead"><h2 id="aboutTitle">关于 / About</h2><button id="aboutClose" aria-label="关闭 / Close" autofocus>×</button></div>
 <p lang="zh-CN">模型内部非公开结构基于公开历史资料进行工程化推导与 3D 复原，仅供机械原理学习与视觉参考。</p>
 <p lang="en">Internal structures for which no public drawings are available have been inferred from public historical sources and reconstructed in 3D solely for the study of mechanical principles and for visual reference.</p>
-<hr><p lang="zh-CN">Porsche、959 及 Rothmans 等历史涂装与赞助商名称归原权利人所有，本站为非官方独立技术展示项目。外形依据公开的整车尺寸数据与对该车型的记忆绘制，尚未逐线对照照片校准。</p>
-<p lang="en">Porsche, 959 and the historic livery and sponsor names (Rothmans and others) belong to their respective rights holders; this site is an unofficial, independent technical exhibition. The body is built from published dimensions and has not yet been calibrated line by line against photographs.</p></dialog>
+<hr><p lang="zh-CN">Porsche、959 及 Rothmans 等历史涂装与赞助商名称归原权利人所有，本站为非官方独立技术展示项目。外形依据公开的整车尺寸数据绘制，涂装与车高、轮胎尺寸及车头形状已参照实车博物馆与拍卖照片调整，尚未逐线对照校准。</p>
+<p lang="en">Porsche, 959 and the historic livery and sponsor names (Rothmans and others) belong to their respective rights holders; this site is an unofficial, independent technical exhibition. The body is built from published dimensions; the livery, ride height, tyre size and nose were adjusted from museum and auction photographs, but it has not yet been calibrated line by line.</p></dialog>
 <script>__LOCALE__</script>
 <script id="data" type="application/octet-stream">__DATA__</script><script>
 'use strict';
@@ -421,7 +421,7 @@ function steeringGeometry(input){
     const delta=-input*radPerDegree/STEER_RATIO,k=Math.tan(delta)/WB;
     function wheel(side){
         const yaw=Math.atan2(WB*k,1-side*FTR*k);
-        return {yaw,mat:shaftRotation([0,1,0],yaw),hub:[side*FTR,.322,1.136],front:Math.hypot(WB*k,1-side*FTR*k),rear:1-side*RTR*k};
+        return {yaw,mat:shaftRotation([0,1,0],yaw),hub:[side*FTR,.360,1.136],front:Math.hypot(WB*k,1-side*FTR*k),rear:1-side*RTR*k};
     }
     const left=wheel(1),right=wheel(-1);
     return {left,right,curvature:k,stroke:-input/450*.070,factors:[left.front,right.front,left.rear,right.rear]};

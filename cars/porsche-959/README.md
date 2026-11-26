@@ -8,19 +8,22 @@
 
 The Porsche 959 in the Rothmans livery of the Paris–Dakar car, Nº 185 (Metge / Lemoyne, 1986). Download the repository and open `index.html` in this folder in any WebGL browser to use it offline; the viewer embeds the model and textures.
 
-> **Status: first pass.** Unlike cars 01–03, the body and livery of this car have **not** yet been calibrated line by line against period photographs. The shape is built from published dimensions and the usual descriptions of the car, and the Rothmans livery is drawn from the same. Expect the silhouette (nose, fenders, greenhouse) and the graphics to differ from the real car in detail. The mechanicals, which are the main point of the study, are complete and run. A photo-calibration pass is the next step, as it was for the other cars.
+> **Status: partly calibrated.** The livery, ride height, tyre size, round headlamps and nose were adjusted from four photographs of preserved Rothmans Paris–Dakar cars. The overall proportions (overhangs, belt line, fastback) were reworked against the same photos. The fender curvature, greenhouse and tail are still approximate and have not been traced line by line, and no true side-on photograph was available. Those photos show the 186 and 187 cars; Nº 185 carried the same scheme with a different number.
 
 ## Body and livery
 
-- **Proportions:** scaled to the published 959 figures: wheelbase 2.272 m, length 4.26 m, width 1.84 m, height about 1.28 m. Wheel-centre half-tracks are 0.752 m front and 0.775 m rear.
+- **Proportions:** scaled to the published 959 figures: wheelbase 2.272 m, length 4.26 m, width 1.84 m. The overhangs are set 911-style, short at the front (about 0.88 m) and long at the rear (about 1.10 m). Wheel-centre half-tracks are 0.752 m front and 0.775 m rear. From the photos the car sits high, on tall tyres (rolling radius 0.36 m, about 0.30 m of sill clearance), with chunky rally tread and white six-spoke wheels.
 - **Shape:**
-  - A low sloping nose over the luggage bay, with a rectangular headlamp in each wing, two round driving lamps either side in the bumper and a deep spoiler lip.
-  - A steeply raked windscreen, a short roof, and one long fastback falling to the tail.
-  - Wide flared hips over the rear axle, with five intake slats behind each door for the intercoolers.
-  - A louvred engine lid, a full-width tail panel with a lamp bar and twin tailpipes, and mud flaps on all four wheels.
-- **Livery:** a white body with a navy lower band edged with gold and red pinstripes.
-  - **Lettering:** ROTHMANS runs along both sides, on the bonnet and on the tail, with a PARIS – DAKAR banner across the top of the windscreen.
-  - **Numbers and names:** Nº 185 sits in a white roundel on each door and on the bonnet, and the crew names R. METGE and D. LEMOYNE are on the doors.
+  - A low sloping nose with two large round headlamps in gold bezels, a long amber indicator at each bumper end, a black mesh grille and a perforated skid plate.
+  - Front-wing crests that stand slightly above the bonnet centre.
+  - A steeply raked windscreen, a short roof with a small lamp pod, and one long fastback falling to the tail.
+  - Wide flared hips over the rear axle, with five intake slats behind each door.
+  - A louvred engine lid, a tail panel with a lamp bar, and twin tailpipes.
+  - Large white mud flaps on all four wheels.
+- **Livery:** from the photographs. The roof, bonnet and upper body are white, and the lower body, bumpers and tail panel are royal blue.
+  - **Stripes:** a wide gold band edged above with a thin red line sweeps from the nose back over the front wing and along the shoulder to the tail. A gold and red stripe crosses the nose between the headlamps.
+  - **Door:** the Nº 185 panel with its VSD NASA header sits at the front of the door. The Rothmans, PORSCHE, DUNLOP and BILSTEIN stack is behind it.
+  - **Elsewhere:** a NASA Rothmans VSD banner crosses the top of the windscreen, with blue, white and red stripes on the front edge of the roof, Rothmans and Shell on the bonnet, and PORSCHE script on the tail.
   - **Aspect ratios:** every graphic keeps its artwork's aspect ratio.
 - **Atlas:** the decals are drawn by `src/atlas.py` (Pillow), so they can be regenerated on any platform.
 
@@ -83,6 +86,6 @@ python3 src/atlas.py && python3 src/build.py && python3 src/export_units.py && p
 ## Sources
 
 - **Specifications:** the published 959 figures for wheelbase, track, overall dimensions, engine type and capacity (2,849 cm³, 95 × 67 mm), six-speed gearbox, PSK four-wheel drive and double-wishbone suspension with two dampers per wheel. These are quoted from memory and have not been re-checked against a source. Check them before relying on them.
-- **Livery:** the usual descriptions of the Rothmans Paris–Dakar car of 1986; no reference photographs have been used yet.
+- **Livery and stance:** four photographs of preserved Rothmans Paris–Dakar 959s (a front view, a rear three-quarter view and two front three-quarter views of the 186 and 187 cars), used only for comparison and not distributed with the repository.
 
 Porsche, 959, Rothmans and the livery and sponsor names belong to their respective rights holders. This project is an unofficial, independent technical exhibition.
