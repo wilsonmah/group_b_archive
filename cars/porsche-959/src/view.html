@@ -279,7 +279,7 @@ function refreshDomain(){
     const next=domain;
     const inUnit=internal(),kind=domain===suspension?'SUSPENSION':domain===engines?'ENGINE':'TRANSAXLE',title=inUnit?(domain===suspension?'SUSPENSION':domain===engines?'2.85 L TWIN-TURBO FLAT-SIX':'4WD · 6 SPEED'):'959';
     document.querySelector('h1').textContent=title;
-    $('subtitle').textContent=tr(inUnit?(domain===suspension?'双叉臂悬挂、转向与制动':domain===engines?'2.85 升双涡轮增压水平对置六缸':'六速变速箱与 PSK 可变四驱'):'保时捷 959 · Rothmans · 185 号');
+    $('subtitle').textContent=tr(inUnit?(domain===suspension?'双叉臂悬挂、转向与制动':domain===engines?'2.85 升双涡轮增压水平对置六缸':'六速变速箱与 PSK 可变四驱'):'保时捷 959 · Rothmans · 186 号');
     $('kicker').textContent=inUnit?'PORSCHE 959   /   '+kind:'PORSCHE   /   GROUP B';
     tabs.forEach((b,i)=>{const on=next===[-1,engines,gears,suspension][i];b.classList.toggle('active',on);b.setAttribute('aria-pressed',on)});
     const ids=inUnit?roots[domain].children:[];

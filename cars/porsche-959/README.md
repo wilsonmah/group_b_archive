@@ -6,26 +6,26 @@
 
 ![Porsche 959](images/Porsche_959_Preview.png)
 
-The Porsche 959 in the Rothmans livery of the Paris–Dakar car, Nº 185 (Metge / Lemoyne, 1986). Download the repository and open `index.html` in this folder in any WebGL browser to use it offline; the viewer embeds the model and textures.
+The Porsche 959 in the Rothmans livery of the Paris–Dakar car Nº 186 (1986). Download the repository and open `index.html` in this folder in any WebGL browser to use it offline; the viewer embeds the model and textures.
 
-> **Status: partly calibrated.** The livery, ride height, tyre size, round headlamps and nose were adjusted from four photographs of preserved Rothmans Paris–Dakar cars. The overall proportions (overhangs, belt line, fastback) were reworked against the same photos. The fender curvature, greenhouse and tail are still approximate and have not been traced line by line, and no true side-on photograph was available. Those photos show the 186 and 187 cars; Nº 185 carried the same scheme with a different number.
+> **Status: calibrated against photos.** The body was rebuilt and checked against six photographs of the Rothmans Paris–Dakar cars: side, front three-quarter, rear and snow shots, and the car at auction. The proportions, profile, glasshouse, loop wing, lamps and livery placement follow those photos. Hidden structure is reconstructed, not measured.
 
 ## Body and livery
 
-- **Proportions:** scaled to the published 959 figures: wheelbase 2.272 m, length 4.26 m, width 1.84 m. The overhangs are set 911-style, short at the front (about 0.88 m) and long at the rear (about 1.10 m). Wheel-centre half-tracks are 0.752 m front and 0.775 m rear. From the photos the car sits high, on tall tyres (rolling radius 0.36 m, about 0.30 m of sill clearance), with chunky rally tread and white six-spoke wheels.
-- **Shape:**
-  - A low sloping nose with two large round headlamps in gold bezels, a long amber indicator at each bumper end, a black mesh grille and a perforated skid plate.
-  - Front-wing crests that stand slightly above the bonnet centre.
-  - A steeply raked windscreen, a short roof with a small lamp pod, and one long fastback falling to the tail.
-  - Wide flared hips over the rear axle, with five intake slats behind each door.
-  - A louvred engine lid, a tail panel with a lamp bar, and twin tailpipes.
-  - Large white mud flaps on all four wheels.
-- **Livery:** from the photographs. The roof, bonnet and upper body are white, and the lower body, bumpers and tail panel are royal blue.
-  - **Stripes:** a wide gold band edged above with a thin red line sweeps from the nose back over the front wing and along the shoulder to the tail. A gold and red stripe crosses the nose between the headlamps.
-  - **Door:** the Nº 185 panel with its VSD NASA header sits at the front of the door. The Rothmans, PORSCHE, DUNLOP and BILSTEIN stack is behind it.
-  - **Elsewhere:** a NASA Rothmans VSD banner crosses the top of the windscreen, with blue, white and red stripes on the front edge of the roof, Rothmans and Shell on the bonnet, and PORSCHE script on the tail.
+- **Proportions:** scaled to the published 959 figures: wheelbase 2.272 m, length 4.26 m, width 1.84 m. The overhangs are set 911-style, short at the front and long at the rear. Wheel-centre half-tracks are 0.752 m front and 0.775 m rear. From the photos the car sits high, on tall tyres (rolling radius 0.36 m), with chunky rally tread and white five-spoke wheels.
+- **Shape:** the body is lofted from smooth cross-sections, so the lines run without kinks from nose to tail.
+  - **Nose:** a low sloping bonnet between front-wing crests that stand above it. The two round headlamps sit in the tops of the wings. A deep blue bumper has three black intakes, amber indicators, a skid plate and a lip.
+  - **Glasshouse:** a steeply raked windscreen, a short roof and one long fastback falling to the tail. The rear quarter windows are covered by black panels carrying Shell, the 959 oval and the pecten.
+  - **Roof:** two red rally beacons on posts and a whip aerial.
+  - **Sides:** wide hips over the rear axle, with four black intake slots in each rear wing behind the door.
+  - **Tail:** the 959's integrated loop wing spans the tail between the two rear wings, with the black intercooler intake visible beneath it. Below it are a full-width red reflector strip with PORSCHE across it, tail lamps and amber indicators at each end, a yellow plate (B368 MDP), twin tailpipes and an underguard.
+  - **Mud flaps:** large white flaps behind all four wheels.
+- **Livery:** the roof, bonnet and upper body are white, and the lower body, bumper and tail panel are royal blue.
+  - **Stripes:** a gold band edged above with a thin red line runs along the top of the blue. It sits just under the side windows on the doors, sweeps down the front wings to cross the nose above the bumper, and follows the rear hips to the tail.
+  - **Door:** the Nº 186 panel with its VSD and NASA header sits at the front of the door. The Rothmans, PORSCHE, DUNLOP and BILSTEIN stack is behind it.
+  - **Elsewhere:** DUNLOP and BILSTEIN ahead of the front wheels, and Shell on the rear hips. A blue Rothmans VSD banner crosses the top of the windscreen, and blue, red and blue stripes run along the roof. Rothmans is on the bonnet, and there are Shell pectens either side of the plate.
   - **Aspect ratios:** every graphic keeps its artwork's aspect ratio.
-- **Atlas:** the decals are drawn by `src/atlas.py` (Pillow), so they can be regenerated on any platform.
+- **Atlas:** the decals are drawn by `src/atlas.ps1` with System.Drawing (Windows PowerShell 5.1 or later).
 
 ## Mechanicals
 
@@ -77,15 +77,21 @@ The "运转 / Run" tab opens a see-through view of the car, with close-ups of th
 - [Gearbox and 4WD GLB](models/Porsche_959_Drivetrain.glb)
 - [Suspension, steering and brakes GLB](models/Porsche_959_Suspension.glb)
 
-To rebuild, run this in this folder with Python 3 (the generators use only the standard library; the decal atlas needs Pillow):
+To rebuild, run this in this folder. The generators need only Python 3's standard library; the decal atlas needs Windows PowerShell.
 
-```sh
-python3 src/atlas.py && python3 src/build.py && python3 src/export_units.py && python3 src/pack.py
+```powershell
+powershell -File src/atlas.ps1
+python src/build.py; python src/export_units.py; python src/pack.py
 ```
 
 ## Sources
 
 - **Specifications:** the published 959 figures for wheelbase, track, overall dimensions, engine type and capacity (2,849 cm³, 95 × 67 mm), six-speed gearbox, PSK four-wheel drive and double-wishbone suspension with two dampers per wheel. These are quoted from memory and have not been re-checked against a source. Check them before relying on them.
-- **Livery and stance:** four photographs of preserved Rothmans Paris–Dakar 959s (a front view, a rear three-quarter view and two front three-quarter views of the 186 and 187 cars), used only for comparison and not distributed with the repository.
+- **Body, livery and stance:** six photographs of the Rothmans Paris–Dakar 959s, used only for comparison and not distributed with the repository. They are:
+  - a side view;
+  - front and front three-quarter views;
+  - the Nº 185 car in snow;
+  - a rear view of the Nº 186 car;
+  - Nº 186 at auction.
 
 Porsche, 959, Rothmans and the livery and sponsor names belong to their respective rights holders. This project is an unofficial, independent technical exhibition.

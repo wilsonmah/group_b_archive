@@ -1,4 +1,4 @@
-# Porsche 959 Paris-Dakar (1986) · Rothmans Nº 185. Procedural GLB generator.
+# Porsche 959 Paris-Dakar (1986) · Rothmans Nº 186. Procedural GLB generator.
 from pathlib import Path
 SRC=Path(__file__).resolve().parent
 def run(name):exec(compile((SRC/name).read_text(encoding='utf-8'),name,'exec'),globals())

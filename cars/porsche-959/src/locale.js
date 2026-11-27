@@ -2,7 +2,7 @@
 const englishText = {
   '保时捷 959 三维模型，可拖动旋转和滚轮缩放':'3D Porsche 959. Drag to orbit and scroll to zoom.',
   '保时捷 959 巴黎—达喀尔拉力赛车':'Porsche 959 Paris–Dakar',
-  '保时捷 959 · Rothmans · 185 号':'Porsche 959 · Rothmans · No. 185',
+  '保时捷 959 · Rothmans · 186 号':'Porsche 959 · Rothmans · No. 186',
   '2.85 升双涡轮增压水平对置六缸':'2.85-litre twin-turbo flat-six',
   '六速变速箱与 PSK 可变四驱':'Six-speed gearbox and PSK variable four-wheel drive',
   '整车透视 · 可变扭矩四驱':'See-through car · variable-torque four-wheel drive',

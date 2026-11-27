@@ -1,57 +1,63 @@
-# Porsche 959 coachwork (Paris-Dakar car). Metres; x to the car's left, y up, z forward, origin on the
-# ground midway between the axles. Wheelbase 2.272 m, body width 1.84 m, length 4.26 m, height 1.28 m
-# (published figures for the 959). The profile follows the 911-derived coupe shape: a low sloping
-# nose, a steeply raked screen, a roof that falls away in one long fastback to the tail, and wide
-# flared hips over the rear axle.
+# Porsche 959 Paris-Dakar coachwork, rebuilt as smooth lofted cross-sections in the 911 family
+# shape. Metres; x to the car's left, y up, z forward, origin on the ground midway between the axles.
+# Published figures: wheelbase 2.272 m, length 4.26 m, width 1.84 m; the Dakar cars stand about
+# 0.08 m taller on long-travel suspension and tall tyres. Lines follow side, 3/4 and rear photos of
+# the Rothmans 186 car (RM Sotheby's) and its sister cars.
 FZ,RZ=1.136,-1.136          # axle stations
 TR=.360                     # rolling radius (tall rally tyres)
-FX,RX=.752,.775             # wheel-centre half tracks (front 1.504 m, rear 1.550 m)
-RA=.435                     # wheel-arch radius
-ZN,ZT=2.020,-2.240          # nose face, tail face (short front overhang, long rear overhang, 4.26 m overall)
-DZ0,DZ1=-.46,.66            # door shut lines
-SHOULDER=.72                # height of the body shoulder (widest point)
-BELT=.930                   # window sill
-XD,XF,XR=.865,.912,.924     # half-widths: door skin, front wings, rear hips
-XC=.800                     # half-width at the window sill
-NR=.14;FR=.11               # nose plan radius, front-wing top radius
-
+FX,RX=.752,.775             # wheel-centre half tracks
+RA=.425                     # wheel-arch radius
+ZN,ZT=2.030,-2.230          # nose and tail faces
+DZ0,DZ1=-.470,.640          # door shut lines (B-pillar and front edge of the door)
+ZW=.660                     # windscreen base at the centreline
+BELT=.955                   # window sill
 def sm(t):t=clamp(t,0,1);return t*t*(3-2*t)
 def arch_y(z,zc):
     d=abs(z-zc);return TR+sqrt(RA*RA-d*d) if d<RA else -1
-HOOD=[(.66,.931),(1.0,.885),(1.35,.845),(1.70,.805),(1.90,.760),(2.02,.695)]   # crest of the front wings
-def bonnet_y(z):return sinterp(z,HOOD)
-def hood_dip(z):return .095*clamp((z-.78)/.50,0,1)                           # the bonnet sits below the wing crests
-YT=[(-2.24,.83),(-1.96,.915),(-1.55,.995),(-1.15,1.060),(-.75,1.175),(-.46,1.262),(-.20,1.288),(.06,1.280)]
-XT=[(-2.24,.64),(-2.00,.70),(-1.40,.66),(-.90,.58),(-.46,.52),(.06,.49)]
-def W(z):
-    """Half-width at shoulder height: front wings, door skin, wide rear hips."""
-    f=sm((z-.52)/.28);r=sm((-.28-z)/.38)
-    w=XD+(XF-XD)*f if z>0 else XD+(XR-XD)*r
-    w-=.15*clamp((z-1.64)/.38,0,1)**2
-    w-=.12*clamp((-1.99-z)/.25,0,1)**2
-    if z>ZN-NR:w=min(w,.70+.24*sqrt(max(0,ZN-z)/NR))
-    return w
-def sill(z):return .300 if -.95<z<.95 else (.285 if z>0 else .315)
-def bottom(z):return max(sill(z),arch_y(z,FZ),arch_y(z,RZ))
-def upper_y(z):
-    if z>DZ1:return bonnet_y(z)
-    if z>DZ0:return BELT+.012*(DZ1-z)/(DZ1-DZ0)
-    return sinterp(z,YT)
-def top_w(z):
-    """Half-width of the top surface where it meets the side skin."""
-    if z>DZ1:return W(z)-FR
-    if z>DZ0:return XC
-    return sinterp(z,XT)
+
+# ── Section parameters along the car ─────────────────────────────────────────────────────
+# ws: half-width at the shoulder; ys: shoulder height; (xc,yc): the crest where the side turns
+# onto the top (front-wing crest, window sill, rear-hip crest); ycen: centreline height of the top
+# (bonnet, unused deck under the cabin, engine lid).
+WS=[(ZT,.770),(-2.12,.860),(-1.90,.912),(-1.40,.922),(-.90,.905),(-.50,.872),(.00,.866),(.62,.872),(.85,.892),(1.20,.890),(1.60,.868),(1.86,.820),(1.98,.760),(ZN,.715)]
+YS=[(ZT,.560),(-1.90,.600),(-1.10,.610),(-.50,.590),(.60,.580),(1.30,.570),(1.80,.540),(ZN,.500)]
+XCR=[(ZT,.560),(-2.10,.660),(-1.80,.720),(-1.30,.760),(-.95,.790),(-.50,.800),(.62,.800),(.80,.640),(1.20,.600),(1.70,.575),(1.92,.545),(ZN,.500)]
+YCR=[(ZT,.860),(-2.10,.905),(-1.80,.935),(-1.30,.965),(-.95,.985),(-.50,.968),(.00,.958),(.62,.950),(.80,.932),(1.10,.910),(1.45,.875),(1.70,.835),(1.86,.790),(1.96,.730),(ZN,.660)]
+YCEN=[(ZT,.880),(-2.06,.935),(-1.70,.975),(-1.18,1.040),(-1.00,1.06),(.62,1.06),(.80,.885),(1.10,.835),(1.45,.780),(1.75,.725),(1.92,.675),(ZN,.630)]
+def P(tab,z):return sinterp(z,tab)
+def body_floor(z):
+    if z>1.70:return .250+.040*clamp((ZN-z)/.30,0,1)
+    if z<-1.70:return .320
+    return .305
+def bottom(z):return max(body_floor(z),arch_y(z,FZ),arch_y(z,RZ))
+NL,NU,NT=4,9,10            # samples: lower side, shoulder-to-crest, crest-to-centre
+def section(z,top=True):
+    """Half cross-section from the bottom edge to the centreline (x>=0)."""
+    ws,ys,xc,yc,ycen=P(WS,z),P(YS,z),P(XCR,z),P(YCR,z),P(YCEN,z)
+    yc=max(yc,ys+.02);xc=min(xc,ws-.01)
+    b=bottom(z);pts=[]
+    e=.62
+    def upper(a):return (xc+(ws-xc)*cos(a)**e,ys+(yc-ys)*sin(a)**e)
+    if b<ys:
+        for k in range(NL):
+            y=b+(ys-b)*k/NL;tuck=.030*clamp((b+.05-y)/.05,0,1)**2
+            pts.append((ws-tuck,y))
+        a0=0
+    else:
+        a0=math.asin(clamp((b-ys)/(yc-ys),0,.999)**(1/e))
+        pts+= [upper(a0)]*NL
+    for k in range(NU+1):pts.append(upper(a0+(pi/2-a0)*k/NU))
+    if top:
+        for k in range(1,NT+1):
+            t=k/NT;pts.append((xc*(1-t),yc+(ycen-yc)*sm(t)))
+    return pts
 def side_x(z,y):
-    w=W(z)
-    if z>DZ1:
-        yu=bonnet_y(z)
-        if y>yu-FR:
-            k=clamp((y-(yu-FR))/FR,0,1);return w-FR*(1-sqrt(1-k*k))
-    if y<=SHOULDER:
-        tuck=.016*clamp((sill(z)+.035-y)/.035,0,1);return w-tuck
-    yu,xu=upper_y(z),top_w(z)
-    return w-(w-xu)*clamp((y-SHOULDER)/max(.001,yu-SHOULDER),0,1)**1.5
+    """Outer skin x at height y (lower side and shoulder up to the crest)."""
+    pts=section(z,False)
+    if y<=pts[0][1]:return pts[0][0]
+    for (x0,y0),(x1,y1) in zip(pts,pts[1:]):
+        if y0<=y<=y1 and y1>y0:return x0+(x1-x0)*(y-y0)/(y1-y0)
+    return pts[-1][0]
 def zstations(z0,z1,n,extra=()):
     zs=set(round(z,5) for z in seq(z0,z1,n))
     for zc in (FZ,RZ):
@@ -61,157 +67,172 @@ def zstations(z0,z1,n,extra=()):
     for z in extra:
         if z0<z<z1:zs.add(round(z,5))
     return sorted(zs)
-def side_skin(z0,z1,s,n=44):
-    zs=zstations(z0,z1,n,(.62,.66,.70,DZ0,DZ0-.04,1.85,1.92,1.98,-2.00,-2.10,-2.18))
-    for a,b in zip(zs,zs[1:]):
-        ya,yb=bottom(a),bottom(b);ua,ub=upper_y(a),upper_y(b)
-        sa,sb=max(ya,min(SHOULDER,ua)),max(yb,min(SHOULDER,ub))
-        for (la,lb,ha,hb,k) in ((ya,yb,sa,sb,4),(sa,sb,ua,ub,5)):
-            for t0,t1 in zip(seq(0,1,k),seq(0,1,k)[1:]):
-                pts=[]
-                for z,y0,y1,t in [(a,la,ha,t0),(b,lb,hb,t0),(b,lb,hb,t1),(a,la,ha,t1)]:
-                    y=y0+(y1-y0)*t;pts.append((s*side_x(z,y),y,z))
-                face(pts if s<0 else pts[::-1],'Ivory')
-def crown(u,c=.012):return c*(1-u*u)
-def bonnet(x,z):
-    u=abs(x)/max(.2,top_w(z));return (x,bonnet_y(z)-hood_dip(z)*(1-sm((u-.50)/.32)),z)
-def sealed_face(z,ys,m,s=1):
-    """A flat panel at station z spanning the body outline between the heights in ys."""
-    grid(lambda u,y:(u*side_x(z,y),y,z),seq(-1,1,24),ys,m,s<0)
+def loft(z0,z1,n,top=True,mat='Ivory',sides=(-1,1),k1=None):
+    zs=zstations(z0,z1,n)
+    secs=[section(z,top) for z in zs]
+    for s in sides:
+        for (za,A),(zb,B) in zip(zip(zs,secs),zip(zs[1:],secs[1:])):
+            m=len(A) if k1 is None else k1
+            for k in range(m-1):
+                q=[(s*A[k][0],A[k][1],za),(s*B[k][0],B[k][1],zb),(s*B[k+1][0],B[k+1][1],zb),(s*A[k+1][0],A[k+1][1],za)]
+                if q[0]==q[3] and q[1]==q[2]:continue
+                face(q if s<0 else q[::-1],mat)
+def cap(z,dz,mat='Ivory'):
+    """Close the loft at station z with a fan to the centre."""
+    sec=section(z,True);c=(0,(sec[0][1]+sec[-1][1])/2,z+dz)
+    for s in (-1,1):
+        for a,b in zip(sec,sec[1:]):
+            q=[c,(s*a[0],a[1],z),(s*b[0],b[1],z)]
+            face(q if s*dz>0 else q[::-1],mat)
 
-# ── Front clamshell ────────────────────────────────────────────────────────────────────────
-group('nose','Front body','前车身',(0,.40,.80),'可整体掀开的前车身：低矮倾斜的引擎盖（前行李箱盖）、前翼子板、大灯、前保险杠与辅助灯。')
+# ── Front body ──────────────────────────────────────────────────────────────────────────────
+group('nose','Front body','前车身',(0,.40,.80),'前车身：前翼子板、大灯、低矮的前行李箱盖与前保险杠。')
 part('Front wings and bonnet')
-for s in (-1,1):side_skin(DZ1,ZN,s)
-grid(lambda u,z:bonnet(u*top_w(z),z),seq(-1,1,22),zstations(DZ1,ZN,34,(1.85,1.92,1.98)),'Ivory',True)
-# Bonnet pins and a shallow central ridge.
-for s in (-1,1):
-    for z in (1.10,1.85):
-        q=bonnet(s*.50,z);cyl(q,add(q,(0,.007,0)),.016,'Steel',14)
-part('Nose, headlamps and bumper')
-# Front face: smooth panel from the bumper line up to the bonnet edge.
+loft(DZ1,ZN,40)
+cap(ZN,.0)
+def bonnet(x,z):
+    sec=section(z,True);xc=sec[NL+NU][0]
+    if abs(x)>=xc:return (x,side_x(z,P(YCR,z)),z)
+    t=1-abs(x)/xc;return (x,P(YCR,z)+(P(YCEN,z)-P(YCR,z))*sm(t),z)
+def face_zf(y):return ZN
 FY0=.300
-def face_zf(y):return ZN-.085*(1-(y-FY0)/(bonnet_y(ZN)-FY0))**2
-ys=[FY0+(bonnet_y(ZN)-FY0)*t for t in seq(0,1,9)]
-grid(lambda u,y:(u*side_x(ZN,y),y,face_zf(y)),seq(-1,1,30),ys,'Ivory')
 for s in (-1,1):
-    # Large round headlamp in each wing: chrome ring, reflector and clear glass.
-    cx=s*.565;cy=.560;fz=face_zf(cy)
-    cyl((cx,cy,fz-.030),(cx,cy,fz+.006),.112,'Black',40)
-    tor((cx,cy,fz+.008),(0,0,1),.108,.010,'Gold',44,8)
-    cyl((cx,cy,fz+.004),(cx,cy,fz+.012),.098,'Reflector',44)
-    cyl((cx,cy,fz+.012),(cx,cy,fz+.014),.040,'Lens',28)
-    cyl((cx,cy,fz+.014),(cx,cy,fz+.022),.098,'Optical glass',44)
-    # Long amber indicator in the bumper end.
-    box((s*.640,.385,face_zf(.385)+.004),(.200,.036,.010),'Amber')
-# Black mesh grille between the indicators.
-box((0,.380,face_zf(.380)+.004),(.620,.150,.010),'Mesh')
-for k in range(7):box((0,.325+k*.022,face_zf(.380)+.010),(.60,.004,.004),'Black')
-for k in range(14):box((-.29+k*.0446,.380,face_zf(.380)+.010),(.003,.14,.004),'Black')
-# Perforated skid plate under the nose, and the front spoiler lip.
-grid(lambda x,z:(x,.265,z),seq(-.66,.66,10),seq(1.52,ZN+.005,6),'Gunmetal')
-for k in range(9):
-    for j in range(3):cyl((-.60+k*.15,.267,1.80+j*.10),(-.60+k*.15,.272,1.80+j*.10),.020,'Black',10)
-grid(lambda x,t:(x*(1-.03*t),FY0-.000-.040*t,face_zf(FY0)+.040*t),seq(-.72,.72,24),[0,1],'Ivory',True)
+    for z in (1.00,1.82):
+        q=bonnet(s*.40,z);cyl(q,add(q,(0,.007,0)),.014,'Steel',14)
+part('Headlamps')
+# Round headlamps set into the wing fronts, tilted up with the wing line (911 family).
+HLZ=1.935
+for s in (-1,1):
+    c=(s*.560,.715,HLZ+.030);n=unit((s*.06,.30,1))
+    cyl(add(c,mul(n,-.110)),add(c,mul(n,.004)),.104,'Ivory',40)
+    tor(add(c,mul(n,.004)),n,.094,.008,'Charcoal',44,8)
+    cyl(add(c,mul(n,.000)),add(c,mul(n,.006)),.088,'Reflector',44)
+    cyl(add(c,mul(n,.006)),add(c,mul(n,.016)),.088,'Optical glass',44)
+part('Front bumper, intakes and indicators')
+# Blue bumper face: central air intake, two outer intakes, amber indicators in the corners.
+for x0,x1 in ((-.30,.30),(-.62,-.40),(.40,.62)):
+    box(((x0+x1)/2,.380,ZN+.006),(x1-x0,.100,.012),'Black')
+    for k in range(5):box(((x0+x1)/2,.340+k*.020,ZN+.013),(x1-x0-.01,.004,.004),'Mesh')
+for s in (-1,1):
+    box((s*.62,.500,ZN+.004),(.140,.040,.012),'Amber');box((s*.62,.500,ZN+.011),(.13,.032,.003),'Lens')
+part('Skid plate and spoiler lip')
+grid(lambda x,z:(x,.235,z),seq(-.64,.64,10),seq(1.55,ZN+.02,6),'Silver')
+for k in range(8):
+    for j in range(3):cyl((-.56+k*.16,.236,1.72+j*.10),(-.56+k*.16,.242,1.72+j*.10),.022,'Black',10)
+grid(lambda x,t:(x,.250-.020*t,ZN+.035*t),seq(-.70,.70,20),[0,1],'Charcoal',True)
+
 # ── Rear body ───────────────────────────────────────────────────────────────────────────────
-group('tail','Rear body','后车身',(0,.55,-.85),'可整体掀开的后车身：宽大后翼子板、发动机舱盖与进气格栅、尾翼、车尾灯带与保险杠。')
-part('Rear wings and quarter panels')
-for s in (-1,1):side_skin(ZT,DZ0,s)
-# Quarter glass in each C-pillar.
+group('tail','Rear body','后车身',(0,.55,-.85),'后车身：宽大后翼子板、发动机舱盖、959 环形尾翼与中冷器格栅、尾灯带与后保险杠。')
+part('Rear wings and engine lid')
+loft(ZT,DZ0,44)
+cap(ZT,0)
+def lid(u,z):
+    sec=section(z,True);xc=sec[NL+NU][0];x=u*xc
+    t=1-abs(x)/max(xc,.01);return (x,P(YCR,z)+(P(YCEN,z)-P(YCR,z))*sm(t),z)
+part('Rear quarter intakes')
+# Black intake slots in the rear wings ahead of the rear wheels (959 feature).
 for s in (-1,1):
-    def qg(z,y):return (s*(side_x(z,y)+.003),y,z)
-    G=[qg(-.52,1.01),qg(-.50,1.205),qg(-.80,1.170),qg(-.86,1.040)]
-    face(G if s<0 else G[::-1],'Glass');path(G+[G[0]],.008,'Black',6)
-part('Rear quarter intake vents')
+    for k in range(4):
+        z=-.62-k*.050;y0,y1=.62,.76
+        box((s*(side_x(z,.69)+.003),.69,z),(.012,.13,.028),'Black')
+part('Rear wing loop and intercooler grille')
+# The 959's integrated loop wing: a blade across the tail joined to both rear wings, with the
+# intercooler grille seen through the opening beneath it.
+WY,WZ0,WZ1=1.005,-1.985,-2.150
+def blade(u,t):
+    z=WZ0+(WZ1-WZ0)*t;x=u*(P(XCR,z)+.10)
+    return (x,WY+.020*sin(pi*t)-.010*u*u,z)
+grid(blade,seq(-1,1,20),seq(0,1,5),'Ivory',True)
+grid(lambda u,t:add(blade(u,t),(0,-.022,0)),seq(-1,1,20),seq(0,1,5),'Ivory')
+grid(lambda u,t:(blade(u,0)[0],blade(u,0)[1]-.022*t,WZ0),seq(-1,1,20),[0,1],'Ivory')
+grid(lambda u,t:(blade(u,1)[0],blade(u,1)[1]-.022*t,WZ1),seq(-1,1,20),[0,1],'Ivory')
 for s in (-1,1):
-    for k in range(5):
-        z=-.80-k*.060
-        q=[(s*(side_x(z,y)+.002),y,z) for y in (.56,.66)]
-        box((s*(side_x(z,.61)+.001),.61,z),(.012,.115,.030),'Black')
-part('Engine lid and grille')
-rear_lo=-1.14
-def lid(u,z):return (u*top_w(z),upper_y(z)+crown(u,.014),z)
-zl=zstations(ZT,rear_lo,18,(-1.20,-1.30))
-grid(lid,seq(-1,1,22),zl,'Ivory',True)
-# Air intake grille across the lid, behind the rear window.
-for k in range(9):
-    z=-1.28-k*.062;box(add(lid(0,z),(0,.003,0)),(.74,.006,.020),'Black')
-box(add(lid(0,-1.50),(0,.002,0)),(.78,.003,.58),'Mesh')
-for k in range(9):
-    z=-1.28-k*.062;box(add(lid(0,z),(0,.006,0)),(.76,.004,.012),'Charcoal')
-for u in (-.4,0,.4):path([add(lid(u,z),(0,.007,0)) for z in seq(-1.24,-1.78,6)],.005,'Charcoal',6)
-part('Tail panel and spoiler')
-# Tail: full-width black valance carrying the lamp bar; a small lip spoiler on the lid edge.
-zt=ZT
-for (y0,y1) in ((.34,.46),):
-    grid(lambda u,y:(u*side_x(zt,y),y,zt),seq(-1,1,24),[y0,y1],'Black')
-grid(lambda u,y:(u*side_x(zt,y),y,zt),seq(-1,1,24),seq(.46,.84,6),'Ivory')
+    # End uprights down to the hips.
+    z=(WZ0+WZ1)/2;x=s*(P(XCR,z)+.06)
+    plate([(x,P(YCR,z)-.01,WZ0+.02),(x,WY-.01,WZ0+.02),(x,WY-.01,WZ1-.02),(x,P(YCR,z)-.01,WZ1-.02)],'Ivory',(-s*.06,0,0))
+box((0,.925,-2.050),(.70,.070,.200),'Black')                      # intercooler intake under the blade
+for k in range(16):box((-.33+k*.044,.962,-2.050),(.006,.004,.19),'Mesh')
+part('Tail lamps and bumper')
 for s in (-1,1):
-    box((s*.58,.640,zt-.006),(.50,.090,.012),'Tail');box((s*.58,.640,zt-.011),(.48,.070,.004),'Smoke')
-    box((s*.58,.545,zt-.006),(.24,.044,.012),'Amber')
-box((0,.640,zt-.006),(.40,.090,.012),'Black')
-box((0,.545,zt-.004),(.46,.110,.008),'Ivory')
-for s in (-1,1):cyl((s*.30,.40,zt-.02),(s*.30,.40,zt-.14),.040,'Exhaust',20);shell((s*.30,.40,zt-.14),(0,0,-1),[(0,.040),(.01,.034)],'Black',20)
-grid(lambda u,t:(u*.60,.820+.025*t,-2.180-.060*t),seq(-1,1,18),[0,1],'Ivory',True)
-# Under-tray.
-grid(lambda x,z:(x,.315,z),seq(-.80,.80,12),seq(-2.20,-1.40,6),'Charcoal')
+    box((s*.62,.760,ZT-.004),(.240,.070,.012),'Tail');box((s*.62,.760,ZT-.011),(.23,.060,.003),'Smoke')
+    box((s*.42,.760,ZT-.004),(.160,.070,.012),'Amber')
+box((0,.760,ZT-.004),(.680,.070,.012),'Tail');box((0,.760,ZT-.011),(.676,.060,.003),'Smoke')   # full-width reflector strip
+box((0,.470,ZT-.006),(.420,.090,.010),'Yellow')                    # registration plate
+for s in (-1,1):cyl((s*.36,.380,ZT+.02),(s*.36,.380,ZT-.08),.034,'Exhaust',20);cyl((s*.36,.380,ZT-.08),(s*.36,.380,ZT-.082),.026,'Black',20)
+grid(lambda x,z:(x,.300,z),seq(-.62,.62,10),seq(-2.20,-1.55,6),'Silver')
 
 # ── Cabin ───────────────────────────────────────────────────────────────────────────────────
-group('canopy','Roof and glazing','车顶与玻璃',(0,1.20,-.05),'车顶、前风挡、A 柱、后窗与天线。')
-HZ=.06
+group('canopy','Roof and glazing','车顶与玻璃',(0,1.20,-.05),'车顶、前风挡、A 柱、后窗、C 柱侧窗与车顶信号灯。')
+HZ=.040                     # windscreen header
+RZ0,RW0=-.560,-1.170        # roof rear edge / rear-window foot
+def roof_y(z):return sinterp(z,[(RZ0,1.272),(-.30,1.292),(HZ,1.282)])
+def edge(z):
+    """Outer edge of the glasshouse top (A-pillar, roof rail, rear-window side) at station z."""
+    if z>=HZ:t=(z-HZ)/(ZW-HZ);return (.530+(.715-.530)*t,1.282+(BELT-1.282)*t)
+    if z>=RZ0:return (.548-.012*((z-RZ0)/(HZ-RZ0)),roof_y(z))
+    t=(RZ0-z)/(RZ0-RW0);return (.548+(.640-.548)*t,1.272+(1.040-1.272)*sm(t)**.9)
+def belt(z):
+    if z>=DZ0:return (P(XCR,z),BELT)
+    return (P(XCR,z),sinterp(z,[(RW0,P(YCR,RW0)),(-.80,.975),(DZ0,BELT)]))
 def wind(u,t):
-    zb=.700+.020*(1-u*u);xb=.660*u;yb=.907
-    zt_=HZ+.010*(1-u*u);xt=.490*u;yt=1.280
+    zb=ZW+.020*(1-u*u);xb=.715*u;yb=BELT
+    zt_=HZ+.012*(1-u*u);xt=.530*u;yt=1.282
     p=mix((xb,yb,zb),(xt,yt,zt_),t)
-    return add(p,(0,.012*sin(pi*t),.004*sin(pi*t)))
+    return add(p,(0,.016*sin(pi*t),.006*sin(pi*t)))
 part('Windscreen')
 grid(wind,seq(-1,1,20),seq(0,1,10),'Glass')
-for s in (-1,1):path([wind(s,t) for t in seq(0,1,12)],.010,'Black')
-path([wind(u,0) for u in seq(-1,1,20)],.010,'Black');path([wind(u,1) for u in seq(-1,1,20)],.010,'Black')
+for s in (-1,1):path([wind(s,t) for t in seq(0,1,12)],.012,'Black')
+path([wind(u,0) for u in seq(-1,1,20)],.012,'Black');path([wind(u,1) for u in seq(-1,1,20)],.012,'Black')
 part('Roof')
-def roof(u,z):return (u*top_w(z),upper_y(z)+crown(u,.016),z)
-grid(roof,seq(-1,1,20),seq(-.46,HZ,8),'Ivory',True)
-grid(lambda u,t:mix(roof(u,HZ),add(wind(u,1),(0,.004,0)),t),seq(-1,1,20),[0,1],'Ivory')
-# Short sunroof-style cover strip at the rear of the roof is not fitted; plain roof panel.
-part('A-pillars')
-for s in (-1,1):
-    A=[wind(s,t) for t in seq(0,1,10)]
-    C=[mix((s*.800,.927,.670),(s*.505,1.266,.100),t) for t in seq(0,1,10)]
-    for i in range(len(A)-1):face([A[i],A[i+1],C[i+1],C[i]][::s],'Ivory')
-    # Side-glass-to-roof band along the roof edge.
-    R=[roof(s,z) for z in seq(.06,DZ0,8)]
-    for i in range(len(R)-1):
-        a,b=R[i],R[i+1]
-        face([a,b,(s*(abs(b[0])+.018),b[1]-.012,b[2]),(s*(abs(a[0])+.018),a[1]-.012,a[2])][::s],'Ivory')
+def roof(u,z):
+    x,y=edge(z);return (u*x,y+.022*(1-u*u),z)
+grid(roof,seq(-1,1,20),seq(RZ0,HZ,10),'Ivory',True)
+grid(lambda u,t:mix(roof(u,HZ),add(wind(u,1),(0,.002,0)),t),seq(-1,1,20),[0,1],'Ivory')
 part('Rear window')
-def rglass(u,z):return (u*top_w(z)*.80,upper_y(z)+crown(u*.80,.016)+.002,z)
-grid(rglass,seq(-1,1,18),seq(-1.14,-.46,10),'Glass',True)
-for z in (-1.14,-.46):path([rglass(u,z) for u in seq(-1,1,14)],.008,'Black',6)
-for s in (-1,1):path([rglass(s,z) for z in seq(-1.14,-.46,10)],.008,'Black',6)
-# Gap strips between the rear glass and the quarter panels.
+def rglass(u,z):x,y=edge(z);return (u*(x-.040),y+.022*(1-u*u)+.002,z)
+grid(rglass,seq(-1,1,18),seq(RW0,RZ0,10),'Glass',True)
+for z in (RW0,RZ0):path([rglass(u,z) for u in seq(-1,1,14)],.008,'Black',6)
+for s in (-1,1):path([rglass(s,z) for z in seq(RW0,RZ0,10)],.008,'Black',6)
+for s in (-1,1):grid(lambda t,z:mix(rglass(s,z),roof(s,z),t),[0,1],seq(RW0,RZ0,10),'Ivory',s>0)
+grid(lambda u,t:mix(rglass(u,RW0),lid(u,RW0-.02),t),seq(-1,1,18),[0,1],'Ivory')
+part('Pillars and rear quarters')
 for s in (-1,1):
-    grid(lambda t,z:mix(rglass(s,z),roof(s,z),t),[0,1],seq(-1.14,-.46,10),'Ivory',s>0)
-part('Roof lamp pod')
-box((-.26,upper_y(-.03)+.045,-.03),(.30,.075,.11),'Charcoal')
-for k in range(6):box((-.26+(-.12+k*.048),upper_y(-.03)+.046,-.03+.057),(.034,.050,.004),'Lens')
+    zs=seq(RW0,ZW,40)
+    for a,b in zip(zs,zs[1:]):
+        if DZ0<a<DZ1 and DZ0<b<DZ1:continue        # the door carries its own frame and glass
+        pa,pb=belt(a),belt(b);ea,eb=edge(a),edge(b)
+        q=[(s*pa[0],pa[1],a),(s*pb[0],pb[1],b),(s*eb[0],eb[1],b),(s*ea[0],ea[1],a)]
+        face(q if s<0 else q[::-1],'Ivory')
+    # Rear quarter window, painted black on the rally car (Shell / 959 panel).
+    def qw(z,v):
+        p,e=belt(z),edge(z);return add(mix((s*p[0],p[1],z),(s*e[0],e[1],z),v),(s*.004,0,0))
+    zq=seq(-1.02,-.52,8)
+    for a,b in zip(zq,zq[1:]):
+        vtop=lambda z:.86-.10*clamp((-.70-z)/.32,0,1)
+        q=[qw(a,.10),qw(b,.10),qw(b,vtop(b)),qw(a,vtop(a))]
+        face(q if s<0 else q[::-1],'Black')
+part('Roof beacons')
+for s in (-1,1):
+    b=roof(s*.62,RZ0+.03)
+    cyl(b,add(b,(0,.050,0)),.008,'Gunmetal',8);box(add(b,(0,.085,0)),(.070,.060,.050),'Tail');box(add(b,(0,.050,0)),(.074,.010,.054),'Black')
 part('Aerial')
-cyl((.60,upper_y(-1.40)+.005,-1.40),(.60,upper_y(-1.40)+.016,-1.40),.014,'Black',16);cyl((.60,upper_y(-1.40)+.016,-1.40),(.66,1.22,-1.84),.0022,'Gunmetal',8)
+cyl((.48,1.205,-.80),(.48,1.215,-.80),.012,'Black',16);cyl((.48,1.215,-.80),(.52,1.62,-1.10),.0022,'Gunmetal',8)
 
 # ── Doors ───────────────────────────────────────────────────────────────────────────────────
 for s in (-1,1):
-    group('door'+str(s),'Left door' if s>0 else 'Right door','左侧车门' if s>0 else '右侧车门',(s*1.15,.20,.10),'车门带无框侧窗、门把手与外后视镜。')
+    group('door'+str(s),'Left door' if s>0 else 'Right door','左侧车门' if s>0 else '右侧车门',(s*1.15,.20,.10),'车门、黑框侧窗、门把手与外后视镜。')
     part('Door outer skin')
-    zd=seq(DZ0,DZ1,16)
-    for a,b in zip(zd,zd[1:]):
-        for t0,t1 in zip(seq(0,1,7),seq(0,1,7)[1:]):
-            pts=[]
-            for z,t in [(a,t0),(b,t0),(b,t1),(a,t1)]:
-                y=.305+(upper_y(z)-.305)*t;pts.append((s*(side_x(z,y)+.002),y,z))
-            face(pts if s<0 else pts[::-1],'Ivory')
-    for z in (DZ0,DZ1):path([(s*(side_x(z,y)+.003),y,z) for y in seq(.305,upper_y(z),6)],.004,'Black',6)
-    box((s*(XD+.004),.800,-.30),(.012,.024,.12),'Black')
+    loft(DZ0,DZ1,16,top=False,sides=(s,))
+    for z in (DZ0,DZ1):path([(s*(side_x(z,y)+.003),y,z) for y in seq(bottom(z),BELT,8)],.004,'Black',6)
+    box((s*(side_x(-.33,.84)+.006),.840,-.33),(.012,.024,.12),'Black')
     part('Side window and mirror')
-    G=[(s*.800,.935,.650),(s*.505,1.265,.100),(s*.520,1.270,DZ0+.015),(s*.800,.943,DZ0+.015)]
-    face(G if s<0 else G[::-1],'Glass');path(G+[G[0]],.010,'Black')
-    m0=(s*.810,.970,.560);cyl(m0,(s*.900,.995,.545),.011,'Black',8)
-    box((s*.930,1.005,.540),(.060,.090,.120),'Black');box((s*.930,1.005,.479),(.052,.074,.004),'Glass')
+    zs=seq(DZ0,ZW,14)
+    for a,b in zip(zs,zs[1:]):
+        pa,pb=belt(a),belt(b);ea,eb=edge(min(a,ZW)),edge(min(b,ZW))
+        q=[(s*pa[0],pa[1],a),(s*pb[0],pb[1],b),(s*eb[0],eb[1],b),(s*ea[0],ea[1],a)]
+        face(q if s<0 else q[::-1],'Glass')
+    path([(s*belt(z)[0],belt(z)[1],z) for z in seq(DZ0,ZW,10)],.010,'Black',6)
+    path([(s*edge(z)[0],edge(z)[1],z) for z in seq(DZ0,ZW,12)],.012,'Black',6)
+    path([(s*belt(DZ0)[0],BELT,DZ0),(s*edge(DZ0)[0],edge(DZ0)[1],DZ0)],.016,'Black',6)
+    m0=(s*.80,.985,.53);cyl(m0,(s*.89,1.005,.515),.011,'Black',8)
+    box((s*.920,1.015,.505),(.060,.075,.115),'Ivory');box((s*.920,1.015,.447),(.052,.064,.004),'Glass')
